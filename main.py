@@ -1,6 +1,6 @@
 # Example file showing a circle moving on screen
 import pygame
-import Character, Actions, Camera, Zones
+import character, camera, zones
 # pygame setup
 pygame.init()
 screen = pygame.display.set_mode((720, 360))
@@ -8,14 +8,11 @@ pygame.display.set_caption("dootdoot")
 clock = pygame.time.Clock()
 running = True
 dt = 0
-player = Character.character(screen.get_width() / 2, screen.get_height() / 2)
+player = character.Player(20, 30, screen.get_width() / 2, screen.get_height() / 2)
 
-map_image = pygame.image.load('maps\map_image.webp')
-map_width, map_height = map_image.get_size()
+camera = camera.Camera()
 
-camera = Camera.Camera()
-
-firstZone = Zones.Zone('maps\map_image.webp')
+firstZone = zones.Zone('maps\map_image.webp')
 
 while running:
     # poll for events
@@ -24,11 +21,15 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+    # get keys getting pressed
     keys = pygame.key.get_pressed()
-    Actions.move(player, keys, dt)
+    # changes player position
+    player.move(keys, dt, firstZone)
 
-    camera.update(player, screen, camera, firstZone)
+    # changes camera offset such that player stays in center
+    camera.update(player, screen, firstZone)
 
+    # loads all objects
     firstZone.render(screen, camera, player)
     # limits FPS to 60
     # dt is delta time in seconds since last frame, used for framerate-
