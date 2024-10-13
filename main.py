@@ -10,7 +10,7 @@ running = True
 dt = 0
 player = character.Player(20, 30, screen.get_width() / 2, screen.get_height() / 2)
 
-camera = camera.Camera()
+pov = camera.Camera()
 
 firstZone = zones.Zone('maps\map_image.webp')
 
@@ -27,10 +27,10 @@ while running:
     player.move(keys, dt, firstZone)
 
     # changes camera offset such that player stays in center
-    camera.update(player, screen, firstZone)
+    pov.update(player, screen, firstZone)
 
     # loads all objects
-    firstZone.render(screen, camera, player)
+    firstZone.render(screen, pov, player)
     # limits FPS to 60
     # dt is delta time in seconds since last frame, used for framerate-
     # independent physics.
