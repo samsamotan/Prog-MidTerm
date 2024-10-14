@@ -1,5 +1,4 @@
 import pygame
-import zones
 class Character():
     def __init__(self, size_x, size_y, init_x=0, init_y=0):
         self.pos = {"X": init_x, "Y": init_y}
@@ -15,10 +14,10 @@ class Character():
         return self.size["Y"]
 
 class Player(Character):
-    def move(self, keys, dt, zone):
+    def move(self, keys, dt, scene):
         if keys[pygame.K_w]:
             move = True
-            for object in zone.get_objects():
+            for object in scene.get_objects():
                 if object.is_colliding():
                     if object.within(self.pos["X"], self.pos["Y"] - self.speed * dt) or object.within(self.pos["X"] + self.get_x_size(), self.pos["Y"] - self.speed * dt):
                         move = False
@@ -26,7 +25,7 @@ class Player(Character):
                 self.pos["Y"] = self.pos["Y"] - self.speed * dt
         if keys[pygame.K_s]:
             move = True
-            for object in zone.get_objects():
+            for object in scene.get_objects():
                 if object.is_colliding():
                     if object.within(self.pos["X"], self.pos["Y"] + self.speed * dt + self.get_y_size()) or object.within(self.pos["X"] + self.get_x_size(), self.pos["Y"] + self.speed * dt + self.get_y_size()):
                         move = False
@@ -34,7 +33,7 @@ class Player(Character):
                 self.pos["Y"] = self.pos["Y"] + self.speed * dt
         if keys[pygame.K_a]:
             move = True
-            for object in zone.get_objects():
+            for object in scene.get_objects():
                 if object.is_colliding():
                     if object.within(self.pos["X"] - self.speed * dt, self.pos["Y"]) or object.within(self.pos["X"] - self.speed * dt, self.pos["Y"] + self.get_y_size()):
                         move = False
@@ -42,7 +41,7 @@ class Player(Character):
                 self.pos["X"] = self.pos["X"] - self.speed * dt
         if keys[pygame.K_d]:
             move = True
-            for object in zone.get_objects():
+            for object in scene.get_objects():
                 if object.is_colliding():
                     if object.within(self.pos["X"] + self.speed * dt + self.get_x_size(), self.pos["Y"]) or object.within(self.pos["X"] + self.speed * dt + self.get_x_size(), self.pos["Y"] + self.get_y_size()):
                         move = False
