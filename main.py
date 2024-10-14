@@ -2,7 +2,6 @@ import pygame
 import character, camera
 import pandas as pd
 import scenes.menu_scene as menu_scene
-import interactable_objects
 
 # pygame setup
 pygame.init()
