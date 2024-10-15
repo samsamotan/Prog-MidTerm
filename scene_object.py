@@ -1,9 +1,9 @@
-import pygame
+import pygame as pg
 
 class SceneObject():
     def __init__(self, image, size_x, size_y, init_x=0, init_y=0, collision = False):
         self.pos = {"X": init_x, "Y": init_y}
-        self.image = pygame.image.load(image)
+        self.image = pg.image.load(image)
         self.collision = collision
         self.hitbox = {"X1": init_x, "X2": init_x + size_x, "Y1": init_y, "Y2": init_y + size_y}
     def get_x_pos(self):

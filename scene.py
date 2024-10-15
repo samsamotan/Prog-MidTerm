@@ -15,13 +15,13 @@ class Scene():
         # background
         screen.fill((255, 255, 255))
         screen.blit(self.map_image, (-camera.get_x_pos(), -camera.get_y_pos()))
-
-        # player
-        pygame.draw.rect(screen, (255, 0, 0), (player.get_x_pos() - camera.get_x_pos(), player.get_y_pos() - camera.get_y_pos(), player.get_x_size(), player.get_y_size()))
-        
+ 
         # objects
         for object in self.scene_objects:
             screen.blit(object.get_image(), (object.get_x_pos() - camera.get_x_pos(), object.get_y_pos() - camera.get_y_pos()))
 
+        # player
+        pygame.draw.rect(screen, (255, 0, 0), (player.get_x_pos() - camera.get_x_pos(), player.get_y_pos() - camera.get_y_pos(), player.get_x_size(), player.get_y_size()))
+       
         # flip() the display to put your work on screen
         pygame.display.flip()

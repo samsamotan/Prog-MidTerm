@@ -1,4 +1,4 @@
-import pygame
+import pygame as pg
 class Character():
     def __init__(self, size_x, size_y, init_x=0, init_y=0):
         self.pos = {"X": init_x, "Y": init_y}
@@ -15,7 +15,7 @@ class Character():
 
 class Player(Character):
     def move(self, keys, dt, scene):
-        if keys[pygame.K_w]:
+        if keys[pg.K_w]:
             move = True
             for object in scene.get_objects():
                 if object.is_colliding():
@@ -23,7 +23,7 @@ class Player(Character):
                         move = False
             if move:
                 self.pos["Y"] = self.pos["Y"] - self.speed * dt
-        if keys[pygame.K_s]:
+        if keys[pg.K_s]:
             move = True
             for object in scene.get_objects():
                 if object.is_colliding():
@@ -31,7 +31,7 @@ class Player(Character):
                         move = False
             if move:
                 self.pos["Y"] = self.pos["Y"] + self.speed * dt
-        if keys[pygame.K_a]:
+        if keys[pg.K_a]:
             move = True
             for object in scene.get_objects():
                 if object.is_colliding():
@@ -39,7 +39,7 @@ class Player(Character):
                         move = False
             if move:
                 self.pos["X"] = self.pos["X"] - self.speed * dt
-        if keys[pygame.K_d]:
+        if keys[pg.K_d]:
             move = True
             for object in scene.get_objects():
                 if object.is_colliding():
