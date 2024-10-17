@@ -14,36 +14,44 @@ class Character():
         return self.size["Y"]
 
 class Player(Character):
-    def move(self, keys, dt, scene):
+    def move_up(self, dt, scene):
+        move = True
+        for object in scene.get_objects():
+            if object.is_colliding():
+                if object.within(self.pos["X"], self.pos["Y"] - self.speed * dt) or object.within(self.pos["X"] + self.size["X"], self.pos["Y"] - self.speed * dt):
+                    move = False
+        if move:
+            self.pos["Y"] = self.pos["Y"] - self.speed * dt
+    def move_down(self, dt, scene):
+        move = True
+        for object in scene.get_objects():
+            if object.is_colliding():
+                if object.within(self.pos["X"], self.pos["Y"] + self.speed * dt + self.size["Y"]) or object.within(self.pos["X"] + self.size["X"], self.pos["Y"] + self.speed * dt + self.size["Y"]):
+                    move = False
+        if move:
+            self.pos["Y"] = self.pos["Y"] + self.speed * dt
+    def move_left(self, dt, scene):
+        move = True
+        for object in scene.get_objects():
+            if object.is_colliding():
+                if object.within(self.pos["X"] - self.speed * dt, self.pos["Y"]) or object.within(self.pos["X"] - self.speed * dt, self.pos["Y"] + self.size["Y"]):
+                    move = False
+        if move:
+            self.pos["X"] = self.pos["X"] - self.speed * dt
+    def move_right(self, dt, scene):
+        move = True
+        for object in scene.get_objects():
+            if object.is_colliding():
+                if object.within(self.pos["X"] + self.speed * dt + self.size["X"], self.pos["Y"]) or object.within(self.pos["X"] + self.speed * dt + self.size["X"], self.pos["Y"] + self.size["Y"]):
+                    move = False
+        if move:
+            self.pos["X"] = self.pos["X"] + self.speed * dt
+    def move(self, keys, dt, active_scene):
         if keys[pg.K_w]:
-            move = True
-            for object in scene.get_objects():
-                if object.is_colliding():
-                    if object.within(self.pos["X"], self.pos["Y"] - self.speed * dt) or object.within(self.pos["X"] + self.get_x_size(), self.pos["Y"] - self.speed * dt):
-                        move = False
-            if move:
-                self.pos["Y"] = self.pos["Y"] - self.speed * dt
-        if keys[pg.K_s]:
-            move = True
-            for object in scene.get_objects():
-                if object.is_colliding():
-                    if object.within(self.pos["X"], self.pos["Y"] + self.speed * dt + self.get_y_size()) or object.within(self.pos["X"] + self.get_x_size(), self.pos["Y"] + self.speed * dt + self.get_y_size()):
-                        move = False
-            if move:
-                self.pos["Y"] = self.pos["Y"] + self.speed * dt
+            self.move_up(dt, active_scene)
         if keys[pg.K_a]:
-            move = True
-            for object in scene.get_objects():
-                if object.is_colliding():
-                    if object.within(self.pos["X"] - self.speed * dt, self.pos["Y"]) or object.within(self.pos["X"] - self.speed * dt, self.pos["Y"] + self.get_y_size()):
-                        move = False
-            if move:
-                self.pos["X"] = self.pos["X"] - self.speed * dt
+            self.move_left(dt, active_scene)
+        if keys[pg.K_s]:
+            self.move_down(dt, active_scene)
         if keys[pg.K_d]:
-            move = True
-            for object in scene.get_objects():
-                if object.is_colliding():
-                    if object.within(self.pos["X"] + self.speed * dt + self.get_x_size(), self.pos["Y"]) or object.within(self.pos["X"] + self.speed * dt + self.get_x_size(), self.pos["Y"] + self.get_y_size()):
-                        move = False
-            if move:
-                self.pos["X"] = self.pos["X"] + self.speed * dt
+            self.move_right(dt, active_scene)

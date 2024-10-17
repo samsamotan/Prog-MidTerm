@@ -1,13 +1,13 @@
-import pygame
+import pygame as pg
 import character, camera
 import pandas as pd
 import scenes.menu_scene as menu_scene
 
-# pygame setup
-pygame.init()
-screen = pygame.display.set_mode((720, 360))
-pygame.display.set_caption("dootdoot")
-clock = pygame.time.Clock()
+# pg setup
+pg.init()
+screen = pg.display.set_mode((720, 360))
+pg.display.set_caption("dootdoot")
+clock = pg.time.Clock()
 running = True
 dt = 0
 player = character.Player(20, 30, screen.get_width() / 2, screen.get_height() / 2)
@@ -18,20 +18,23 @@ active_scene = menu_scene.menu_scene
 new_scene = active_scene
 
 while running:
-    # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+
+    # event handler
+    # pg.QUIT event means the user clicked X to close your window
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
             running = False
 
     # get keys getting pressed
-    keys = pygame.key.get_pressed()
+    keys = pg.key.get_pressed()
     # changes player position
     player.move(keys, dt, active_scene)
+
     
     for object in active_scene.get_objects():
         try:
             check = object.interaction_check(keys, player)
+            print(check)
             if check != None:
                 new_scene = check
         except:
@@ -45,9 +48,10 @@ while running:
 
     # loads all objects
     active_scene.render(screen, pov, player)
+
     # limits FPS to 60
     # dt is delta time in seconds since last frame, used for framerate-
     # independent physics.
     dt = clock.tick(60) / 1000
 
-pygame.quit()
+pg.quit()
