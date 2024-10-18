@@ -1,15 +1,14 @@
 import pygame as pg
 
-class SceneObject():
+class SceneObject(pg.sprite.Sprite):
     def __init__(self, image, size_x, size_y, init_x=0, init_y=0, collision = False):
-        self.pos = {"X": init_x, "Y": init_y}
+        super().__init__()
         self.image = pg.image.load(image)
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (init_x, init_y)
         self.collision = collision
+        self.pos = (init_x, init_y)
         self.hitbox = {"X1": init_x, "X2": init_x + size_x, "Y1": init_y, "Y2": init_y + size_y}
-    def get_x_pos(self):
-        return self.pos["X"]
-    def get_y_pos(self):
-        return self.pos["Y"]
     def get_image(self):
         return self.image
     def is_colliding(self):
@@ -19,4 +18,7 @@ class SceneObject():
             return True
         else:
             return False 
+    def update(self, camera):
+        self.rect.x = self.pos[0] - camera.get_x_pos()
+        self.rect.y = self.pos[1] - camera.get_y_pos()
     

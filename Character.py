@@ -24,10 +24,12 @@ class Player(Character):
             self.pos["Y"] = self.pos["Y"] - self.speed * dt
     def move_down(self, dt, scene):
         move = True
+        print("moving down")
         for object in scene.get_objects():
             if object.is_colliding():
                 if object.within(self.pos["X"], self.pos["Y"] + self.speed * dt + self.size["Y"]) or object.within(self.pos["X"] + self.size["X"], self.pos["Y"] + self.speed * dt + self.size["Y"]):
                     move = False
+                    print("object colliding")
         if move:
             self.pos["Y"] = self.pos["Y"] + self.speed * dt
     def move_left(self, dt, scene):

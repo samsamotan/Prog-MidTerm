@@ -34,7 +34,6 @@ while running:
     for object in active_scene.get_objects():
         try:
             check = object.interaction_check(keys, player)
-            print(check)
             if check != None:
                 new_scene = check
         except:

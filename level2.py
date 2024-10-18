@@ -1,6 +1,6 @@
 import pygame
-import Character
-import Camera
+import character
+import camera
 import pandas as pd
 import scenes.menu_scene as menu_scene
 import random
@@ -14,8 +14,8 @@ running = True
 dt = 0
 
 # Initialize player and camera
-player = Character.Player(20, 30, screen.get_width() / 2, screen.get_height() / 2)
-pov = Camera.Camera()
+player = character.Player(20, 30, screen.get_width() / 2, screen.get_height() / 2)
+pov = camera.Camera()
 
 # Game constants
 POINTS_TO_LEVEL_UP = 30
@@ -101,6 +101,8 @@ while running:
 
     # Update the camera and render active scene objects
     pov.update(player, screen, active_scene)
+
+    pygame.display.flip()
     
     # Limit FPS to 60 and calculate delta time
     dt = clock.tick(60) / 1000
