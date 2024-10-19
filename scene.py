@@ -5,10 +5,6 @@ class Scene():
         self.map_image = pygame.image.load(image)
         self.map_width, self.map_height = self.map_image.get_size()
         self.scene_objects = objects
-        self.all_sprites = pygame.sprite.Group()
-        self.colliding_sprites = pygame.sprite.Group()
-        for object in objects:
-            self.all_sprites.add(object)
     def get_height(self):
         return self.map_height
     def get_width(self):
@@ -21,8 +17,8 @@ class Scene():
         screen.blit(self.map_image, (-camera.get_x_pos(), -camera.get_y_pos()))
  
         # objects
-        self.all_sprites.update(camera)
-        self.all_sprites.draw(screen)
+        for object in self.scene_objects:
+            screen.blit(object.get_image(), (object.get_x_pos() - camera.get_x_pos(), object.get_y_pos() - camera.get_y_pos()))
 
         # player
         pygame.draw.rect(screen, (255, 0, 0), (player.get_x_pos() - camera.get_x_pos(), player.get_y_pos() - camera.get_y_pos(), player.get_x_size(), player.get_y_size()))

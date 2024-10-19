@@ -1,5 +1,6 @@
 import pygame as pg
-import character, camera
+import camera
+from firewall_fighter.character import *
 import pandas as pd
 import scenes.menu_scene as menu_scene
 
@@ -10,7 +11,7 @@ pg.display.set_caption("dootdoot")
 clock = pg.time.Clock()
 running = True
 dt = 0
-player = character.Player(20, 30, screen.get_width() / 2, screen.get_height() / 2)
+player = Player(20, 30, screen.get_width() / 2, screen.get_height() / 2)
 
 pov = camera.Camera()
 
@@ -34,6 +35,7 @@ while running:
     for object in active_scene.get_objects():
         try:
             check = object.interaction_check(keys, player)
+            print(check)
             if check != None:
                 new_scene = check
         except:

@@ -1,5 +1,5 @@
 import pygame
-import character, scene
+import firewall_fighter.character, scene
 
 class Camera():
     def __init__(self, init_x=0, init_y=0):
