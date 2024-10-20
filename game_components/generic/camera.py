@@ -1,6 +1,3 @@
-import pygame
-import firewall_fighter.character, scene
-
 class Camera():
     def __init__(self, init_x=0, init_y=0):
         self.pos = {"X": init_x, "Y": init_y}

@@ -1,6 +1,6 @@
 import pygame as pg
 import random
-import character
+import game_components.firewall_fighter.character as character
 
 # Initialize Pygame
 pg.init()

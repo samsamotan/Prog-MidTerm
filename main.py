@@ -1,8 +1,8 @@
 import pygame as pg
-import camera
-from firewall_fighter.character import *
+from game_components.generic import camera
+from game_components.firewall_fighter.character import *
 import pandas as pd
-import scenes.menu_scene as menu_scene
+import menu_scene
 
 # pg setup
 pg.init()

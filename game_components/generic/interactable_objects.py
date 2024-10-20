@@ -1,6 +1,6 @@
-import scene_object
+from game_components.generic import scene_object
 import pygame as pg
-import scenes.first_scene as first_scene
+import first_scene
 
 class InteractableObject(scene_object.SceneObject):
     def __init__(self, *args, interaction = True, interactions = {pg.K_e: first_scene.first_scene}):
