@@ -1,21 +1,22 @@
 import pygame as pg
 from game_components.generic import camera
-from game_components.firewall_fighter.character import *
+from game_components.generic import character
 import pandas as pd
-import menu_scene
 
 # pg setup
 pg.init()
-screen = pg.display.set_mode((720, 360))
+screen = pg.display.set_mode((1024, 576))
 pg.display.set_caption("dootdoot")
 clock = pg.time.Clock()
 running = True
 dt = 0
-player = Player(20, 30, screen.get_width() / 2, screen.get_height() / 2)
-
+player = character.Player(15, 20, screen.get_width() / 2, screen.get_height() / 2)
 pov = camera.Camera()
+import scenes
 
-active_scene = menu_scene.menu_scene
+scenes = {"pacman": scenes.pacman_scene, "menu": scenes.menu_scene, "first": scenes.first_scene}
+#active_scene = menu_scene.menu_scene
+active_scene = "pacman"
 new_scene = active_scene
 
 while running:
@@ -29,13 +30,11 @@ while running:
     # get keys getting pressed
     keys = pg.key.get_pressed()
     # changes player position
-    player.move(keys, dt, active_scene)
+    player.move(keys, dt, scenes[active_scene])
 
-    
-    for object in active_scene.get_objects():
+    for object in scenes[active_scene].get_objects():
         try:
             check = object.interaction_check(keys, player)
-            print(check)
             if check != None:
                 new_scene = check
         except:
@@ -45,10 +44,10 @@ while running:
         active_scene = new_scene
         
     # changes camera offset such that player stays in center
-    pov.update(player, screen, active_scene)
+    pov.update(player, screen, scenes[active_scene])
 
     # loads all objects
-    active_scene.render(screen, pov, player)
+    scenes[active_scene].render(screen, pov, player)
 
     # limits FPS to 60
     # dt is delta time in seconds since last frame, used for framerate-

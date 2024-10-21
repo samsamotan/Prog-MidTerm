@@ -1,6 +1,12 @@
 import pygame as pg
 import random
-import game_components.firewall_fighter.character as character
+import sys
+from pathlib import Path
+src_dir = str(Path(__file__).resolve().parent.parent.parent)
+if src_dir not in sys.path:
+    sys.path.append(src_dir)
+   
+from game_components.generic import character
 
 # Initialize Pygame
 pg.init()

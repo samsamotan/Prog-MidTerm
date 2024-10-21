@@ -1,5 +1,13 @@
-class MapTile():
-    def __init__(self, image, x, y):
+import sys
+from pathlib import Path
+src_dir = str(Path(__file__).resolve().parent.parent.parent)
+if src_dir not in sys.path:
+    sys.path.append(src_dir)
+
+from game_components.generic import scene_object
+class MapTile(scene_object.SceneObject):
+    def __init__(self, image, x, y, obstacle):
+        super().__init__(None,32,32,x,y,obstacle)
         self.image = image
         self.x, self.y = x, y
     def blitme(self, screen):
