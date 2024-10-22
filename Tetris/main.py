@@ -14,12 +14,6 @@ pygame.display.set_caption("Packing Packets")
 clock = pygame.time.Clock()
 
 game_grid = Grid()
-
-#adding values to the grid
-game_grid.grid[0][0] = 1
-game_grid.grid[3][5] = 4
-game_grid.grid[17][8] = 17
-
 game_grid.print_grid()
 
 #the game loop-defining a way to stop the game's execution
