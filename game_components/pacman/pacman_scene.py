@@ -38,4 +38,4 @@ class PacmanScene(scene.Scene):
         pg.draw.rect(screen, (255, 0, 0), (player.get_x_pos() - camera.get_x_pos(), player.get_y_pos() - camera.get_y_pos(), player.get_x_size(), player.get_y_size()))
        
         # flip() the display to put your work on screen
-        pg.display.flip()
+        #pg.display.flip()
