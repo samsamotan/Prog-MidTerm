@@ -10,7 +10,7 @@ first_scene_objects = [
     scene_object.SceneObject("game_components/assets/tree.webp", 238, 280, 500, 500, True),
     interactable_objects.InteractableObject("game_components/assets/pixil-frame-0.png", 50, 30, 690, 220, False, interactions = {pg.K_e: "pacman"})
     ]
-first_scene = scene.Scene(False,'maps/map_image.webp', first_scene_objects)
+first_scene = scene.Scene(False,'maps/black.jpg', first_scene_objects)
 
 menu_scene_objects = [
     interactable_objects.InteractableObject("game_components/assets/new_game.png", 270, 48, 225, 150, False, interactions = {pg.K_e: "first"}),

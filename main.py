@@ -2,6 +2,7 @@ import pygame as pg
 from game_components.generic import camera
 from game_components.generic import character
 import pandas as pd
+import animated_object
 
 # pg setup
 pg.init()
@@ -14,9 +15,11 @@ player = character.Player(15, 20, screen.get_width() / 2, screen.get_height() / 
 pov = camera.Camera()
 import scenes
 
+anime = animated_object.AnimatedObject()
+
 scenes = {"pacman": scenes.pacman_scene, "menu": scenes.menu_scene, "first": scenes.first_scene}
 #active_scene = menu_scene.menu_scene
-active_scene = "first"
+active_scene = "menu"
 new_scene = active_scene
 
 while running:
@@ -48,12 +51,17 @@ while running:
     # loads all objects
     if active_scene == "pacman":
         scenes[active_scene].render(screen, pov, player, events, pg.mouse.get_pos())
+    elif active_scene == "menu":
+        scenes[active_scene].render(screen, pov, player)
+        anime.render(screen, pov)
     else:
         scenes[active_scene].render(screen, pov, player)
 
     # limits FPS to 60
     # dt is delta time in seconds since last frame, used for framerate-
     # independent physics.
+
+    pg.display.flip()
     dt = clock.tick(60) / 1000
 
 pg.quit()
