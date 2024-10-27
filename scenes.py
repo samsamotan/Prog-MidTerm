@@ -23,7 +23,7 @@ pacman_scene_objects = [
     interactable_objects.InteractableObject("game_components/assets/pixil-frame-0.png", 50, 30, 1024/2+20, 512/2+20, False, interactions = {pg.K_e: "menu"})
 ]
 
-pacman_scene = pacman_scene.PacmanScene(True, pacman_map.PacmanMap('game_components/assets/edge_spritesheet size 2.png', ["left_cap", "top_cap", "bottom_cap", "right_cap", "left_bottom_corner", "left_top_corner", "right_top_corner", "right_bottom_corner", "topless_threeway", "bottomless_threeway", "rightless_threeway", "leftless_threeway", "fourway", "horizontal", "vertical", "blank"]), pacman_scene_objects, 1024, 576)
+pacman_scene = pacman_scene.PacmanScene(True, pacman_map.PacmanMap('game_components/assets/edge_spritesheet.png', ["left_cap", "top_cap", "bottom_cap", "right_cap", "left_bottom_corner", "left_top_corner", "right_top_corner", "right_bottom_corner", "topless_threeway", "bottomless_threeway", "rightless_threeway", "leftless_threeway", "fourway", "horizontal", "vertical", "lone"]), pacman_scene_objects, 1024, 576)
 
 
 

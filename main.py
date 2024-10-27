@@ -1,7 +1,7 @@
 import pygame as pg
 from game_components.generic import camera
 from game_components.generic import character
-import pandas as pd
+#import pandas as pd
 import animated_object
 
 # pg setup
@@ -19,7 +19,7 @@ anime = animated_object.AnimatedObject()
 
 scenes = {"pacman": scenes.pacman_scene, "menu": scenes.menu_scene, "first": scenes.first_scene}
 #active_scene = menu_scene.menu_scene
-active_scene = "menu"
+active_scene = "pacman"
 new_scene = active_scene
 
 while running:
@@ -50,7 +50,7 @@ while running:
 
     # loads all objects
     if active_scene == "pacman":
-        scenes[active_scene].render(screen, pov, player, events, pg.mouse.get_pos())
+        scenes[active_scene].render(screen, pov, player, events, pg.mouse.get_pos(), dt)
     elif active_scene == "menu":
         scenes[active_scene].render(screen, pov, player)
         anime.render(screen, pov)
