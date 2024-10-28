@@ -14,12 +14,12 @@ from game_components.pacman import virus
 class PacmanScene(scene.Scene):
     def __init__(self, *args):
         super().__init__(*args)
-        self.viruses = [virus.Virus(15, 20, *self.generate_free_pos(), map = self.map)]# for _ in range(4)]
+        self.viruses = [virus.Virus(15, 20, *self.generate_free_pos(), map = self.map) for _ in range(4)]
 
     def generate_free_pos(self):
         x = random.randint(1,31)
         y = random.randint(1,15)
-        if not self.map.get_wallgrid_value(x,y):
+        if self.map.get_wallgrid_value(x,y):
             return self.generate_free_pos()
         else:
             return (x*32+8, y*32+6)

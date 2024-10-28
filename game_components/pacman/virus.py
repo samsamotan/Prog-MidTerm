@@ -12,6 +12,7 @@ class Virus(character.Character):
     def __init__(self, *args, map):
         super().__init__(*args)
         self.new_pos = {"X":self.pos["X"],"Y":self.pos["Y"]}
+        self.speed = 200
         self.choose_direction(map)
 
     def move(self, dt, map):
@@ -46,22 +47,26 @@ class Virus(character.Character):
         possible_directions = []
         try:
             if not map.get_wallgrid_value(pos[0]-1,pos[1]) and pos[0] != 0:
-                possible_directions.append("north")
-        except:
-            pass
-        try:
-            if not map.get_wallgrid_value(pos[0]+1,pos[1]) and pos[0] != 31:
-                possible_directions.append("south")
-        except:
-            pass
-        try:
-            if not map.get_wallgrid_value(pos[0],pos[1]-1) and pos[1] != 0:
+                print((pos[0]-1,pos[1]),map.get_wallgrid_value(pos[0]-1,pos[1]))
                 possible_directions.append("west")
         except:
             pass
         try:
-            if not map.get_wallgrid_value(pos[0],pos[1]+1) and pos[1] != 15:
+            if not map.get_wallgrid_value(pos[0]+1,pos[1]) and pos[0] != 31:
+                print((pos[0]+1,pos[1]),map.get_wallgrid_value(pos[0]+1,pos[1]))
                 possible_directions.append("east")
+        except:
+            pass
+        try:
+            if not map.get_wallgrid_value(pos[0],pos[1]-1) and pos[1] != 0:
+                print((pos[0],pos[1]-1),map.get_wallgrid_value(pos[0],pos[1]-1))
+                possible_directions.append("north")
+        except:
+            pass
+        try:
+            if not map.get_wallgrid_value(pos[0],pos[1]+1) and pos[1] != 15:
+                print((pos[0],pos[1]+1),map.get_wallgrid_value(pos[0],pos[1]+1))
+                possible_directions.append("south")
         except:
             pass
         print(possible_directions)
@@ -69,22 +74,25 @@ class Virus(character.Character):
             case 1:
                 self.direction = possible_directions[0]
             case 2:
-                chooser = random.randint(0,5)
-                if chooser < 4:
-                    try:
-                        possible_directions.remove(self.get_opposite_direction(self.direction))
-                    except:
-                        pass
-                    self.direction = possible_directions[0]
+                chooser = random.randint(1,10)
+                #if chooser < 9:
+                try:
+                    possible_directions.remove(self.get_opposite_direction(self.direction))
+                except:
+                    pass
+                self.direction = possible_directions[0]
+                #else:
+                 #   self.direction = self.get_opposite_direction(self.direction)
             case 3:
-                chooser = random.randint
-                chooser = random.randint(0,5)
-                if chooser < 5:
-                    try:
-                        possible_directions.remove(self.get_opposite_direction(self.direction))
-                    except:
-                        pass
-                    self.direction = possible_directions[random.randint(0,1)]
+                chooser = random.randint(1,10)
+                #if chooser < 10:
+                try:
+                    possible_directions.remove(self.get_opposite_direction(self.direction))
+                except:
+                    pass
+                self.direction = possible_directions[random.randint(0,1)]
+                #else:
+                 #   self.direction = self.get_opposite_direction(self.direction)
             case 4:
                 self.direction = possible_directions[random.randint(0,3)]
     
