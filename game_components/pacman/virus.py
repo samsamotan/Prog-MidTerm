@@ -15,13 +15,10 @@ class Virus(character.Character):
         self.choose_direction(map)
 
     def move(self, dt, map):
-        print(self.new_pos, self.pos)
         if self.new_pos["X"] == self.pos["X"] and self.new_pos["Y"] == self.pos["Y"]:
-            print("asd")
             self.choose_direction(map)
             self.set_new_pos()
         elif self.new_pos["X"] != self.pos["X"]:
-            print("wasd")
             if self.new_pos["X"] > self.pos["X"]:
                 if self.new_pos["X"] - self.pos["X"] > self.speed * dt:
                     self.pos["X"] = self.pos["X"] + self.speed * dt
@@ -33,7 +30,6 @@ class Virus(character.Character):
                 else:
                     self.pos["X"] = self.new_pos["X"]
         elif self.new_pos["Y"] != self.pos["Y"]:
-            print("swad")
             if self.new_pos["Y"] > self.pos["Y"]:
                 if self.new_pos["Y"] - self.pos["Y"] > self.speed * dt:
                     self.pos["Y"] = self.pos["Y"] + self.speed * dt
@@ -49,25 +45,26 @@ class Virus(character.Character):
         pos = [math.floor(self.pos["X"]/32), math.floor(self.pos["Y"]/32)]
         possible_directions = []
         try:
-            if not map.get_wallgrid_value(pos[0]-1,pos[1]):
+            if not map.get_wallgrid_value(pos[0]-1,pos[1]) and pos[0] != 0:
                 possible_directions.append("north")
         except:
             pass
         try:
-            if not map.get_wallgrid_value(pos[0]+1,pos[1]):
+            if not map.get_wallgrid_value(pos[0]+1,pos[1]) and pos[0] != 31:
                 possible_directions.append("south")
         except:
             pass
         try:
-            if not map.get_wallgrid_value(pos[0],pos[1]-1):
+            if not map.get_wallgrid_value(pos[0],pos[1]-1) and pos[1] != 0:
                 possible_directions.append("west")
         except:
             pass
         try:
-            if not map.get_wallgrid_value(pos[0],pos[1]+1):
+            if not map.get_wallgrid_value(pos[0],pos[1]+1) and pos[1] != 15:
                 possible_directions.append("east")
         except:
             pass
+        print(possible_directions)
         match len(possible_directions):
             case 1:
                 self.direction = possible_directions[0]
@@ -103,15 +100,14 @@ class Virus(character.Character):
                 return "east"
     
     def set_new_pos(self):
-        print(self.new_pos, self.pos, self.direction)
         match self.direction:
             case "north":
                 self.new_pos["Y"] = self.pos["Y"] - 32
             case "south":
                 self.new_pos["Y"] = self.pos["Y"] + 32
-            case "east":
-                self.new_pos["X"] = self.pos["Y"] - 32
             case "west":
+                self.new_pos["X"] = self.pos["X"] - 32
+            case "east":
                 self.new_pos["X"] = self.pos["X"] + 32
         
         print(self.direction, self.new_pos, self.pos)
