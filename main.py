@@ -1,58 +1,67 @@
 import pygame as pg
-import camera
-from firewall_fighter.character import *
-import pandas as pd
-import scenes.menu_scene as menu_scene
+from game_components.generic import camera
+from game_components.generic import character
+#import pandas as pd
+import animated_object
 
 # pg setup
 pg.init()
-screen = pg.display.set_mode((720, 360))
+screen = pg.display.set_mode((1024, 576))
 pg.display.set_caption("dootdoot")
 clock = pg.time.Clock()
 running = True
 dt = 0
-player = Player(20, 30, screen.get_width() / 2, screen.get_height() / 2)
-
+player = character.Player(15, 20, screen.get_width() / 2, screen.get_height() / 2)
 pov = camera.Camera()
+import scenes
 
-active_scene = menu_scene.menu_scene
+anime = animated_object.AnimatedObject()
+
+scenes = {"pacman": scenes.pacman_scene, "menu": scenes.menu_scene, "first": scenes.first_scene}
+#active_scene = menu_scene.menu_scene
+active_scene = "pacman"
 new_scene = active_scene
 
 while running:
-
-    # event handler
-    # pg.QUIT event means the user clicked X to close your window
-    for event in pg.event.get():
-        if event.type == pg.QUIT:
-            running = False
-
+    events = pg.event.get()
+    for event in events:
+            if event.type == pg.QUIT:
+                running = False
     # get keys getting pressed
     keys = pg.key.get_pressed()
     # changes player position
-    player.move(keys, dt, active_scene)
-
-    
-    for object in active_scene.get_objects():
+    player.move(keys, dt, scenes[active_scene])
+    for object in scenes[active_scene].get_objects():
         try:
             check = object.interaction_check(keys, player)
-            print(check)
             if check != None:
                 new_scene = check
         except:
             pass
-
     if active_scene != new_scene:
         active_scene = new_scene
+        match active_scene:
+            case "pacman":
+                player.set_x_pos(512)
+                player.set_y_pos(256)
         
     # changes camera offset such that player stays in center
-    pov.update(player, screen, active_scene)
+    pov.update(player, screen, scenes[active_scene])
 
     # loads all objects
-    active_scene.render(screen, pov, player)
+    if active_scene == "pacman":
+        scenes[active_scene].render(screen, pov, player, events, pg.mouse.get_pos(), dt)
+    elif active_scene == "menu":
+        scenes[active_scene].render(screen, pov, player)
+        anime.render(screen, pov)
+    else:
+        scenes[active_scene].render(screen, pov, player)
 
     # limits FPS to 60
     # dt is delta time in seconds since last frame, used for framerate-
     # independent physics.
+
+    pg.display.flip()
     dt = clock.tick(60) / 1000
 
 pg.quit()

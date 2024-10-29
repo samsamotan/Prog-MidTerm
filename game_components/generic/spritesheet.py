@@ -18,5 +18,17 @@ class SpriteSheet:
         return [self.image_at(rect) for rect in rects]
     
     def load_strip(self, rect, image_count):
-        tups=[(rect[0]+rect[2]*x, rect[1], rect[2], rect[3]) for x in range(image_count)]
-        return self.images_at(tups)
+        row=[(rect[0]+rect[2]*x, rect[1], rect[2], rect[3]) for x in range(image_count)]
+        return self.images_at(row)
+    
+    def collapse(self, grid):
+        collapsed_grid = []
+        for row in grid:
+            for sprite in row:
+                collapsed_grid.append(sprite)
+        return collapsed_grid
+    
+    def load_grid(self, rect, column_count, row_count):
+        grid=[(rect[0], rect[1]+rect[3]*x, rect[2], rect[3]) for x in range(row_count)]
+        return self.collapse([self.load_strip(row, column_count) for row in grid])
+    
