@@ -30,6 +30,11 @@ class PacmanMap(map.Map):
     def __init__(self, *args, wallgrid = DefaultGrid):
         super().__init__(*args)
         self.wallgrid = wallgrid
+        self.zeros = []
+        for row in range(len(self.wallgrid)):
+            for col in range(len(self.wallgrid[row])):
+                if self.wallgrid[row][col] == 0:
+                    self.zeros.append((col, row))
         self.make_tilemap()
     def change_wallgrid(self, x, y):
         if self.wallgrid[y][x] == 0:
@@ -37,6 +42,32 @@ class PacmanMap(map.Map):
         else:
             self.wallgrid[y][x] = 0
         self.make_tilemap()
+    def get_groups(self):
+        groups = []
+        x, y = self.zeros[0][0], self.zeros[0][1]
+        groups.append(self.get_group(x, y))
+    def get_group(self, x, y):
+        group = []
+        try:
+            if self.wallgrid[y-1][x] == 1 and y != 0:
+                top = True
+        except:
+            pass             
+        try:
+            if self.wallgrid[y][x-1] == 1 and x != 0:
+                left = True
+        except:
+            pass        
+        try:
+            if self.wallgrid[y][x+1] == 1:
+                right = True
+        except:
+            pass               
+        try:
+            if self.wallgrid[y+1][x] == 1:
+                bottom = True
+        except:
+            pass
     def get_wallgrid_value(self, x, y):
         return self.wallgrid[y][x]
     def make_tilemap(self):
@@ -91,12 +122,12 @@ class PacmanMap(map.Map):
             except:
                 pass        
             try:
-                if self.wallgrid[row][col+1] == 1:
+                if self.wallgrid[row][col+1] == 1 and col != 31:
                     right = True
             except:
                 pass               
             try:
-                if self.wallgrid[row+1][col] == 1:
+                if self.wallgrid[row+1][col] == 1 and row != 15:
                     bottom = True
             except:
                 pass

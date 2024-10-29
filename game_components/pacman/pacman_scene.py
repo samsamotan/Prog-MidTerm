@@ -26,12 +26,13 @@ class PacmanScene(scene.Scene):
 
     def change_tile(self, x, y):
         self.map.change_wallgrid(x, y)
+        self.map.get_groups()
 
     def render(self, screen, camera, player, events, mouse_pos, dt):
         # background
         screen.fill((0, 0, 0))
 
-        for tile in self.map.get_map():
+        for tile in self.map.get_tiles():
             screen.blit(tile.get_image(), (tile.get_x_pos(), tile.get_y_pos()))
 
         # objects

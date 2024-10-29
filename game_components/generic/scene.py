@@ -8,7 +8,7 @@ class Scene():
             self.map = bg
             self.map_height = y
             self.map_width = x
-            for tile in bg.get_map():
+            for tile in bg.get_tiles():
                 if tile.is_colliding():
                     self.hitboxes.append(tile.get_hitbox())
         else:
@@ -19,7 +19,7 @@ class Scene():
                 self.hitboxes.append(object.get_hitbox())
     def set_hitboxes(self):
         self.hitboxes = []
-        for tile in self.map.get_map():
+        for tile in self.map.get_tiles():
             if tile.is_colliding():
                 self.hitboxes.append(tile.get_hitbox())
         for object in self.scene_objects:

@@ -47,25 +47,21 @@ class Virus(character.Character):
         possible_directions = []
         try:
             if not map.get_wallgrid_value(pos[0]-1,pos[1]) and pos[0] != 0:
-                print((pos[0]-1,pos[1]),map.get_wallgrid_value(pos[0]-1,pos[1]))
                 possible_directions.append("west")
         except:
             pass
         try:
             if not map.get_wallgrid_value(pos[0]+1,pos[1]) and pos[0] != 31:
-                print((pos[0]+1,pos[1]),map.get_wallgrid_value(pos[0]+1,pos[1]))
                 possible_directions.append("east")
         except:
             pass
         try:
             if not map.get_wallgrid_value(pos[0],pos[1]-1) and pos[1] != 0:
-                print((pos[0],pos[1]-1),map.get_wallgrid_value(pos[0],pos[1]-1))
                 possible_directions.append("north")
         except:
             pass
         try:
             if not map.get_wallgrid_value(pos[0],pos[1]+1) and pos[1] != 15:
-                print((pos[0],pos[1]+1),map.get_wallgrid_value(pos[0],pos[1]+1))
                 possible_directions.append("south")
         except:
             pass
@@ -117,5 +113,3 @@ class Virus(character.Character):
                 self.new_pos["X"] = self.pos["X"] - 32
             case "east":
                 self.new_pos["X"] = self.pos["X"] + 32
-        
-        print(self.direction, self.new_pos, self.pos)

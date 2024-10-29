@@ -20,7 +20,7 @@ class Map():
         
         for tile in range(0, len(self.tile_names)):
             self.tileset.update({self.tile_names[tile]: tile_images[tile]})
-    def get_map(self):
+    def get_tiles(self):
         return self.tiles
 
 
