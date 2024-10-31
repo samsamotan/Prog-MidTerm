@@ -19,9 +19,4 @@ class SceneObject():
         return self.hitbox
     def is_colliding(self):
         return self.collision
-    def within(self, x, y):
-        if (x > self.hitbox["X1"] and x < self.hitbox["X2"] and y > self.hitbox["Y1"] and y < self.hitbox["Y2"]):
-             return True
-        else:
-            return False 
     
