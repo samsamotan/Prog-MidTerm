@@ -26,7 +26,6 @@ class PacmanScene(scene.Scene):
 
     def change_tile(self, x, y):
         self.map.change_wallgrid(x, y)
-        self.map.get_groups()
 
     def render(self, screen, camera, player, events, mouse_pos, dt):
         # background
@@ -44,7 +43,6 @@ class PacmanScene(scene.Scene):
                 running = False
             if event.type == pg.MOUSEBUTTONDOWN:
                 self.change_tile(mouse_pos[0]//32, mouse_pos[1]//32)
-                self.change_tile(random.randint(1,30), random.randint(1,14))
                 self.set_hitboxes()
         highlight = pg.Surface((32,32))
         highlight.fill((255,255,255))
