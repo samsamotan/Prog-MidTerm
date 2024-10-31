@@ -30,11 +30,6 @@ class PacmanMap(map.Map):
     def __init__(self, *args, wallgrid = DefaultGrid):
         super().__init__(*args)
         self.wallgrid = wallgrid
-        self.zeros = []
-        for row in range(len(self.wallgrid)):
-            for col in range(len(self.wallgrid[row])):
-                if self.wallgrid[row][col] == 0:
-                    self.zeros.append((col, row))
         self.make_tilemap()
     def change_wallgrid(self, x, y):
         if self.wallgrid[y][x] == 0:
@@ -43,31 +38,34 @@ class PacmanMap(map.Map):
             self.wallgrid[y][x] = 0
         self.make_tilemap()
     def get_groups(self):
-        groups = []
-        x, y = self.zeros[0][0], self.zeros[0][1]
-        groups.append(self.get_group(x, y))
-    def get_group(self, x, y):
-        group = []
-        try:
-            if self.wallgrid[y-1][x] == 1 and y != 0:
-                top = True
-        except:
-            pass             
-        try:
-            if self.wallgrid[y][x-1] == 1 and x != 0:
-                left = True
-        except:
-            pass        
-        try:
-            if self.wallgrid[y][x+1] == 1:
-                right = True
-        except:
-            pass               
-        try:
-            if self.wallgrid[y+1][x] == 1:
-                bottom = True
-        except:
-            pass
+        rows, cols = len(self.wallgrid), len(self.wallgrid[0])
+        visited = set()
+        all_groups = []
+
+        # Collect all zero cells and group them iteratively
+        for x in range(rows):
+            for y in range(cols):
+                if self.wallgrid[x][y] == 0 and (x, y) not in visited:
+                    stack = [(x, y)]
+                    group = []
+
+                    # Iterative DFS to find all connected zeros
+                    while stack:
+                        cx, cy = stack.pop()
+                        if (cx, cy) in visited:
+                            continue
+                        visited.add((cx, cy))
+                        group.append((cx, cy))
+
+                        # Add valid neighbors to the stack
+                        for nx, ny in [(cx-1, cy), (cx+1, cy), (cx, cy-1), (cx, cy+1)]:
+                            if 0 <= nx < rows and 0 <= ny < cols and self.wallgrid[nx][ny] == 0 and (nx, ny) not in visited:
+                                stack.append((nx, ny))
+
+                    # Add the found group to all_groups
+                    all_groups.append(group)
+
+        return all_groups
     def get_wallgrid_value(self, x, y):
         return self.wallgrid[y][x]
     def make_tilemap(self):
