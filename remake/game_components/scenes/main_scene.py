@@ -20,7 +20,7 @@ class MainScene(Scene):
         self.player.move(keys, dt, self)
 
 
-    def draw(self, screen):
+    def draw(self, screen, camera):
         screen.fill((0,0,0))
         screen.blit(self.player.image, self.player.rect)
-        self.all_sprites.draw(screen)
+        self.all_sprites.draw(screen, camera)
