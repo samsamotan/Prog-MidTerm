@@ -75,3 +75,4 @@ while True:
     pygame.display.update()
     #tick tells the clock how fast the game should run (frames per second)
     clock.tick(60)
+n 

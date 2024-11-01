@@ -1,7 +1,5 @@
 import pygame as pg
 
-import pygame as pg
-
 class SpriteSheet:
     def __init__(self, filename):
         """Load the sprite sheet from a file."""
@@ -45,4 +43,3 @@ class SpriteSheet:
                 y = rect[1] + row * rect[3]
                 grid_images.append(self.image_at((x, y, rect[2], rect[3])))
         return grid_images
-    
