@@ -1,12 +1,5 @@
 import pygame as pg
 import random
-import sys
-from pathlib import Path
-src_dir = str(Path(__file__).resolve().parent.parent.parent)
-if src_dir not in sys.path:
-    sys.path.append(src_dir)
-   
-from game_components.generic import character
 
 # Initialize Pygame
 pg.init()
@@ -20,6 +13,7 @@ clock = pg.time.Clock()
 
 # Game constants
 POINTS_TO_LEVEL_UP = 30
+HEALTH_MAX = 3  # Maximum health (3 hearts)
 score = 0
 
 # Player class definition
@@ -29,11 +23,12 @@ class Player(pg.sprite.Sprite):
         self.image = pg.Surface((50, 30))
         self.image.fill((0, 255, 0))  # Green player
         self.rect = self.image.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 50))
+        self.health = HEALTH_MAX  # Initialize health
 
     def move(self, keys):
-        if keys[pg.K_LEFT] and self.rect.left > 0:
+        if keys[pg.K_a] and self.rect.left > 0:  # Left with 'A'
             self.rect.x -= 5
-        if keys[pg.K_RIGHT] and self.rect.right < SCREEN_WIDTH:
+        if keys[pg.K_d] and self.rect.right < SCREEN_WIDTH:  # Right with 'D'
             self.rect.x += 5
 
 # Threat class definition (Viruses and Safe Programs)
@@ -43,9 +38,10 @@ class Threat(pg.sprite.Sprite):
         self.image = pg.Surface((30, 30))
         self.image.fill((255, 0, 0) if is_virus else (255, 255, 255))  # Red for viruses, white for safe programs
         self.rect = self.image.get_rect(center=(random.randint(30, SCREEN_WIDTH - 30), -30))
+        self.is_virus = is_virus
 
     def update(self):
-        self.rect.y += 5
+        self.rect.y += 2  # Slower fall speed
         if self.rect.top > SCREEN_HEIGHT:
             self.kill()  # Remove if it goes off screen
 
@@ -88,6 +84,10 @@ def show_menu():
 
         pg.display.flip()
 
+def draw_health(health):
+    for i in range(health):
+        pg.draw.rect(screen, (255, 0, 0), (10 + i * 40, SCREEN_HEIGHT - 40, 30, 30)) # Draw hearts as red squares
+
 def game_loop():
     global score
     score = 0
@@ -111,8 +111,8 @@ def game_loop():
         keys = pg.key.get_pressed()
         player.move(keys)
 
-        # Randomly spawn threats
-        if random.randint(1, 20) == 1:  
+        # Randomly spawn threats with reduced frequency
+        if random.randint(1, 60) == 1:  
             is_virus = random.choice([True, False])
             new_threat = Threat(is_virus)
             all_sprites.add(new_threat)
@@ -122,10 +122,25 @@ def game_loop():
         all_sprites.update()
 
         # Check for collisions between bullets and threats
-        hits = pg.sprite.groupcollide(bullets, threats, True, True)
-        for hit in hits:
-            score += 1
+        hits_bullets = pg.sprite.groupcollide(bullets, threats, True, True)
+        for threat_list in hits_bullets.values():
+            for threat in threat_list:
+                if threat.is_virus:
+                    score += 1   # Increase score for hitting viruses
+                else:           # If it's a safe program
+                    player.health -= 1   # Decrease health for hitting safe programs
 
+        # Check for collisions between player and threats (safe programs)
+        hits_player = pg.sprite.spritecollide(player, threats, False)
+        for hit in hits_player:
+            if not hit.is_virus:   # Only decrease health on safe program collision
+                player.health -= 1
+                hit.kill()          # Remove the safe program after collision
+
+                if player.health <= 0:   # End game if health reaches zero
+                    print("Game Over!")
+                    running = False
+        
         # Level up condition
         if score >= POINTS_TO_LEVEL_UP:
             print("Level Up!")
@@ -134,6 +149,8 @@ def game_loop():
         # Draw everything
         screen.fill((0, 0, 0))  
         all_sprites.draw(screen)
+        
+        draw_health(player.health)   # Draw player's health as hearts
 
         font = pg.font.Font(None, 36)
         text_surface = font.render(f'Score: {score}', True, (255, 255, 255))
@@ -141,7 +158,7 @@ def game_loop():
 
         pg.display.flip()
         
-        clock.tick(60)  
+        clock.tick(60)   # FPS
 
 # Main program loop
 while True:
