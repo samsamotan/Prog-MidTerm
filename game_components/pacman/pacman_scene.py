@@ -31,7 +31,7 @@ class PacmanScene(scene.Scene):
         # background
         screen.fill((0, 0, 0))
 
-        for tile in self.map.get_map():
+        for tile in self.map.get_tiles():
             screen.blit(tile.get_image(), (tile.get_x_pos(), tile.get_y_pos()))
 
         # objects
@@ -43,7 +43,6 @@ class PacmanScene(scene.Scene):
                 running = False
             if event.type == pg.MOUSEBUTTONDOWN:
                 self.change_tile(mouse_pos[0]//32, mouse_pos[1]//32)
-                self.change_tile(random.randint(1,30), random.randint(1,14))
                 self.set_hitboxes()
         highlight = pg.Surface((32,32))
         highlight.fill((255,255,255))
@@ -52,8 +51,11 @@ class PacmanScene(scene.Scene):
         # player
         pg.draw.rect(screen, (255, 0, 0), (player.get_x_pos() - camera.get_x_pos(), player.get_y_pos() - camera.get_y_pos(), player.get_x_size(), player.get_y_size()))
         
-        for virus in self.viruses:
-            virus.move(dt, self.map)
-            pg.draw.rect(screen, (0, 255, 0), (virus.get_x_pos() - camera.get_x_pos(), virus.get_y_pos() - camera.get_y_pos(), virus.get_x_size(), virus.get_y_size()))    
+        for virus in range(len(self.viruses)):
+            death = self.viruses[virus].move(dt, self.map, player)
+            if death:
+                self.viruses.pop(virus)
+                break
+            pg.draw.rect(screen, (0, 255, 0), (self.viruses[virus].get_x_pos() - camera.get_x_pos(), self.viruses[virus].get_y_pos() - camera.get_y_pos(), self.viruses[virus].get_x_size(), self.viruses[virus].get_y_size()))    
         # flip() the display to put your work on screen
         #pg.display.flip()

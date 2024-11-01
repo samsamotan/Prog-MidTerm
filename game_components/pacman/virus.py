@@ -5,6 +5,7 @@ if src_dir not in sys.path:
     sys.path.append(src_dir)
     
 from game_components.generic import character
+from game_components.generic.within import within
 import math
 import random
 
@@ -14,8 +15,9 @@ class Virus(character.Character):
         self.new_pos = {"X":self.pos["X"],"Y":self.pos["Y"]}
         self.speed = 200
         self.choose_direction(map)
-
-    def move(self, dt, map):
+        self.hitbox = {"X1": self.pos["X"], "X2": self.pos["X"] + self.size["X"], "Y1": self.pos["Y"], "Y2": self.pos["Y"] + self.size["Y"]}
+        
+    def move(self, dt, map, player):
         if self.new_pos["X"] == self.pos["X"] and self.new_pos["Y"] == self.pos["Y"]:
             self.choose_direction(map)
             self.set_new_pos()
@@ -41,35 +43,32 @@ class Virus(character.Character):
                     self.pos["Y"] = self.pos["Y"] - self.speed * dt
                 else:
                     self.pos["Y"] = self.new_pos["Y"]
-
+        self.hitbox = {"X1": self.pos["X"], "X2": self.pos["X"] + self.size["X"], "Y1": self.pos["Y"], "Y2": self.pos["Y"] + self.size["Y"]}
+        return within(self.hitbox, player.get_x_pos(), player.get_y_pos()) or within(self.hitbox, player.get_x_pos()+player.get_x_size(), player.get_y_pos()+player.get_y_size()) or within(self.hitbox, player.get_x_pos(), player.get_y_pos()+player.get_y_size()) or within(self.hitbox, player.get_x_pos()+player.get_x_size(), player.get_y_pos()) 
+    
     def choose_direction(self, map):
         pos = [math.floor(self.pos["X"]/32), math.floor(self.pos["Y"]/32)]
         possible_directions = []
         try:
             if not map.get_wallgrid_value(pos[0]-1,pos[1]) and pos[0] != 0:
-                print((pos[0]-1,pos[1]),map.get_wallgrid_value(pos[0]-1,pos[1]))
                 possible_directions.append("west")
         except:
             pass
         try:
             if not map.get_wallgrid_value(pos[0]+1,pos[1]) and pos[0] != 31:
-                print((pos[0]+1,pos[1]),map.get_wallgrid_value(pos[0]+1,pos[1]))
                 possible_directions.append("east")
         except:
             pass
         try:
             if not map.get_wallgrid_value(pos[0],pos[1]-1) and pos[1] != 0:
-                print((pos[0],pos[1]-1),map.get_wallgrid_value(pos[0],pos[1]-1))
                 possible_directions.append("north")
         except:
             pass
         try:
             if not map.get_wallgrid_value(pos[0],pos[1]+1) and pos[1] != 15:
-                print((pos[0],pos[1]+1),map.get_wallgrid_value(pos[0],pos[1]+1))
                 possible_directions.append("south")
         except:
             pass
-        print(possible_directions)
         match len(possible_directions):
             case 1:
                 self.direction = possible_directions[0]
@@ -117,5 +116,3 @@ class Virus(character.Character):
                 self.new_pos["X"] = self.pos["X"] - 32
             case "east":
                 self.new_pos["X"] = self.pos["X"] + 32
-        
-        print(self.direction, self.new_pos, self.pos)
