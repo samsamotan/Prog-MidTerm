@@ -5,19 +5,37 @@ class Player(GameObject):
     def __init__(self, x: int, y: int, width: int, height: int, image:str = None):
         super().__init__(x, y, width, height, image)
         self.speed = 300
+        self.velocity = pg.Vector2(0, 0)
 
-    def move(self, keys, dt, scene):
-        initial_x, initial_y = self.rect.x, self.rect.y
+    def move(self, keys, dt, scene, *groups):
+        self.velocity.x = (keys[pg.K_RIGHT] - keys[pg.K_LEFT]) * self.speed * dt
+        self.velocity.y = (keys[pg.K_DOWN] - keys[pg.K_UP]) * self.speed * dt
 
-        if keys[pg.K_w]:
-            self.rect.y -= self.speed * dt
-        if keys[pg.K_a]:
-            self.rect.x -= self.speed * dt
-        if keys[pg.K_s]:
-            self.rect.y += self.speed * dt
-        if keys[pg.K_d]:
-            self.rect.x += self.speed * dt
+        #Horizontal movement
+        self.rect.x += self.velocity.x
+        for group in groups:
+            for obstacle in group:
+                if self.rect.colliderect(obstacle.rect):
+                    if self.velocity.x > 0:  # Moving right
+                        self.rect.right = obstacle.rect.left
+                    elif self.velocity.x < 0:  # Moving left
+                        self.rect.left = obstacle.rect.right
 
-        for obstacle in scene.get_obstacle():
-            if self.rect.colliderect(obstacle.rect):
-                self.rect.x, self.rect.y = initial_x, initial_y
+        # Vertical movement
+        self.rect.y += self.velocity.y
+        for group in groups:
+            for obstacle in group:
+                if self.rect.colliderect(obstacle.rect):
+                    if self.velocity.y > 0:  # Moving down
+                        self.rect.bottom = obstacle.rect.top
+                    elif self.velocity.y < 0:  # Moving up
+                        self.rect.top = obstacle.rect.bottom
+
+        if self.rect.x < 0:
+            self.rect.x = 0
+        if self.rect.y < 0:
+            self.rect.y = 0
+        if self.rect.x > scene.get_width() - self.rect.width:
+            self.rect.x = scene.get_width() - self.rect.width
+        if self.rect.y > scene.get_height() - self.rect.height:
+            self.rect.y = scene.get_height() - self.rect.height

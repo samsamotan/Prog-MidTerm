@@ -4,12 +4,13 @@ src_dir = str(Path(__file__).resolve().parent.parent.parent)
 if src_dir not in sys.path:
     sys.path.append(src_dir)
     
-from game_components.generic import spritesheet
+from game_components import spritesheet
 import pygame as pg
 
 class SpriteMap():
     def __init__(self, filename, tile_names, tile_width, tile_height, columns, rows):
         self.filename = filename
+        self.tile_names = tile_names
         self.tile_width = tile_width
         self.tile_height = tile_height
         self.columns = columns
