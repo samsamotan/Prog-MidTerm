@@ -20,5 +20,4 @@ class InteractiveObject(GameObject):
                         if self.actions[event.key] == "change scene":
                             self.scene_manager.start_scene(self.target_scene)
                         if self.actions[event.key] == "new scene":
-                            self.scene_manager.reset_scene(self.current_scene)
-                            self.scene_manager.start_scene(self.target_scene)
+                            self.scene_manager.quit_scene(self.current_scene, self.target_scene)

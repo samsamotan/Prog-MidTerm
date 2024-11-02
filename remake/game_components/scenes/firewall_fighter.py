@@ -81,7 +81,7 @@ class FirewallFighter(Scene):
 
         if self.health_bar.get_current_health() <= 0:   # End game if health reaches zero
             print("Game Over!")
-            self.scene_manager.start_scene("Main Scene")
+            self.scene_manager.quit_scene("Firewall Fighter", "Main Scene")
 
     def draw(self, screen, camera):
         screen.fill((0,0,0))

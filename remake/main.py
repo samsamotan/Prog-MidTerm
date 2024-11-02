@@ -20,8 +20,9 @@ scene_manager.add_scene("Main Scene", MainScene)
 scene_manager.add_scene("Virus Vacuum", VirusVacuum)
 scene_manager.add_scene("Firewall Fighter", FirewallFighter)
 
+# TODO: move sprite group declarations for scenes to init(will cause phantoms if scene manager reset not fixed)
 
-scene_manager.start_scene("Firewall Fighter")
+scene_manager.start_scene("Main Scene")
 
 clock = pg.time.Clock()
 

@@ -21,6 +21,10 @@ class SceneManager:
             if not isinstance(self.scenes[scene_name], type):
                 self.scenes[scene_name] = type(self.scenes[scene_name])
 
+    def quit_scene(self, current_scene, new_scene):
+        self.reset_scene(current_scene)
+        self.start_scene(new_scene)
+
     def handle_events(self, dt):
         self.current_scene.handle_events(dt)
 
