@@ -1,7 +1,6 @@
 import pygame as pg
 import random
 
-
 # Initialize Pygame
 pg.init()
 
@@ -17,15 +16,15 @@ POINTS_TO_LEVEL_UP = 30
 HEALTH_MAX = 3  # Maximum health (3 hearts)
 score = 0
 
-# Load images
-background_image = pg.image.load("Mini Pixel Pack 3/SPACE BG.png").convert()
-player_image = pg.image.load("Mini Pixel Pack 3/Player ship/Player_ship (16 x 16).png").convert_alpha()
-virus_image = pg.image.load("Mini Pixel Pack 3/Enemies/Alan (16 x 16).png").convert_alpha()
-safe_program_image = pg.image.load("Mini Pixel Pack 3/Enemies/Bon_Bon (16 x 16).png").convert_alpha()
-bullet_image = pg.image.load("Mini Pixel Pack 3/Projectiles/Player_charged_beam (16 x 16).png").convert_alpha()
-number_font_image = pg.image.load("Mini Pixel Pack 3/UI objects/Number_font (8 x 8).png").convert_alpha()
-start_image = pg.image.load("Mini Pixel Pack 3/UI objects/START (48 x 8).png").convert_alpha()
-game_over_image = pg.image.load("Mini Pixel Pack 3/UI objects/GAME_OVER (72 x 8).png").convert_alpha()
+# Load and scale images
+background_image = pg.transform.scale(pg.image.load("Mini Pixel Pack 3/SPACE BG.png").convert(), (SCREEN_WIDTH, SCREEN_HEIGHT))
+player_image = pg.transform.scale(pg.image.load("Mini Pixel Pack 3/Player ship/Player_ship (16 x 16).png").convert_alpha(), (32, 32))  # Scaled up for visibility
+virus_image = pg.transform.scale(pg.image.load("Mini Pixel Pack 3/Enemies/Alan (16 x 16).png").convert_alpha(), (24, 24))  # Scaled up for visibility
+safe_program_image = pg.transform.scale(pg.image.load("Mini Pixel Pack 3/Enemies/Bon_Bon (16 x 16).png").convert_alpha(), (24, 24))  # Scaled up for visibility
+bullet_image = pg.transform.scale(pg.image.load("Mini Pixel Pack 3/Projectiles/Player_charged_beam (16 x 16).png").convert_alpha(), (8, 16))  # Smaller bullet
+number_font_image = pg.image.load("Mini Pixel Pack 3/UI objects/Number_font (8 x 8.png").convert_alpha()
+start_image = pg.image.load("Mini Pixel Pack 3/UI objects/START (48 x 8.png").convert_alpha()
+game_over_image = pg.image.load("Mini Pixel Pack 3/UI objects/GAME_OVER (72 x 8.png").convert_alpha()
 
 # Player class definition
 class Player(pg.sprite.Sprite):
@@ -89,13 +88,13 @@ def show_menu():
 
 def draw_health(health):
     for i in range(health):
-        pg.draw.rect(screen, (255, 0, 0), (SCREEN_WIDTH - (10 + i * 40), 10, 30, 30)) # Draw hearts as red squares
+        pg.draw.rect(screen, (255, 0, 0), (SCREEN_WIDTH - (40 + i * 40), 10, 30, 30))  # Draw hearts as red squares
 
 def draw_score(score):
     score_str = str(score)
     for i, digit in enumerate(score_str):
         digit_surface = number_font_image.subsurface(int(digit) * 8, 0, 8, 8)
-        screen.blit(digit_surface, (10 + i * 10, 10)) # Adjust position as needed
+        screen.blit(digit_surface, (10 + i * 10, 10))  # Adjust position as needed
 
 def game_loop():
     global score
@@ -135,18 +134,18 @@ def game_loop():
         for threat_list in hits_bullets.values():
             for threat in threat_list:
                 if threat.is_virus:
-                    score += 1   # Increase score for hitting viruses
-                else:           # If it's a safe program
-                    player.health -= 1   # Decrease health for hitting safe programs
+                    score += 1  # Increase score for hitting viruses
+                else:  # If it's a safe program
+                    player.health -= 1  # Decrease health for hitting safe programs
 
         # Check for collisions between player and threats (safe programs)
         hits_player = pg.sprite.spritecollide(player, threats, False)
         for hit in hits_player:
-            if not hit.is_virus:   # Only decrease health on safe program collision
+            if not hit.is_virus:  # Only decrease health on safe program collision
                 player.health -= 1
-                hit.kill()          # Remove the safe program after collision
+                hit.kill()  # Remove the safe program after collision
 
-                if player.health <= 0:   # End game if health reaches zero
+                if player.health <= 0:  # End game if health reaches zero
                     print("Game Over!")
                     running = False
         
@@ -156,15 +155,15 @@ def game_loop():
             score = 0
 
         # Draw everything
-        screen.blit(background_image, (0, 0))   # Draw the background image first
+        screen.blit(background_image, (0, 0))  # Draw the background image first
         all_sprites.draw(screen)
         
-        draw_health(player.health)   # Draw player's health as hearts
-        draw_score(score)             # Draw the score at the top left corner
+        draw_health(player.health)  # Draw player's health as hearts
+        draw_score(score)  # Draw the score at the top left corner
 
         pg.display.flip()
         
-        clock.tick(60)   # FPS
+        clock.tick(60)  # FPS
     
     return running
 
@@ -172,9 +171,7 @@ def show_game_over():
     while True:
         screen.fill((0, 0, 0))
         
-        screen.blit(game_over_image,
-                    (SCREEN_WIDTH // 2 - game_over_image.get_width() // 2,
-                     SCREEN_HEIGHT // 4))
+        screen.blit(game_over_image, (SCREEN_WIDTH // 2 - game_over_image.get_width() // 2, SCREEN_HEIGHT // 4))
         
         for event in pg.event.get():
             if event.type == pg.QUIT:
