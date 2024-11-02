@@ -1,6 +1,7 @@
 import pygame as pg
 import random
 
+
 # Initialize Pygame
 pg.init()
 
@@ -16,12 +17,21 @@ POINTS_TO_LEVEL_UP = 30
 HEALTH_MAX = 3  # Maximum health (3 hearts)
 score = 0
 
+# Load images
+background_image = pg.image.load("Mini Pixel Pack 3/SPACE BG.png").convert()
+player_image = pg.image.load("Mini Pixel Pack 3/Player ship/Player_ship (16 x 16).png").convert_alpha()
+virus_image = pg.image.load("Mini Pixel Pack 3/Enemies/Alan (16 x 16).png").convert_alpha()
+safe_program_image = pg.image.load("Mini Pixel Pack 3/Enemies/Bon_Bon (16 x 16).png").convert_alpha()
+bullet_image = pg.image.load("Mini Pixel Pack 3/Projectiles/Player_charged_beam (16 x 16).png").convert_alpha()
+number_font_image = pg.image.load("Mini Pixel Pack 3/UI objects/Number_font (8 x 8).png").convert_alpha()
+start_image = pg.image.load("Mini Pixel Pack 3/UI objects/START (48 x 8).png").convert_alpha()
+game_over_image = pg.image.load("Mini Pixel Pack 3/UI objects/GAME_OVER (72 x 8).png").convert_alpha()
+
 # Player class definition
 class Player(pg.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pg.Surface((50, 30))
-        self.image.fill((0, 255, 0))  # Green player
+        self.image = player_image
         self.rect = self.image.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 50))
         self.health = HEALTH_MAX  # Initialize health
 
@@ -35,8 +45,7 @@ class Player(pg.sprite.Sprite):
 class Threat(pg.sprite.Sprite):
     def __init__(self, is_virus=True):
         super().__init__()
-        self.image = pg.Surface((30, 30))
-        self.image.fill((255, 0, 0) if is_virus else (255, 255, 255))  # Red for viruses, white for safe programs
+        self.image = virus_image if is_virus else safe_program_image
         self.rect = self.image.get_rect(center=(random.randint(30, SCREEN_WIDTH - 30), -30))
         self.is_virus = is_virus
 
@@ -49,8 +58,7 @@ class Threat(pg.sprite.Sprite):
 class Bullet(pg.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
-        self.image = pg.Surface((5, 10))
-        self.image.fill((255, 255, 0))  # Yellow bullets
+        self.image = bullet_image
         self.rect = self.image.get_rect(center=(x, y))
 
     def update(self):
@@ -64,14 +72,9 @@ threats = pg.sprite.Group()
 bullets = pg.sprite.Group()
 
 def show_menu():
-    font = pg.font.Font(None, 74)
-    title_surface = font.render("Firewall Fighter", True, (255, 255, 255))
-    start_surface = font.render("Press Enter to Start", True, (255, 255, 255))
-    
     while True:
         screen.fill((0, 0, 0))  
-        screen.blit(title_surface, (SCREEN_WIDTH // 2 - title_surface.get_width() // 2, SCREEN_HEIGHT // 4))
-        screen.blit(start_surface, (SCREEN_WIDTH // 2 - start_surface.get_width() // 2, SCREEN_HEIGHT // 2))
+        screen.blit(start_image, (SCREEN_WIDTH // 2 - start_image.get_width() // 2, SCREEN_HEIGHT // 4))
         
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -86,7 +89,13 @@ def show_menu():
 
 def draw_health(health):
     for i in range(health):
-        pg.draw.rect(screen, (255, 0, 0), (10 + i * 40, SCREEN_HEIGHT - 40, 30, 30)) # Draw hearts as red squares
+        pg.draw.rect(screen, (255, 0, 0), (SCREEN_WIDTH - (10 + i * 40), 10, 30, 30)) # Draw hearts as red squares
+
+def draw_score(score):
+    score_str = str(score)
+    for i, digit in enumerate(score_str):
+        digit_surface = number_font_image.subsurface(int(digit) * 8, 0, 8, 8)
+        screen.blit(digit_surface, (10 + i * 10, 10)) # Adjust position as needed
 
 def game_loop():
     global score
@@ -147,22 +156,42 @@ def game_loop():
             score = 0
 
         # Draw everything
-        screen.fill((0, 0, 0))  
+        screen.blit(background_image, (0, 0))   # Draw the background image first
         all_sprites.draw(screen)
         
         draw_health(player.health)   # Draw player's health as hearts
-
-        font = pg.font.Font(None, 36)
-        text_surface = font.render(f'Score: {score}', True, (255, 255, 255))
-        screen.blit(text_surface, (10, 10))
+        draw_score(score)             # Draw the score at the top left corner
 
         pg.display.flip()
         
         clock.tick(60)   # FPS
+    
+    return running
+
+def show_game_over():
+    while True:
+        screen.fill((0, 0, 0))
+        
+        screen.blit(game_over_image,
+                    (SCREEN_WIDTH // 2 - game_over_image.get_width() // 2,
+                     SCREEN_HEIGHT // 4))
+        
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                return
+            
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_RETURN:  
+                    return
+
+        pg.display.flip()
 
 # Main program loop
 while True:
     show_menu()
-    game_loop()
+    game_active = game_loop()
+    
+    if not game_active: 
+        show_game_over()
 
 pg.quit()
