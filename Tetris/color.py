@@ -1,3 +1,4 @@
+# Colors class to store RGB color values for different colors used in blocks
 class Colors: 
     dark_grey = (26, 31, 40)
     green = (47, 230, 23)
@@ -7,12 +8,21 @@ class Colors:
     purple = (166, 0, 247)
     cyan = (21, 204, 209)
     blue = (13, 64, 216)
+    white = (255, 255, 255)
+    dark_blue = (44, 44, 127)
+    light_blue = (59, 85, 162)
 
-#class method: a python decorator that allows you to define a method that 
-#can be called on a class rather than on an instance of the class
+    # class method: a Python decorator that allows you to define a method that 
+    # can be called on a class rather than on an instance of the class
+    @classmethod
+    def get_cell_colors(cls):
+        # cls: reference to the class itself, access class-level attributes
+        return [cls.dark_grey, cls.green, cls.red, cls.orange, cls.yellow, 
+                cls.purple, cls.cyan, cls.blue]
 
-@classmethod
-def get_cell_colors(cls)
+
+
+    
 
 
 
