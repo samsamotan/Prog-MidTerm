@@ -1,6 +1,7 @@
 class SceneManager:
-    def __init__(self,):
+    def __init__(self, game_state):
         self.scenes = {}
+        self.game_state = game_state
 
     def add_scene(self, scene_name, scene_class):
         self.scenes[scene_name] = scene_class
@@ -8,7 +9,7 @@ class SceneManager:
     def start_scene(self, scene_name):
         if scene_name in self.scenes:
             if isinstance(self.scenes[scene_name], type):
-                self.current_scene = self.scenes[scene_name](self)
+                self.current_scene = self.scenes[scene_name](self, self.game_state)
                 self.scenes[scene_name] = self.current_scene
             else:
                 self.current_scene = self.scenes[scene_name]
@@ -20,12 +21,12 @@ class SceneManager:
             if not isinstance(self.scenes[scene_name], type):
                 self.scenes[scene_name] = type(self.scenes[scene_name])
 
-    def handle_events(self, events, keys, dt):
-        self.current_scene.handle_events(events, keys, dt)
+    def handle_events(self, dt):
+        self.current_scene.handle_events(dt)
 
-    def update(self, camera, screen):
+    def update(self, camera, screen, dt):
         camera.update(self.current_scene.player, self.current_scene, screen)
-        self.current_scene.update()
+        self.current_scene.update(dt)
     
     def draw(self, screen, camera):
          self.current_scene.draw(screen, camera)

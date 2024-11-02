@@ -6,14 +6,14 @@ DefaultGrid = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,1,1,1,1,1,1,0,1,1,1,0,1,1,0,1,1,0,1,1,1,0,1,1,1,1,1,1,1,0,1],
-    [1,0,1,0,0,0,0,1,0,1,1,1,0,1,1,0,1,1,0,1,1,1,0,1,0,0,0,0,0,1,0,1],
-    [1,0,1,1,1,1,1,1,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,1,1,1,1,1,1,1,0,1],
+    [1,0,0,0,0,0,0,1,0,1,1,1,0,1,1,0,1,1,0,1,1,1,0,1,0,0,0,0,0,1,0,1],
+    [1,0,1,1,1,1,1,1,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,1,1,1,0,1,1,1,0,1],
     [1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,1,1,1,1,0,1,0,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,0,1],
-    [1,0,1,1,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,1,1,1,1,1,0,1],
-    [1,0,0,0,0,0,0,1,0,0,1,1,1,1,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,1],
-    [1,0,1,1,1,1,0,1,1,0,1,0,1,0,1,0,0,0,0,1,0,1,0,1,0,1,1,1,1,1,1,1],
-    [1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,1,0,0,0,0,1,0,0,1],
+    [1,0,1,1,1,1,0,1,0,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1],
+    [1,0,1,1,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,1,1,1,1,1,0,1],
+    [1,0,0,0,0,0,0,1,0,0,1,1,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,1],
+    [1,0,1,1,1,1,0,1,1,0,1,0,1,1,0,0,0,0,0,1,0,1,0,1,0,1,1,1,1,1,1,1],
+    [1,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,1,0,1,0,0,0,0,1,0,0,1],
     [1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,0,0,1,0,1,1,0,1],
     [1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1],
     [1,0,1,1,1,1,0,1,0,1,1,1,1,0,1,0,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1],
@@ -46,10 +46,10 @@ class VirusVacuumMap(SpriteMap):
                 self.update_tile(nx, ny)
 
     def update_tile(self, x, y):
-        """Update or remove the tile at (x, y) in the tile_group based on wallgrid."""
+        """Update or remove the tile at (x, y) in the tiles based on wallgrid."""
         tile_position = (y, x)
         tile_found = None
-        for tile in self.tile_group:
+        for tile in self.tiles:
             if (tile.rect.y // 32, tile.rect.x // 32) == tile_position:
                 tile_found = tile
                 break
@@ -138,16 +138,17 @@ class VirusVacuumMap(SpriteMap):
                 best_position = (x1, random.randint(min(y1, y2), max(y1, y2)))
 
             # Update the matrix by turning the selected `1` into a `0`
-            bx, by = best_position
-            if self.wallgrid[bx][by] == 1:
-                # Update wallgrid and remove or update the wall tile
-                self.wallgrid[bx][by] = 0
-                self.update_tile(bx, by)
+            if best_position:
+                x, y = best_position
+                if self.wallgrid[x][y] == 1:
+                    # Update wallgrid and remove or update the wall tile
+                    self.wallgrid[x][y] = 0
+                    self.update_tile(y, x)
 
-                # Update neighboring tiles as their adjacency has changed
-                for nx, ny in [(bx, by - 1), (bx, by + 1), (bx - 1, by), (bx + 1, by)]:
-                    if 0 <= ny < rows and 0 <= nx < cols:
-                        self.update_tile(nx, ny)
+                    # Update neighboring tiles as their adjacency has changed
+                    for nx, ny in [(x, y - 1), (x, y + 1), (x - 1, y), (x + 1, y)]:
+                        if 0 <= nx < rows and 0 <= ny < cols:
+                            self.update_tile(ny, nx)
                         
     def get_wallgrid_value(self, x, y):
         return self.wallgrid[y][x]
@@ -159,7 +160,6 @@ class VirusVacuumMap(SpriteMap):
                 if self.wallgrid[row][col] == 1:
                     adjacency = self.check_adjacency(row, col)
                     tile_type = self.get_tile_type(adjacency)
-                    print(self.tileset[tile_type])
                     self.tiles.add(SpriteTile(col * 32, row * 32, 32, 32, self.tileset[tile_type]))
 
     def check_adjacency(self, row, col):

@@ -1,5 +1,6 @@
 import pygame as pg
 from game_components.scene_manager import SceneManager
+from game_components.game_state import GameState
 from game_components.scenes import *
 from game_components.objects.camera import Camera
 
@@ -12,25 +13,20 @@ dt = 0
 
 camera = Camera(screen)
 
-scene_manager = SceneManager()
+game_state = GameState()
+scene_manager = SceneManager(game_state)
 scene_manager.add_scene("Main Menu", MainMenu)
 scene_manager.add_scene("Main Scene", MainScene)
 scene_manager.add_scene("Virus Vacuum", VirusVacuum)
 
 
-scene_manager.start_scene("Main Menu")
+scene_manager.start_scene("Virus Vacuum")
 
 clock = pg.time.Clock()
 
-while running:
-    events = pg.event.get()
-    for event in events:
-        if event.type == pg.QUIT:
-            running = False
-        
-    keys = pg.key.get_pressed()
-    scene_manager.handle_events(events, keys, dt)
-    scene_manager.update(camera, screen)
+while game_state.update():
+    scene_manager.handle_events(dt)
+    scene_manager.update(camera, screen, dt)
 
     scene_manager.draw(screen, camera)
     pg.display.flip()
