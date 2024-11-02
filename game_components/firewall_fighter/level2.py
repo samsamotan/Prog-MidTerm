@@ -19,13 +19,13 @@ score = 0
 
 # Load images
 background_image = pg.image.load("Mini Pixel Pack 3/SPACE BG.png").convert()
-player_image = pg.image.load("Mini Pixel Pack 3/Player_ship (16 x 16).png").convert_alpha()
-virus_image = pg.image.load("Mini Pixel Pack 3/Alan (16 x 16).png").convert_alpha()
-safe_program_image = pg.image.load("Mini Pixel Pack 3/Bon_Bon (16 x 16).png").convert_alpha()
-bullet_image = pg.image.load("Mini Pixel Pack 3/Player_charged_beam (16 x 16).png").convert_alpha()
-number_font_image = pg.image.load("Mini Pixel Pack 3/Number_font (8 x 8).png").convert_alpha()
-start_image = pg.image.load("Mini Pixel Pack 3/START (48 x 8).png").convert_alpha()
-game_over_image = pg.image.load("Mini Pixel Pack 3/GAME_OVER (72 x 8).png").convert_alpha()
+player_image = pg.image.load("Mini Pixel Pack 3/Player ship/Player_ship (16 x 16).png").convert_alpha()
+virus_image = pg.image.load("Mini Pixel Pack 3/Enemies/Alan (16 x 16).png").convert_alpha()
+safe_program_image = pg.image.load("Mini Pixel Pack 3/Enemies/Bon_Bon (16 x 16).png").convert_alpha()
+bullet_image = pg.image.load("Mini Pixel Pack 3/Projectiles/Player_charged_beam (16 x 16).png").convert_alpha()
+number_font_image = pg.image.load("Mini Pixel Pack 3/UI objects/Number_font (8 x 8).png").convert_alpha()
+start_image = pg.image.load("Mini Pixel Pack 3/UI objects/START (48 x 8).png").convert_alpha()
+game_over_image = pg.image.load("Mini Pixel Pack 3/UI objects/GAME_OVER (72 x 8).png").convert_alpha()
 
 # Player class definition
 class Player(pg.sprite.Sprite):
