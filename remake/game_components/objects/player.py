@@ -23,7 +23,7 @@ class Player(GameObject):
                             self.rect.left = obstacle.rect.right
 
         # Vertical movement
-        if vertical_movement
+        if vertical_movement:
             self.rect.y += self.velocity.y
             for group in groups:
                 for obstacle in group:

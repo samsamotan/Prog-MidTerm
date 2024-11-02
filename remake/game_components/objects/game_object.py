@@ -1,7 +1,7 @@
 import pygame as pg
 
 class GameObject(pg.sprite.Sprite):
-    def __init__(self, x: int, y: int, width: int, height: int, image = None):
+    def __init__(self, x: int, y: int, width: int = None, height: int = None, image = None):
         super().__init__()
         self.x = x
         self.y = y

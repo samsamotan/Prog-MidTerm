@@ -18,9 +18,10 @@ scene_manager = SceneManager(game_state)
 scene_manager.add_scene("Main Menu", MainMenu)
 scene_manager.add_scene("Main Scene", MainScene)
 scene_manager.add_scene("Virus Vacuum", VirusVacuum)
+scene_manager.add_scene("Firewall Fighter", FirewallFighter)
 
 
-scene_manager.start_scene("Virus Vacuum")
+scene_manager.start_scene("Firewall Fighter")
 
 clock = pg.time.Clock()
 
