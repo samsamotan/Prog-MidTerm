@@ -2,9 +2,11 @@ import pygame as pg
 from .game_object import GameObject
 
 class InteractiveObject(GameObject):
-    def __init__(self, x: int, y: int, width: int, height: int, image:str = None):
+    def __init__(self, x: int, y: int, width: int, height: int, scene_manager, target_scene, image:str = None):
         super().__init__(x, y, width, height, image)
         self.actions = {}
+        self.scene_manager = scene_manager
+        self.target_scene = target_scene
 
     def add_action(self, key, function):
         self.actions[key] = function
@@ -14,4 +16,5 @@ class InteractiveObject(GameObject):
             for event in events:
                 if event.type == pg.KEYDOWN:
                     if event.key in self.actions:
-                        self.actions[event.key]()
+                        if self.actions[event.key] == "change scene":
+                            self.scene_manager.start_scene(self.target_scene)
