@@ -1,6 +1,7 @@
 import pygame as pg
 import random
 
+
 # Initialize Pygame
 pg.init()
 
