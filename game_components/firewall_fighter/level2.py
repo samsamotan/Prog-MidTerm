@@ -17,7 +17,7 @@ HEALTH_MAX = 3  # Maximum health (3 hearts)
 score = 0
 
 # Load images
-background_image = pg.image.load("UI objects/SPACE BG.png").convert()
+background_image = pg.image.load("SPACE BG.png").convert()
 player_image = pg.image.load("Player_ship (16 x 16).png").convert_alpha()
 virus_image = pg.image.load("Alan (16 x 16).png").convert_alpha()
 safe_program_image = pg.image.load("Bon_Bon (16 x 16).png").convert_alpha()
