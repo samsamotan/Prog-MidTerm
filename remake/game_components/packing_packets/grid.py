@@ -1,9 +1,9 @@
 import pygame
-from color import Colors
+from .color import Colors
 
 class Grid: 
     def __init__(self): 
-        self.num_rows = 20
+        self.num_rows = 19
         self.num_cols = 10
         self.cell_size = 30 
 #the 2 dimensional array using for loop

@@ -6,7 +6,7 @@ class Virus(GameObject):
     def __init__(self, map, image:str = None):
         x, y = self.choose_spawn_point(map, {"x_min": 16, "x_max": 19, "y_min": 8, "y_max": 11})
         super().__init__(x * 32 + 8, y * 32 + 6, 15, 20, image)
-        self.speed = 300
+        self.speed = 250
         self.new_pos = self.rect.topleft
         self.direction = None
         self.choose_direction(map)

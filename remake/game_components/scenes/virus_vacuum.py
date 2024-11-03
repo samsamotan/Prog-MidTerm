@@ -13,14 +13,11 @@ class VirusVacuum(Scene):
         super().__init__(scene_manager, game_state, width, height)
 
     def start(self):
-        self.player = Player(50, 50, 15, 20)
-        new_game = InteractiveObject(225, 150, 270, 48, self.scene_manager, "Virus Vacuum", "Main Menu", os.path.join(assets_folder, "pixil-frame-0.png"))
-        new_game.add_action(pg.K_e, "new scene")
+        self.player = Player(self.width // 2, self.height // 2, 15, 20, speed = 200)
         self.game_map = VirusVacuumMap(os.path.join(assets_folder, "edge_spritesheet.png"), 32, 32, 16, 1)
         viruses = [Virus(self.game_map) for x in range(4)]
         self.highlight = GameObject(-32, -32, 32, 32)
-        self.interactions = pg.sprite.Group(new_game)
-        self.all_sprites = pg.sprite.Group(new_game, viruses, self.highlight)
+        self.all_sprites = pg.sprite.Group(viruses, self.highlight)
         self.viruses = pg.sprite.Group(viruses)
     
     def handle_events(self, dt):
@@ -37,6 +34,8 @@ class VirusVacuum(Scene):
                 virus.kill()
         self.highlight.rect.x = self.game_state.get_mouse_pos()[0]//32*32
         self.highlight.rect.y = self.game_state.get_mouse_pos()[1]//32*32
+        if len(self.viruses) == 0:
+            self.scene_manager.start_scene("Main Scene")
 
     def draw(self, screen, camera):
         screen.fill((0,0,0))

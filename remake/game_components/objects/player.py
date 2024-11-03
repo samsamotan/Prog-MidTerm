@@ -2,9 +2,9 @@ import pygame as pg
 from .game_object import GameObject
 
 class Player(GameObject):
-    def __init__(self, x: int, y: int, width: int, height: int, image:str = None):
+    def __init__(self, x: int, y: int, width: int, height: int, image:str = None, speed = 300):
         super().__init__(x, y, width, height, image)
-        self.speed = 300
+        self.speed = speed
         self.velocity = pg.Vector2(0, 0)
 
     def move(self, keys, dt, scene, *groups, vertical_movement = True, horizontal_movement = True):

@@ -1,6 +1,6 @@
-from color import Colors
+from .color import Colors
 import pygame
-from position import Position
+from .position import Position
 
 # Each block will have a unique ID
 class Block: 
