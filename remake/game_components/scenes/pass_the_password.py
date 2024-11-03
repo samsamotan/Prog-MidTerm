@@ -11,30 +11,52 @@ class PassThePassword(Scene):
     def __init__(self, scene_manager, game_state):
         width = 1024
         height = 576
+        self.max_tries = 5
         super().__init__(scene_manager, game_state, width, height)
-        self.guesses = []
-        self.guess = []
-        
 
     def start(self):
         self.player = Player(50, 50, 15, 20)
         self.background = GameObject(0, 0, self.width, self.height, os.path.join(assets_folder, "bg.png"))
-        buttons = [Button(self.width/2 - 190 + i*100, self.height/2, 80, 80, f"{i}") for i in range(4)]
-        self.all_sprites.add(self.background, buttons)
+        buttons = [Button(self.width/2 - 190 + i*100, 100, 80, 80, f"{i + 1}") for i in range(4)]
+        for button in buttons:
+            button.add_action(pg.K_SPACE, "press")
+        self.code = random.sample([1, 2, 3, 4], k=4)
+        self.guesses = GuessHistory()
+        self.guess = []
+        self.tries_left = self.max_tries
+        self.guess_text = CurrentGuess('', (self.width // 2, 220))
+        self.correct_text = CorrectNumber('', (self.width // 2, 270))
+        self.tries_text = TriesRemaining(str(self.max_tries), (self.width // 2, 320))
+        self.interactions.add(buttons)
+        self.all_sprites.add(self.background, buttons, self.guesses, self.guess_text, self.correct_text, self.tries_text)  
 
     def handle_events(self, dt):
         for interaction in self.interactions:
-            interaction.interact(self.game_state.get_events(), self.player)
+            if interaction.interact(self):
+                if len(self.guess) == 4:
+                    guess = ''.join(self.guess)
+                    correct = self.check_guess(guess)
+                    print(correct, self.code)
+                    self.guesses.add_guess(guess, correct)
+                    feedback_message = f"{correct} numbers in the correct position."
+                    self.correct_text.update_text(feedback_message)
+                    self.guess.clear()
+                    self.tries_left -= 1
+                    self.tries_text.update_text(str(self.tries_left))
+                    if correct == 4:
+                        self.scene_manager.start_scene("Main Scene")
+                    if self.tries_left == 0:
+                        self.scene_manager.start_scene("Main Scene")
+                self.guess_text.update_text(''.join(self.guess))
         self.player.move(self.game_state.get_keys(), dt, self)
 
+    def check_guess(self, guess):
+        return sum(1 for i in range(4) if guess[i] == str(self.code[i]))
 
     def draw(self, screen, camera):
         screen.fill((0,0,0))
         for sprite in self.all_sprites:
             screen.blit(sprite.image, camera.apply(sprite.rect))
         screen.blit(self.player.image, camera.apply(self.player.rect))
-
-    def generate_random_password(self):
-        return random.sample([1, 2, 3, 4], k=4)
     
     

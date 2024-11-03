@@ -23,7 +23,7 @@ scene_manager.add_scene("Pass the Password", PassThePassword)
 
 # TODO: move sprite group declarations for scenes to init(will cause phantoms if scene manager reset not fixed)
 
-scene_manager.start_scene("Pass the Password")
+scene_manager.start_scene("Main Scene")
 
 clock = pg.time.Clock()
 

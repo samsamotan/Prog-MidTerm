@@ -17,10 +17,12 @@ class MainScene(Scene):
         portal_to_vacuum.add_action(pg.K_e, "change scene")
         portal_to_firewall = InteractiveObject(300, 400, 50, 30, self.scene_manager, "Main Scene", "Firewall Fighter", os.path.join(assets_folder, "pixil-frame-0.png"))
         portal_to_firewall.add_action(pg.K_e, "change scene")
+        portal_to_password = InteractiveObject(300, 500, 50, 30, self.scene_manager, "Main Scene", "Pass the Password", os.path.join(assets_folder, "pixil-frame-0.png"))
+        portal_to_password.add_action(pg.K_e, "change scene")
         test = GameObject(500, 300, 800, 800, os.path.join(assets_folder, "download.png"))
-        self.interactions.add(portal_to_vacuum, portal_to_firewall)
+        self.interactions.add(portal_to_vacuum, portal_to_firewall, portal_to_password)
         self.obstacles.add(test)
-        self.all_sprites.add(portal_to_vacuum, portal_to_firewall, test)
+        self.all_sprites.add(portal_to_vacuum, portal_to_firewall, portal_to_password, test)
 
     def handle_events(self, dt):
         for interaction in self.interactions:
