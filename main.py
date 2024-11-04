@@ -1,66 +1,46 @@
 import pygame as pg
-from game_components.generic import camera
-from game_components.generic import character
-#import pandas as pd
-import animated_object
+from game_components.scene_manager import SceneManager
+from game_components.game_state import GameState
+from game_components.scenes import *
+from game_components.objects.camera import Camera
 
-# pg setup
 pg.init()
 screen = pg.display.set_mode((1024, 576))
-pg.display.set_caption("dootdoot")
-clock = pg.time.Clock()
+pg.display.set_caption("Computer Conquest")
+
 running = True
 dt = 0
-player = character.Player(15, 20, screen.get_width() / 2, screen.get_height() / 2)
-pov = camera.Camera()
-import scenes
 
-anime = animated_object.AnimatedObject()
+camera = Camera(screen)
 
-scenes = {"pacman": scenes.pacman_scene, "menu": scenes.menu_scene, "first": scenes.first_scene}
-#active_scene = menu_scene.menu_scene
-active_scene = "pacman"
-new_scene = active_scene
+game_state = GameState()
+scene_manager = SceneManager(game_state)
+scene_manager.add_scene("Main Menu", MainMenu)
+scene_manager.add_scene("Main Scene", MainScene)
 
-while running:
-    events = pg.event.get()
-    for event in events:
-            if event.type == pg.QUIT:
-                running = False
-    # get keys getting pressed
-    keys = pg.key.get_pressed()
-    # changes player position
-    player.move(keys, dt, scenes[active_scene])
-    for object in scenes[active_scene].get_objects():
-        try:
-            check = object.interaction_check(keys, player)
-            if check != None:
-                new_scene = check
-        except:
-            pass
-    if active_scene != new_scene:
-        active_scene = new_scene
-        match active_scene:
-            case "pacman":
-                player.set_x_pos(512)
-                player.set_y_pos(256)
-        
-    # changes camera offset such that player stays in center
-    pov.update(player, screen, scenes[active_scene])
+#Kenneth's Minigame
+scene_manager.add_scene("Virus Vacuum", VirusVacuum)
 
-    # loads all objects
-    if active_scene == "pacman":
-        scenes[active_scene].render(screen, pov, player, events, pg.mouse.get_pos(), dt)
-    elif active_scene == "menu":
-        scenes[active_scene].render(screen, pov, player)
-        anime.render(screen, pov)
-    else:
-        scenes[active_scene].render(screen, pov, player)
+#Kath's Minigame
+scene_manager.add_scene("Firewall Fighter", FirewallFighter)
 
-    # limits FPS to 60
-    # dt is delta time in seconds since last frame, used for framerate-
-    # independent physics.
+#Faith's Minigame
+scene_manager.add_scene("Pass the Password", PassThePassword)
 
+#Ari's Minigame
+scene_manager.add_scene("Packing Packets", PackingPackets)
+
+# TODO: move sprite group declarations for scenes to init(will cause phantoms if scene manager reset not fixed)
+
+scene_manager.start_scene("Virus Vacuum")
+
+clock = pg.time.Clock()
+
+while game_state.update():
+    scene_manager.handle_events(dt)
+    scene_manager.update(camera, screen, dt)
+
+    scene_manager.draw(screen, camera)
     pg.display.flip()
     dt = clock.tick(60) / 1000
 
