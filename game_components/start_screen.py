@@ -14,7 +14,7 @@ BLACK = (0, 0, 0)
 slot_box_color = (200, 200, 255, 150)  # Semi-transparent color for the box
 
 # Load background map image
-background = pygame.image.load("remake/assets/map2.png")  # Replace with your file path
+background = pygame.image.load("assets/map2.png")  # Replace with your file path
 background = pygame.transform.scale(background, (800, 600))
 
 # Font settings
