@@ -8,6 +8,7 @@ class Player(GameObject):
         self.velocity = pg.Vector2(0, 0)
 
     def move(self, keys, dt, scene, *groups, vertical_movement = True, horizontal_movement = True):
+        # get velocity
         self.velocity.x = (keys[pg.K_RIGHT] - keys[pg.K_LEFT]) * self.speed * dt
         self.velocity.y = (keys[pg.K_DOWN] - keys[pg.K_UP]) * self.speed * dt
 
@@ -33,6 +34,7 @@ class Player(GameObject):
                         elif self.velocity.y < 0:  # Moving up
                             self.rect.top = obstacle.rect.bottom
 
+        # Don't move if at border
         if self.rect.x < 0:
             self.rect.x = 0
         if self.rect.y < 0:

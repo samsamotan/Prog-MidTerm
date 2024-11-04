@@ -10,6 +10,7 @@ class InteractiveObject(GameObject):
         self.target_scene = target_scene
 
     def add_action(self, key, function):
+        """Add an interaction to the object"""
         self.actions[key] = function
 
     def interact(self, events, player):

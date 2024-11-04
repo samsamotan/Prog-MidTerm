@@ -17,9 +17,17 @@ game_state = GameState()
 scene_manager = SceneManager(game_state)
 scene_manager.add_scene("Main Menu", MainMenu)
 scene_manager.add_scene("Main Scene", MainScene)
+
+#Kenneth's Minigame
 scene_manager.add_scene("Virus Vacuum", VirusVacuum)
+
+#Kath's Minigame
 scene_manager.add_scene("Firewall Fighter", FirewallFighter)
+
+#Faith's Minigame
 scene_manager.add_scene("Pass the Password", PassThePassword)
+
+#Ari's Minigame
 scene_manager.add_scene("Packing Packets", PackingPackets)
 
 # TODO: move sprite group declarations for scenes to init(will cause phantoms if scene manager reset not fixed)

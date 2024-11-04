@@ -4,7 +4,6 @@ from ..objects import GameObject
 
 class Threat(GameObject):
     def __init__(self, virus_image, safe_image, is_virus=True):
-        # Create surface and set rect
         if is_virus:
             self.image = virus_image
         else:

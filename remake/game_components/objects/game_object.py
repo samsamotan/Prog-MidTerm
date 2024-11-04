@@ -5,12 +5,13 @@ class GameObject(pg.sprite.Sprite):
         super().__init__()
         self.x = x
         self.y = y
-        if image == None:
+        if image == None: # make transparent surface if no image provided
             self.image = pg.Surface((width, height))
             self.image.fill((255,255,255))
             self.image.set_alpha(70)
-        elif isinstance(image, str):
+        elif isinstance(image, str): # load image if filepath provided
             self.image = pg.image.load(image)
-        else:
+        else: # use as image if surface provided
             self.image = image
+        # set rect
         self.rect = self.image.get_rect(topleft = (x, y))
