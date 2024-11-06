@@ -4,5 +4,7 @@ from .game_object import GameObject
 from .interactive_object import InteractiveObject
 from .sprite_map import SpriteMap
 from .sprite_tile import SpriteTile
+from .display_text import DisplayText
+from .button import Button
 
-__all__ = ["Camera", "Player", "GameObject", "InteractiveObject", "SpriteMap", "SpriteTile"]
+__all__ = ["Camera", "Player", "GameObject", "InteractiveObject", "SpriteMap", "SpriteTile", "DisplayText", "Button"]

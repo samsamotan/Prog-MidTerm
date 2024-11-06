@@ -5,14 +5,15 @@ from game_components.scenes import *
 from game_components.objects.camera import Camera
 
 pg.init()
-screen = pg.display.set_mode((1024, 576))
+print(pg.display.list_modes())
+screen = pg.display.set_mode((1024,576))
+
 pg.display.set_caption("Computer Conquest")
 
 running = True
 dt = 0
 
 camera = Camera(screen)
-
 game_state = GameState()
 scene_manager = SceneManager(game_state)
 scene_manager.add_scene("Main Menu", MainMenu)
@@ -30,9 +31,12 @@ scene_manager.add_scene("Pass the Password", PassThePassword)
 #Ari's Minigame
 scene_manager.add_scene("Packing Packets", PackingPackets)
 
+#Franco's Minigame
+scene_manager.add_scene("Color Match", ColorMatch)
+
 # TODO: move sprite group declarations for scenes to init(will cause phantoms if scene manager reset not fixed)
 
-scene_manager.start_scene("Main Menu")
+scene_manager.start_scene("Color Match")
 
 clock = pg.time.Clock()
 
