@@ -13,6 +13,7 @@ class VirusVacuum(Scene):
         super().__init__(scene_manager, game_state, width, height)
 
     def start(self):
+        self.background = GameObject(0,-35,1024,576, os.path.join(assets_folder, "pacman_game_background.png"))
         self.player = Player(self.width // 2, self.height // 2, 15, 20, speed = 200)
         self.game_map = VirusVacuumMap(os.path.join(assets_folder, "edge_spritesheet.png"), 32, 32, 16, 1)
         viruses = [Virus(self.game_map) for x in range(4)]
@@ -39,6 +40,7 @@ class VirusVacuum(Scene):
 
     def draw(self, screen, camera):
         screen.fill((0,0,0))
+        screen.blit(self.background.image, self.background.rect)
         self.game_map.draw(screen)
         self.all_sprites.draw(screen) 
         screen.blit(self.player.image, self.player.rect)

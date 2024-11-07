@@ -7,5 +7,7 @@ from .sprite_tile import SpriteTile
 from .display_text import DisplayText
 from .button import Button
 from .invisible_button import InvisibleButton
+from .NPC import NPC
+from .chatbox import Chatbox
 
-__all__ = ["Camera", "Player", "GameObject", "InteractiveObject", "SpriteMap", "SpriteTile", "DisplayText", "Button", "InvisibleButton"]
+__all__ = ["Camera", "Player", "GameObject", "InteractiveObject", "SpriteMap", "SpriteTile", "DisplayText", "Button", "InvisibleButton", "NPC", "Chatbox"]

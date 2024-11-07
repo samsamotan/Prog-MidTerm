@@ -1,5 +1,5 @@
 from ..scene import Scene
-from objects import *
+from ..objects import *
 
 class SaveScene(Scene):
     def __init__():
