@@ -27,5 +27,5 @@ class Button(pg.sprite.Sprite):
         
         self.rect = self.image.get_rect(topleft=(self.x, self.y))
 
-    def is_clicked(self, x, y):
-        return self.rect.collidepoint(x, y)
+    def is_clicked(self, pos):
+        return self.rect.collidepoint(pos)

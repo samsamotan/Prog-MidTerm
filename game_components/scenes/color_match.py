@@ -23,6 +23,8 @@ class ColorMatch(Scene):
     def start(self):
         self.player = Player(0,0,0,0)
 
+        self.progress = ProgressBar(650, 150, 300, 30)
+
         # Target color (randomly generated)
         self.target_color = [random.randint(0, 255) for _ in range(3)]
         # Current mixed color
@@ -30,29 +32,50 @@ class ColorMatch(Scene):
 
         # Sliders for R, G, B
         self.sliders = {
-            'R': Slider('R', (50, 450), RED),
-            'G': Slider('G', (50, 500), GREEN),
-            'B': Slider('B', (50, 550), BLUE)
+            'R': Slider('R', (50, 400), RED),
+            'G': Slider('G', (50, 450), GREEN),
+            'B': Slider('B', (50, 500), BLUE)
         }
-        self.all_sprites.add(*self.sliders.values())
         
         # Buttons
-        self.reset_button = Button('Reset', 550, 500, 150, 50, DARK_GRAY, WHITE)
-        self.all_sprites.add(self.reset_button)
-        
-        # Match message (hidden by default)
-        self.match_message = DisplayText('Matched!', BLACK, 550, 150)
-        self.all_sprites.add(self.match_message)
+        self.reset_button = Button('Reset', 550, 400, 150, 50, DARK_GRAY, WHITE)
+        self.submit_button = Button('Submit', 550, 460, 150, 50, DARK_GRAY, WHITE)
+        self.interactions.add(self.reset_button, self.submit_button)
+        self.all_sprites.add(self.reset_button, self.submit_button)
 
     def handle_events(self, dt):
-        pass
-    
+        for event in self.game_state.get_events():
+            if event.type == pg.MOUSEBUTTONDOWN or (event.type == pg.MOUSEMOTION and event.buttons[0]):
+                for slider in self.sliders.values():
+                    slider.update(event)
+                if self.reset_button.is_clicked(self.game_state.get_mouse_pos()):
+                    self.current_color = [0,0,0]
+                    for slider in self.sliders.values():
+                        slider.reset_value()
+                if self.submit_button.is_clicked(self.game_state.get_mouse_pos()):
+                    self.check_color()
+                    self.target_color = [random.randint(0, 255) for _ in range(3)]
+                    if self.progress.current_value == 100:
+                        self.scene_manager.start_scene("Main Scene")
+
+    def check_color(self):
+        value = 0
+        for index in range(len(self.current_color)):
+            value += 100 - abs(self.current_color[index] - self.target_color[index])
+        value /= 10
+        self.progress.add_value(value)
+
     def update(self, dt):
-        return super().update(dt)
+        self.current_color = [self.sliders["R"].value, self.sliders["G"].value, self.sliders["B"].value]
 
     def draw(self, screen, camera):
         screen.fill(WHITE)
-        print(self.target_color)
+
+        for slider in self.sliders.values():
+            slider.draw(screen)
+
+        self.progress.draw(screen)
+
         pg.draw.rect(screen, self.target_color, (50, 50, 200, 200), border_radius=15)
         DisplayText('Target Color', BLACK, 50, 270).draw(screen)
         
