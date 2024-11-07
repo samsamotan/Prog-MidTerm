@@ -1,12 +1,12 @@
-import pygame as pg
+import pygame
 
-class ScoreCounter(pg.sprite.Sprite):
+class ScoreCounter(pygame.sprite.Sprite):
     def __init__(self, x, y, font_size=30, color=(255, 255, 0)):
         super().__init__()
         
         # Initialize score and font
         self.score = 0
-        self.font = pg.font.Font(None, font_size)  # Use the default font
+        self.font = pygame.font.Font(None, font_size)  # Use the default font
         self.color = color
 
         # Create the initial image and rect

@@ -1,6 +1,6 @@
 from .button import Button
 
-GRAY = (0,0,0,0)
+GRAY = (0,0,0,50)
 BLACK = (0, 0, 0)
 
 class InvisibleButton(Button):

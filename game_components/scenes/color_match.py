@@ -1,4 +1,4 @@
-import pygame as pg
+import pygame
 from ..objects import *
 from ..color_match import *
 from ..scene import Scene
@@ -18,7 +18,7 @@ class ColorMatch(Scene):
         height = 576
         super().__init__(scene_manager, game_state, width, height)
         # Define fonts
-        self.font = pg.font.SysFont(None, 55)
+        self.font = pygame.font.SysFont(None, 55)
 
     def start(self):
         self.player = Player(0,0,0,0)
@@ -45,7 +45,7 @@ class ColorMatch(Scene):
 
     def handle_events(self, dt):
         for event in self.game_state.get_events():
-            if event.type == pg.MOUSEBUTTONDOWN or (event.type == pg.MOUSEMOTION and event.buttons[0]):
+            if event.type == pygame.MOUSEBUTTONDOWN or (event.type == pygame.MOUSEMOTION and event.buttons[0]):
                 for slider in self.sliders.values():
                     slider.update(event)
                 if self.reset_button.is_clicked(self.game_state.get_mouse_pos()):
@@ -76,10 +76,10 @@ class ColorMatch(Scene):
 
         self.progress.draw(screen)
 
-        pg.draw.rect(screen, self.target_color, (50, 50, 200, 200), border_radius=15)
+        pygame.draw.rect(screen, self.target_color, (50, 50, 200, 200), border_radius=15)
         DisplayText('Target Color', BLACK, 50, 270).draw(screen)
         
-        pg.draw.rect(screen, self.current_color, (300, 50, 200, 200), border_radius=15)
+        pygame.draw.rect(screen, self.current_color, (300, 50, 200, 200), border_radius=15)
         DisplayText('Current Color', BLACK, 300, 270).draw(screen)
         
         self.all_sprites.draw(screen)

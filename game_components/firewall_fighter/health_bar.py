@@ -1,6 +1,6 @@
-import pygame as pg
+import pygame
 
-class HealthBar(pg.sprite.Sprite):
+class HealthBar(pygame.sprite.Sprite):
     def __init__(self, max_health, screen_width, color=(255, 0, 0), size=(30, 30), margin=10):
         super().__init__()
         self.max_health = max_health
@@ -11,7 +11,7 @@ class HealthBar(pg.sprite.Sprite):
 
         # Calculate the total width needed for all health boxes
         total_width = max_health * size[0] + (max_health - 1) * margin
-        self.image = pg.Surface((total_width, size[1] + 2 * margin), pg.SRCALPHA)
+        self.image = pygame.Surface((total_width, size[1] + 2 * margin), pygame.SRCALPHA)
         self.rect = self.image.get_rect(topright=(screen_width - margin, margin))
 
         # Initial draw
@@ -29,7 +29,7 @@ class HealthBar(pg.sprite.Sprite):
         for i in range(self.current_health):
             # Calculate x_position for each health box within the image width
             x_position = i * (self.size[0] + self.margin)
-            pg.draw.rect(self.image, self.color, (x_position, self.margin, *self.size))
+            pygame.draw.rect(self.image, self.color, (x_position, self.margin, *self.size))
     
     def get_current_health(self):
         return self.current_health

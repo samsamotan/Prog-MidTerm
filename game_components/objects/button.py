@@ -1,9 +1,9 @@
-import pygame as pg
+import pygame
 
 GRAY = (200, 200, 200)
 BLACK = (0, 0, 0)
 
-class Button(pg.sprite.Sprite):
+class Button(pygame.sprite.Sprite):
     def __init__(self, text, x, y, width, height, color=GRAY, text_color=BLACK):
         super().__init__()
         self.text = text
@@ -17,10 +17,10 @@ class Button(pg.sprite.Sprite):
 
     def update_image(self):
         # Create the button surface with a rounded rectangle and text
-        self.image = pg.Surface((self.width, self.height), pg.SRCALPHA)
-        pg.draw.rect(self.image, self.color, (0, 0, self.width, self.height), border_radius=15)
+        self.image = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
+        pygame.draw.rect(self.image, self.color, (0, 0, self.width, self.height), border_radius=15)
         
-        font = pg.font.SysFont(None, 40)
+        font = pygame.font.SysFont(None, 40)
         text_surf = font.render(self.text, True, self.text_color)
         text_rect = text_surf.get_rect(center=(self.width // 2, self.height // 2))
         self.image.blit(text_surf, text_rect)

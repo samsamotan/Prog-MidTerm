@@ -1,4 +1,4 @@
-import pygame as pg
+import pygame
 from ..objects import *
 from ..pass_the_password import *
 from ..scene import Scene
@@ -19,7 +19,7 @@ class PassThePassword(Scene):
         self.background = GameObject(0, 0, self.width, self.height, os.path.join(assets_folder, "bg.png"))
         buttons = [Button(self.width/2 - 190 + i*100, 100, 80, 80, f"{i + 1}") for i in range(4)]
         for button in buttons:
-            button.add_action(pg.K_SPACE, "press")
+            button.add_action(pygame.K_SPACE, "press")
         self.code = random.sample([1, 2, 3, 4], k=4)
         self.guesses = GuessHistory()
         self.guess = []

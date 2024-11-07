@@ -1,11 +1,11 @@
-import pygame as pg
+import pygame
 from ..objects import *
 from ..scene import Scene
 from ..packing_packets import *
 import os
 
 assets_folder = os.path.join(os.path.dirname(__file__), "..", "..", "assets")
-GAME_UPDATE = pg.USEREVENT
+GAME_UPDATE = pygame.USEREVENT
 
 class PackingPackets(Scene):
     def __init__(self, scene_manager, game_state):
@@ -14,15 +14,15 @@ class PackingPackets(Scene):
         super().__init__(scene_manager, game_state, width, height)
 
     def start(self):
-        pg.time.set_timer(GAME_UPDATE, 200)
+        pygame.time.set_timer(GAME_UPDATE, 200)
         self.game = Game()
         self.player = Player(0,0,0,0)
-        self.title_font = pg.font.Font(None, 40)
+        self.title_font = pygame.font.Font(None, 40)
         self.score_surface = self.title_font.render("SCORE", True, Colors.white)
         self.next_surface = self.title_font.render("NEXT", True, Colors.white)
         self.game_over_surface = self.title_font.render("GAME OVER!", True, Colors.white)
-        self.score_rect = pg.Rect(320, 55, 170, 60)
-        self.next_rect = pg.Rect(320, 215, 170, 180)
+        self.score_rect = pygame.Rect(320, 55, 170, 60)
+        self.next_rect = pygame.Rect(320, 215, 170, 180)
 
     def update(self, dt):
         if self.game.game_over == True: 
@@ -30,18 +30,18 @@ class PackingPackets(Scene):
 
     def handle_events(self, dt):
         for event in self.game_state.get_events():
-            if event.type == pg.KEYDOWN:
+            if event.type == pygame.KEYDOWN:
                 if self.game.game_over == True:
                     self.game.game_over = False
                     self.game.reset()
-                if event.key == pg.K_LEFT and self.game.game_over == False:
+                if event.key == pygame.K_LEFT and self.game.game_over == False:
                     self.game.move_left()
-                if event.key == pg.K_RIGHT and self.game.game_over == False:
+                if event.key == pygame.K_RIGHT and self.game.game_over == False:
                     self.game.move_right()
-                if event.key == pg.K_DOWN and self.game.game_over == False:
+                if event.key == pygame.K_DOWN and self.game.game_over == False:
                     self.game.move_down()
                     self.game.update_score(0)
-                if event.key == pg.K_UP and self.game.game_over == False:
+                if event.key == pygame.K_UP and self.game.game_over == False:
                     self.game.rotate() 
             if event.type == GAME_UPDATE and self.game.game_over == False:
                 self.game.move_down()
@@ -52,9 +52,9 @@ class PackingPackets(Scene):
         screen.blit(self.next_surface, (368, 180, 50, 50))
 
         self.score_value_surface = self.title_font.render(str(self.game.score), True, Colors.white)
-        pg.draw.rect(screen, Colors.light_blue, self.score_rect, 0, 10)
+        pygame.draw.rect(screen, Colors.light_blue, self.score_rect, 0, 10)
         screen.blit(self.score_value_surface, 
                     self.score_value_surface.get_rect(centerx = self.score_rect.centerx,
                                                 centery = self.score_rect.centery))
-        pg.draw.rect(screen, Colors.light_blue, self.next_rect, 0, 10)
+        pygame.draw.rect(screen, Colors.light_blue, self.next_rect, 0, 10)
         self.game.draw(screen)

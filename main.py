@@ -1,14 +1,14 @@
-import pygame as pg
+import pygame
 from game_components.scene_manager import SceneManager
 from game_components.game_state import GameState
 from game_components.scenes import *
 from game_components.objects.camera import Camera
 
-pg.init()
-print(pg.display.list_modes())
-screen = pg.display.set_mode((1024,576))
+pygame.init()
+print(pygame.display.list_modes())
+screen = pygame.display.set_mode((1024,576))
 
-pg.display.set_caption("Computer Conquest")
+pygame.display.set_caption("Computer Conquest")
 
 running = True
 dt = 0
@@ -16,7 +16,7 @@ dt = 0
 camera = Camera(screen)
 game_state = GameState()
 scene_manager = SceneManager(game_state)
-scene_manager.add_scene("Main Menu", MainMenu)
+scene_manager.add_scene("Main Menu", StartScreen)
 scene_manager.add_scene("Main Scene", MainScene)
 
 #Kenneth's Minigame
@@ -38,14 +38,14 @@ scene_manager.add_scene("Color Match", ColorMatch)
 
 scene_manager.start_scene("Main Menu")
 
-clock = pg.time.Clock()
+clock = pygame.time.Clock()
 
 while game_state.update():
     scene_manager.handle_events(dt)
     scene_manager.update(camera, screen, dt)
 
     scene_manager.draw(screen, camera)
-    pg.display.flip()
+    pygame.display.flip()
     dt = clock.tick(60) / 1000
 
-pg.quit()
+pygame.quit()

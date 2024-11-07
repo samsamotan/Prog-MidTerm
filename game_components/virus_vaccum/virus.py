@@ -1,4 +1,4 @@
-import pygame as pg
+import pygame
 import random
 from ..objects.game_object import GameObject
 

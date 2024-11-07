@@ -1,6 +1,6 @@
-import pygame as pg
+import pygame
 
-class DisplayText(pg.sprite.Sprite):
+class DisplayText(pygame.sprite.Sprite):
     def __init__(self, text, color, x, y, size=55):
         super().__init__()
         self.text = text
@@ -11,7 +11,7 @@ class DisplayText(pg.sprite.Sprite):
         self.update_image()
 
     def update_image(self):
-        font = pg.font.SysFont(None, self.size)
+        font = pygame.font.SysFont(None, self.size)
         self.image = font.render(self.text, True, self.color)
         self.rect = self.image.get_rect(topleft=(self.x, self.y))
 

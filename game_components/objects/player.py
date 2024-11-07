@@ -1,16 +1,16 @@
-import pygame as pg
+import pygame
 from .game_object import GameObject
 
 class Player(GameObject):
     def __init__(self, x: int, y: int, width: int, height: int, image:str = None, speed = 300):
         super().__init__(x, y, width, height, image)
         self.speed = speed
-        self.velocity = pg.Vector2(0, 0)
+        self.velocity = pygame.Vector2(0, 0)
 
     def move(self, keys, dt, scene, *groups, vertical_movement = True, horizontal_movement = True):
         # get velocity
-        self.velocity.x = (keys[pg.K_RIGHT] - keys[pg.K_LEFT]) * self.speed * dt
-        self.velocity.y = (keys[pg.K_DOWN] - keys[pg.K_UP]) * self.speed * dt
+        self.velocity.x = (keys[pygame.K_RIGHT] - keys[pygame.K_LEFT]) * self.speed * dt
+        self.velocity.y = (keys[pygame.K_DOWN] - keys[pygame.K_UP]) * self.speed * dt
 
         #Horizontal movement
         if horizontal_movement:

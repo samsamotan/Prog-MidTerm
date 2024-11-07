@@ -1,6 +1,6 @@
-import pygame as pg
+import pygame
 
-class GuessHistory(pg.sprite.Sprite):
+class GuessHistory(pygame.sprite.Sprite):
     def __init__(self, start_x = 50, feedback_x=300, line_height=35, color=(255, 255, 255)):
         """
         Initialize the GuessHistory sprite.
@@ -15,7 +15,7 @@ class GuessHistory(pg.sprite.Sprite):
         - color: The color of the text.
         """
         super().__init__()
-        self.font = pg.font.Font(None, 28)
+        self.font = pygame.font.Font(None, 28)
         self.width = 1024
         self.height = 175
         self.start_x = start_x
@@ -25,7 +25,7 @@ class GuessHistory(pg.sprite.Sprite):
         self.guess_history = []  # List to store the history of guesses
         
         # Create the surface and rect for the sprite
-        self.image = pg.Surface((1024, 175), pg.SRCALPHA)  # Transparent background
+        self.image = pygame.Surface((1024, 175), pygame.SRCALPHA)  # Transparent background
         self.rect = self.image.get_rect()
         self.rect.bottomleft = (0, 576)
 

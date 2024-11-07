@@ -1,4 +1,4 @@
-import pygame as pg
+import pygame
 
 class Scene:
     def __init__(self, scene_manager, game_state, width, height):
@@ -6,9 +6,9 @@ class Scene:
         self.game_state = game_state
         self.width = width
         self.height = height
-        self.obstacles = pg.sprite.Group()
-        self.interactions = pg.sprite.Group()
-        self.all_sprites = pg.sprite.Group()
+        self.obstacles = pygame.sprite.Group()
+        self.interactions = pygame.sprite.Group()
+        self.all_sprites = pygame.sprite.Group()
 
     def get_obstacle(self):
         return self.obstacles

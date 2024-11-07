@@ -2,7 +2,7 @@ from ..scene import Scene
 from ..objects import *
 from ..virus_vaccum import *
 import os
-import pygame as pg
+import pygame
 
 assets_folder = os.path.join(os.path.dirname(__file__), "..", "..", "assets")
 
@@ -17,12 +17,12 @@ class VirusVacuum(Scene):
         self.game_map = VirusVacuumMap(os.path.join(assets_folder, "edge_spritesheet.png"), 32, 32, 16, 1)
         viruses = [Virus(self.game_map) for x in range(4)]
         self.highlight = GameObject(-32, -32, 32, 32)
-        self.all_sprites = pg.sprite.Group(viruses, self.highlight)
-        self.viruses = pg.sprite.Group(viruses)
+        self.all_sprites = pygame.sprite.Group(viruses, self.highlight)
+        self.viruses = pygame.sprite.Group(viruses)
     
     def handle_events(self, dt):
         for event in self.game_state.get_events():
-            if event.type == pg.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONDOWN:
                 self.game_map.change_wallgrid(self.game_state.get_mouse_pos()[0]//32, self.game_state.get_mouse_pos()[1]//32)
         for interaction in self.interactions:
             interaction.interact(self.game_state.get_events(), self.player)

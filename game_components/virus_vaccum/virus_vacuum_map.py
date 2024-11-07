@@ -1,5 +1,5 @@
 from ..objects import *
-import pygame as pg
+import pygame
 import random
 
 DefaultGrid = [
@@ -26,7 +26,7 @@ class VirusVacuumMap(SpriteMap):
         tile_names = ["left_cap", "top_cap", "bottom_cap", "right_cap", "left_bottom_corner", "left_top_corner", "right_top_corner", "right_bottom_corner", "topless_threeway", "bottomless_threeway", "rightless_threeway", "leftless_threeway", "fourway", "horizontal", "vertical", "lone"]
         super().__init__(filename, tile_names, tile_width, tile_height, columns, rows)
         self.wallgrid = wallgrid or DefaultGrid
-        self.tiles = pg.sprite.Group()
+        self.tiles = pygame.sprite.Group()
         self.make_tilemap()
 
     def change_wallgrid(self, x, y):

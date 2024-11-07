@@ -1,6 +1,6 @@
-import pygame as pg
+import pygame
 
-class CurrentGuess(pg.sprite.Sprite):
+class CurrentGuess(pygame.sprite.Sprite):
     def __init__(self, text, center_position):
         """
         Initialize the TextSprite.
@@ -12,7 +12,7 @@ class CurrentGuess(pg.sprite.Sprite):
         - center_position: The position to center the text on screen.
         """
         super().__init__()
-        self.font = pg.font.Font(None, 48)
+        self.font = pygame.font.Font(None, 48)
         self.color = (255, 255, 255)
         self.center_position = center_position
         self.update_text(text)
@@ -23,7 +23,7 @@ class CurrentGuess(pg.sprite.Sprite):
         self.image = self.font.render(self.text, True, self.color)
         self.rect = self.image.get_rect(center=self.center_position)
 
-class CorrectNumber(pg.sprite.Sprite):
+class CorrectNumber(pygame.sprite.Sprite):
     def __init__(self, text, center_position):
         """
         Initialize the TextSprite.
@@ -35,7 +35,7 @@ class CorrectNumber(pg.sprite.Sprite):
         - center_position: The position to center the text on screen.
         """
         super().__init__()
-        self.font = pg.font.Font(None, 48)
+        self.font = pygame.font.Font(None, 48)
         self.color = (255, 255, 255)
         self.center_position = center_position
         self.update_text(text)
@@ -46,7 +46,7 @@ class CorrectNumber(pg.sprite.Sprite):
         self.image = self.font.render(self.text, True, self.color)
         self.rect = self.image.get_rect(center=self.center_position)
 
-class TriesRemaining(pg.sprite.Sprite):
+class TriesRemaining(pygame.sprite.Sprite):
     def __init__(self, text, center_position):
         """
         Initialize the TextSprite.
@@ -58,7 +58,7 @@ class TriesRemaining(pg.sprite.Sprite):
         - center_position: The position to center the text on screen.
         """
         super().__init__()
-        self.font = pg.font.Font(None, 48)
+        self.font = pygame.font.Font(None, 48)
         self.color = (255, 255, 255)
         self.center_position = center_position
         self.update_text(text)

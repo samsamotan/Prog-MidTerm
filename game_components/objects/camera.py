@@ -1,8 +1,8 @@
-import pygame as pg
+import pygame
 
 class Camera:
     def __init__(self, screen):
-        self.rect = pg.Rect(0, 0, screen.get_width(), screen.get_height())
+        self.rect = pygame.Rect(0, 0, screen.get_width(), screen.get_height())
 
     def update(self, target, scene, screen):
         target_x = target.rect.centerx - screen.get_width() // 2

@@ -1,18 +1,18 @@
-import pygame as pg
+import pygame
 
 class SpriteSheet:
     def __init__(self, filename):
         """Load the sprite sheet from a file."""
         try:
-            self.sheet = pg.image.load(filename).convert_alpha()  # Using convert_alpha for transparency
-        except pg.error as e:
+            self.sheet = pygame.image.load(filename).convert_alpha()  # Using convert_alpha for transparency
+        except pygame.error as e:
             print(f"Unable to load spritesheet image: {filename}")
             raise SystemExit(e)
 
     def image_at(self, rectangle):
         """Extract a single image from the sprite sheet given a rectangle."""
-        rect = pg.Rect(rectangle)
-        image = pg.Surface(rect.size, pg.SRCALPHA).convert_alpha()  # Preserve transparency
+        rect = pygame.Rect(rectangle)
+        image = pygame.Surface(rect.size, pygame.SRCALPHA).convert_alpha()  # Preserve transparency
         image.blit(self.sheet, (0, 0), rect)
         return image
 

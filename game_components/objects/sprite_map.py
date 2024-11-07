@@ -5,7 +5,7 @@ if src_dir not in sys.path:
     sys.path.append(src_dir)
     
 from game_components import spritesheet
-import pygame as pg
+import pygame
 
 class SpriteMap():
     def __init__(self, filename, tile_names, tile_width, tile_height, columns, rows):
@@ -16,7 +16,7 @@ class SpriteMap():
         self.columns = columns
         self.rows = rows
         self.tileset = {}
-        self.tiles = pg.sprite.Group()
+        self.tiles = pygame.sprite.Group()
         self.load_tiles()
 
     def load_tiles(self):

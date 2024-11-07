@@ -1,4 +1,4 @@
-import pygame as pg
+import pygame
 from ..objects import *
 from ..firewall_fighter import *
 from ..scene import Scene
@@ -34,23 +34,38 @@ class FirewallFighter(Scene):
         self.player = Player(512, 526, 15, 20)
         self.health_bar = HealthBar(HEALTH_MAX, self.width)
         self.score_counter = ScoreCounter(10, 10)
-        self.threats = pg.sprite.Group()
-        self.bullets = pg.sprite.Group()
+        self.threats = pygame.sprite.Group()
+        self.bullets = pygame.sprite.Group()
         self.all_sprites.add(self.score_counter, self.health_bar)
 
     def handle_events(self, dt):
         for event in self.game_state.get_events():
-            if event.type == pg.QUIT:
+            if event.type == pygame.QUIT:
                 running = False
             
-            if event.type == pg.KEYDOWN:
-                if event.key == pg.K_SPACE:  
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:  
                     bullet = Bullet(self.player.rect.centerx, self.player.rect.top, bullet_image)
                     self.all_sprites.add(bullet)
                     self.bullets.add(bullet)
         for interaction in self.interactions:
             interaction.interact(self.game_state.get_events(), self.player)
         self.player.move(self.game_state.get_keys(), dt, self, vertical_movement = False)   
+
+    def update_score(self, amount):
+        """Update the score by a specified amount and refresh the display."""
+        self.score += amount
+        self.image = self.font.render(f"Score: {self.score}", True, self.color)
+
+    def set_score(self, new_score):
+        """Set the score to a specific value and refresh the display."""
+        self.score = new_score
+        self.image = self.font.render(f"Score: {self.score}", True, self.color)
+
+    def reset_score(self):
+        """Reset the score to zero and refresh the display."""
+        self.score = 0
+        self.image = self.font.render(f"Score: {self.score}", True, self.color)
 
     def update(self, dt):
          # Randomly spawn threats with reduced frequency
@@ -64,7 +79,7 @@ class FirewallFighter(Scene):
         self.all_sprites.update()
 
         # Check for collisions between bullets and threats
-        hits_bullets = pg.sprite.groupcollide(self.bullets, self.threats, True, True)
+        hits_bullets = pygame.sprite.groupcollide(self.bullets, self.threats, True, True)
         for threat_list in hits_bullets.values():
             for threat in threat_list:
                 if threat.is_virus():
@@ -73,7 +88,7 @@ class FirewallFighter(Scene):
                     self.health_bar.update_health(1)  # Decrease health for hitting safe programs
 
         # Check for collisions between player and threats (safe programs)
-        hits_player = pg.sprite.spritecollide(self.player, self.threats, True)
+        hits_player = pygame.sprite.spritecollide(self.player, self.threats, True)
         for hit in hits_player:
             if not hit.is_virus():   # Only decrease health on safe program collision
                 self.health_bar.update_health(1)

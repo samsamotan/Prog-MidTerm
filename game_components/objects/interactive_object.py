@@ -1,4 +1,4 @@
-import pygame as pg
+import pygame
 from .game_object import GameObject
 
 class InteractiveObject(GameObject):
@@ -16,7 +16,7 @@ class InteractiveObject(GameObject):
     def interact(self, events, player):
         if self.rect.colliderect(player.rect):
             for event in events:
-                if event.type == pg.KEYDOWN:
+                if event.type == pygame.KEYDOWN:
                     if event.key in self.actions:
                         if self.actions[event.key] == "change scene":
                             self.scene_manager.start_scene(self.target_scene)
