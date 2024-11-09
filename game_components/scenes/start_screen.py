@@ -6,10 +6,10 @@ import pygame
 assets_folder = os.path.join(os.path.dirname(__file__), "..", "..", "assets")
 
 class StartScreen(Scene):
-    def __init__(self, scene_manager, game_state):
+    def __init__(self, scene_manager, game_state, audio_manager):
         width = 2000
         height = 1000
-        super().__init__(scene_manager, game_state, width, height)
+        super().__init__(scene_manager, game_state, audio_manager, width, height)
         
     def start(self):
         self.player = Player(50, 50, 15, 20)
