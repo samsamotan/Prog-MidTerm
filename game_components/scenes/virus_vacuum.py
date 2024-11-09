@@ -14,7 +14,7 @@ class VirusVacuum(Scene):
 
     def start(self):
         self.background = GameObject(0,-35,1024,576, os.path.join(assets_folder, "pacman_game_background.png"))
-        self.player = Player(self.width // 2, self.height // 2, 15, 20, speed = 100)
+        self.player = Player(self.width // 2, self.height // 2, 15, 20, speed = 100, image = os.path.join(assets_folder, "cowboy.png"))
         self.game_map = VirusVacuumMap(os.path.join(assets_folder, "edge_spritesheet.png"), 32, 32, 16, 1)
         viruses = [Virus(self.game_map) for x in range(4)]
         self.highlight = GameObject(-32, -32, 32, 32)

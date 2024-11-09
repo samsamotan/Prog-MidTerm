@@ -15,7 +15,7 @@ class PassThePassword(Scene):
         super().__init__(scene_manager, game_state, audio_manager, width, height)
 
     def start(self):
-        self.player = Player(50, 50, 15, 20)
+        self.player = Player(50, 50, 15, 20, os.path.join(assets_folder, "cowboy.png"))
         self.background = GameObject(0, 0, self.width, self.height, os.path.join(assets_folder, "password_background.png"))
         buttons = [Button(self.width/2 - 190 + i*100, 100, 80, 80, f"{i + 1}") for i in range(4)]
         for button in buttons:
