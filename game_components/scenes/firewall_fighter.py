@@ -31,7 +31,7 @@ class FirewallFighter(Scene):
 
 
     def start(self):
-        self.player = Player(512, 526, 15, 20)
+        self.player = Player(512, 526, 15, 20, os.path.join(assets_folder, "spaceship.png"))
         self.health_bar = HealthBar(HEALTH_MAX, self.width)
         self.score_counter = ScoreCounter(10, 10)
         self.threats = pygame.sprite.Group()
