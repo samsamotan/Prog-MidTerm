@@ -42,19 +42,22 @@ class Block:
         if self.rotation_state == 0:
             self.rotation_state = len(self.cells) - 1
 
-    # Drawing a block on the screen
-    def draw(self, screen, offset_x, offset_y):
+    def draw(self, screen, offset_x=0, offset_y=0):
         # Retrieves the list of positions for the current rotation state of the tetromino
-        tiles = self.get_cell_positions()
+        tiles = self.get_cell_positions()  # This calls your existing method
         # Drawing a rectangle for each cell
         for tile in tiles:
-            tile_rect = pygame.Rect(
-                offset_x + tile.column * self.cell_size, 
-                offset_y + tile.row * self.cell_size,
-                self.cell_size - 1, 
-                self.cell_size - 1
-            )
-            pygame.draw.rect(screen, self.colors[self.id], tile_rect)
-
+            tile_rect = pygame.Rect(offset_x + tile.column * self.cell_size,
+                                    offset_y + tile.row * self.cell_size,
+                                    self.cell_size - 1,
+                                    self.cell_size - 1)
+            # Draw the main black block
+            pygame.draw.rect(screen, Colors.black, tile_rect)
+            
+            # Add light gray pixel details for a 'data packet' effect
+            # Top-left pixel detail
+            pygame.draw.rect(screen, Colors.light_gray, tile_rect.inflate(-self.cell_size * 0.8, -self.cell_size * 0.8).move(1, 1))
+            # Bottom-right pixel detail
+            pygame.draw.rect(screen, Colors.light_gray, tile_rect.inflate(-self.cell_size * 0.8, -self.cell_size * 0.8).move(-1, -1))
 
 
