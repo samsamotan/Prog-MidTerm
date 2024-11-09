@@ -10,7 +10,7 @@ WHITE, GRAY, BLACK = (255, 255, 255), (100, 100, 100), (0, 0, 0)
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Computer Conquest")
 
-background_img = pygame.image.load("assets/game_menu.jpg")
+background_img = pygame.image.load("assets/game_menu.png")
 background_img = pygame.transform.scale(background_img, (SCREEN_WIDTH, SCREEN_HEIGHT))
 font = pygame.font.Font(None, 36)
 
@@ -23,23 +23,11 @@ exit_button = pygame.Rect(300, 500, 200, 50)
 pygame.mixer.init()
 loading_sound = pygame.mixer.Sound("assets/loading_game.mp3")
 
-def loading_screen():
-    """Displays a loading bar with sound."""
-    loading_sound.play()
-    for i in range(101):
-        if not pygame.get_init():
-            break
-        screen.fill(BLACK)
-        pygame.draw.rect(screen, GRAY, (150, 280, 500, 40))
-        pygame.draw.rect(screen, WHITE, (150, 280, 5 * i, 40))
-        loading_text = font.render(f"Game Loading... {i}%", True, WHITE)
-        screen.blit(loading_text, (320, 340))
-        pygame.display.flip()
-        time.sleep(0.03)
-    loading_sound.stop()
-
 def game_menu():
     """Displays the main menu with Start, Continue, and Exit buttons."""
+    # Play loading sound at the beginning of the game menu
+    loading_sound.play(-1)  # -1 loops the sound indefinitely until stopped
+
     running = True
     while running:
         if not pygame.get_init():
@@ -66,13 +54,14 @@ def game_menu():
                 return
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if start_button.collidepoint(event.pos):
-                    loading_screen()  # Show loading before birthday welcome screen
+                    loading_sound.stop()  # Stop the audio when navigating away
                     birthday_welcome_screen()  # Navigate to welcome screen
                 elif continue_button.collidepoint(event.pos):
                     print("Continue game (feature not yet implemented)")
                 elif exit_button.collidepoint(event.pos):
                     running = False
 
+    loading_sound.stop()  # Ensure sound stops when exiting the game
     pygame.quit()
 
 if __name__ == "__main__":
