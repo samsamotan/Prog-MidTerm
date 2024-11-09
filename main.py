@@ -31,7 +31,7 @@ scene_manager.add_scene("Firewall Fighter", FirewallFighter)
 scene_manager.add_scene("Pass the Password", PassThePassword)
 
 #Ari's Minigame
-#scene_manager.add_scene("Packing Packets", PackingPackets)
+scene_manager.add_scene("Packing Packets", PackingPackets)
 
 #Franco's Minigame
 scene_manager.add_scene("Color Match", ColorMatch)

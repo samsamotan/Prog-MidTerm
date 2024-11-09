@@ -18,6 +18,7 @@ class PackingPackets(Scene):
 
     def start(self):
         pygame.time.set_timer(GAME_UPDATE, 200)
+        self.background = pygame.image.load(os.path.join(assets_folder, "Tetris Background.png"))
         self.game = Game()
         self.title_font = pygame.font.Font(None, 40)
         self.score_surface = self.title_font.render("SCORE", True, Colors.white)
@@ -50,7 +51,7 @@ class PackingPackets(Scene):
 
     def draw(self, screen, camera):
         # Draw the background and grid
-        screen.blit(pygame.image.load(os.path.join(assets_folder, "Tetris Background.png")), (0, 0))
+        screen.blit(self.background, (0, 0))
         self.grid.draw(screen)  # Calls the modified draw method for the grid
 
         # Adjust the position of the score and next tabs
