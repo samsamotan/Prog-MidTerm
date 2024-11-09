@@ -16,7 +16,7 @@ class PassThePassword(Scene):
 
     def start(self):
         self.player = Player(50, 50, 15, 20)
-        self.background = GameObject(0, 0, self.width, self.height, os.path.join(assets_folder, "pass_the_password_bg.png"))
+        self.background = GameObject(0, 0, self.width, self.height, os.path.join(assets_folder, "password_background.png"))
         buttons = [Button(self.width/2 - 190 + i*100, 100, 80, 80, f"{i + 1}") for i in range(4)]
         for button in buttons:
             button.add_action(pygame.K_SPACE, "press")
