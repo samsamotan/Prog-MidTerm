@@ -2,7 +2,7 @@
 import pygame
 import time
 import sys
-from game_components import main
+from all_games.color_match import main
 
 # Initialize Pygame
 pygame.init()
