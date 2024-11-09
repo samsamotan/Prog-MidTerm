@@ -4,6 +4,7 @@ from ..scene import Scene
 from ..packing_packets import *
 from ..spritesheet import SpriteSheet
 import os
+import time
 
 assets_folder = os.path.join(os.path.dirname(__file__), "..", "..", "assets")
 GAME_UPDATE = pygame.USEREVENT
