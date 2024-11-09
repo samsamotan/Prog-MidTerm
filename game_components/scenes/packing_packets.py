@@ -19,6 +19,7 @@ class PackingPackets(Scene):
     def start(self):
         pygame.time.set_timer(GAME_UPDATE, 200)
         self.background = pygame.image.load(os.path.join(assets_folder, "Tetris Background.png"))
+        self.complete = pygame.image.load(os.path.join(assets_folder, "complete.jpg"))
         self.game = Game()
         self.title_font = pygame.font.Font(None, 40)
         self.score_surface = self.title_font.render("SCORE", True, Colors.white)
@@ -48,16 +49,28 @@ class PackingPackets(Scene):
             if event.type == GAME_UPDATE and self.game.game_over == False:
                 self.game.move_down()
 
+    def draw_translucent_rect(self, screen, color, rect, border_radius=0):
+        # Create a temporary surface with per-pixel alpha
+        translucent_surface = pygame.Surface((rect.width, rect.height), pygame.SRCALPHA)
+        
+        # Fill the surface with the color and apply the alpha value
+        translucent_surface.fill(color)
+        
+        # Draw the rounded rectangle onto this temporary surface
+        pygame.draw.rect(translucent_surface, color, translucent_surface.get_rect(), 0, border_radius)
+
+        # Blit the translucent surface onto the main screen
+        screen.blit(translucent_surface, rect)
+
     def draw(self, screen, camera):
         # Draw the background and grid
         screen.blit(self.background, (0, 0, 1024, 576))
         screen.blit(self.score_surface, (358, 20, 50, 50))
         screen.blit(self.next_surface, (368, 180, 50, 50))
+        screen.blit(self.complete, (520, 60, 500, 500))
 
         self.score_value_surface = self.title_font.render(str(self.game.score), True, Colors.white)
-        pygame.draw.rect(screen, Colors.light_blue, self.score_rect, 0, 10)
-        screen.blit(self.score_value_surface, 
-                    self.score_value_surface.get_rect(centerx = self.score_rect.centerx,
-                                                centery = self.score_rect.centery))
-        pygame.draw.rect(screen, Colors.light_blue, self.next_rect, 0, 10)
+        self.draw_translucent_rect(screen, Colors.white, self.score_rect)
+        screen.blit(self.score_value_surface, self.score_value_surface.get_rect(centerx = self.score_rect.centerx, centery = self.score_rect.centery))
+        self.draw_translucent_rect(screen, Colors.white, self.next_rect)
         self.game.draw(screen)
