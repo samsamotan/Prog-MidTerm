@@ -14,10 +14,14 @@ class VirusVacuum(Scene):
 
     def start(self):
         self.background = GameObject(0,-35,1024,576, os.path.join(assets_folder, "pacman_game_background.png"))
-        self.player = Player(self.width // 2, self.height // 2, 15, 20, speed = 100)
+        self.player = Player(self.width // 2, self.height // 2, 15, 20, speed = 100, image = os.path.join(assets_folder, "cowboy.png"))
         self.game_map = VirusVacuumMap(os.path.join(assets_folder, "edge_spritesheet.png"), 32, 32, 16, 1)
+<<<<<<< HEAD
+        viruses = [Virus(self.game_map, os.path.join(assets_folder, "virus.png")) for x in range(4)]
+=======
         self.viruses = [Virus(self.game_map) for x in range(4)]
         self.virus_counter = DisplayText("Viruses Remaining: " + str(len(self.viruses)), (0,0,0), 20, 535, 30)
+>>>>>>> 7b465836dfe72bfd27f82035c9c5892e48c5151c
         self.highlight = GameObject(-32, -32, 32, 32)
         self.all_sprites = pygame.sprite.Group(self.viruses, self.highlight, self.virus_counter)
         self.viruses = pygame.sprite.Group(self.viruses)
