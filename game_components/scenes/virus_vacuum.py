@@ -7,10 +7,10 @@ import pygame
 assets_folder = os.path.join(os.path.dirname(__file__), "..", "..", "assets")
 
 class VirusVacuum(Scene):
-    def __init__(self, scene_manager, game_state):
+    def __init__(self, scene_manager, game_state, audio_manager):
         width = 1024
         height = 576
-        super().__init__(scene_manager, game_state, width, height)
+        super().__init__(scene_manager, game_state, audio_manager, width, height)
 
     def start(self):
         self.background = GameObject(0,-35,1024,576, os.path.join(assets_folder, "pacman_game_background.png"))

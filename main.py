@@ -38,7 +38,7 @@ scene_manager.add_scene("Color Match", ColorMatch)
 
 # TODO: move sprite group declarations for scenes to init(will cause phantoms if scene manager reset not fixed)
 
-scene_manager.start_scene("Virus Vacuum")
+scene_manager.start_scene("Pass the Password")
 
 clock = pygame.time.Clock()
 
