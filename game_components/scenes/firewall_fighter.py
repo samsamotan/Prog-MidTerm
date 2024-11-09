@@ -99,6 +99,6 @@ class FirewallFighter(Scene):
             self.scene_manager.quit_scene("Firewall Fighter", "Main Scene")
 
     def draw(self, screen, camera):
-        screen.fill((0,0,0))
+        screen.blit(pygame.image.load(os.path.join(assets_folder,"space_invaders.png")), (0,0,1024,576))
         self.all_sprites.draw(screen) 
         screen.blit(self.player.image, self.player.rect)
