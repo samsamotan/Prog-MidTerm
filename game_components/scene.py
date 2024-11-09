@@ -1,9 +1,10 @@
 import pygame
 
 class Scene:
-    def __init__(self, scene_manager, game_state, width, height):
+    def __init__(self, scene_manager, game_state, audio_manager, width, height):
         self.scene_manager = scene_manager
         self.game_state = game_state
+        self,audio_manager
         self.width = width
         self.height = height
         self.obstacles = pygame.sprite.Group()

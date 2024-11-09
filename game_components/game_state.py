@@ -23,3 +23,9 @@ class GameState:
     
     def get_events(self):
         return self.events
+    
+    def save_game(self):
+        pass
+
+    def load_game(self):
+        pass

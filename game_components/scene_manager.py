@@ -1,7 +1,8 @@
 class SceneManager:
-    def __init__(self, game_state):
+    def __init__(self, game_state, audio_manager):
         self.scenes = {}
         self.game_state = game_state
+        self.audio_manager = audio_manager
 
     def add_scene(self, scene_name, scene_class):
         self.scenes[scene_name] = scene_class
@@ -9,7 +10,7 @@ class SceneManager:
     def start_scene(self, scene_name):
         if scene_name in self.scenes:
             if isinstance(self.scenes[scene_name], type):
-                self.current_scene = self.scenes[scene_name](self, self.game_state)
+                self.current_scene = self.scenes[scene_name](self, self.game_state, self.audio_manager)
                 self.scenes[scene_name] = self.current_scene
             else:
                 self.current_scene = self.scenes[scene_name]

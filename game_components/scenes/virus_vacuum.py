@@ -39,7 +39,7 @@ class VirusVacuum(Scene):
             self.scene_manager.start_scene("Main Scene")
 
     def draw(self, screen, camera):
-        screen.fill((0,0,0))
+        screen.fill((168,138,113))
         screen.blit(self.background.image, self.background.rect)
         self.game_map.draw(screen)
         self.all_sprites.draw(screen) 
