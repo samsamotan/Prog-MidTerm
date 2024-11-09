@@ -4,7 +4,7 @@ import pygame
 class Button(InteractiveObject):
     def __init__(self, x, y, width, height, text):
         image = pygame.Surface((80, 80))
-        image.fill((125, 0, 125))
+        image.fill((79, 97, 123))
         self.font = pygame.font.Font(None, 64)
         self.text = text
         number = self.font.render(text, True, (255, 255, 255))
