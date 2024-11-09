@@ -29,7 +29,7 @@ no_button = pygame.Rect(450, 450, 100, 50)
 # Load sounds
 pygame.mixer.init()
 loading_sound = pygame.mixer.Sound("assets/loading_game.mp3")
-background_music = "assets/loading_sound.mp3"
+background_music = "assets/Goblins_Den_(Regular).wav"
 
 # Define colors and font
 title_font = pygame.font.Font(None, 60)
