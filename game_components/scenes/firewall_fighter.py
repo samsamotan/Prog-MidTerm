@@ -94,6 +94,9 @@ class FirewallFighter(Scene):
                 self.health_bar.update_health(1)
                 hit.kill()          # Remove the safe program after collision
 
+        if self.score_counter.score <= 15:
+            self.scene_manager.quit_scene("Firewall Fighter", "Main Scene")
+        
         if self.health_bar.get_current_health() <= 0:   # End game if health reaches zero
             print("Game Over!")
             self.scene_manager.quit_scene("Firewall Fighter", "Main Scene")
