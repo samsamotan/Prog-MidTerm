@@ -12,10 +12,11 @@ class StartScreen(Scene):
         super().__init__(scene_manager, game_state, audio_manager, width, height)
         
     def start(self):
-        self.audio_manager.pygame.mixer.Sound("assets/loading_game.mp3")
+        self.audio_manager.load("background_music_menu", os.path.join(assets_folder, "loading_game.mp3"))
+        self.audio_manager.play("background_music_menu",-1)
         self.player = Player(50, 50, 15, 20)
         background = GameObject(0, 0, 1024, 576, os.path.join(assets_folder, "game_menu.png"))
-        self.new= InvisibleButton(421, 363, 208, 45)
+        self.new = InvisibleButton(421, 363, 208, 45)
         self.load = InvisibleButton(421, 418, 208, 45)
         self.quit = InvisibleButton(421, 473, 208, 45)
         #load_game = InteractiveObject(225, 210, 270, 48, self.scene_manager, "Main Menu", "Main Scene", os.path.join(assets_folder, "load_game.png"))
@@ -26,8 +27,7 @@ class StartScreen(Scene):
         for event in self.game_state.get_events():
             if event.type == pygame.MOUSEBUTTONDOWN or (event.type == pygame.MOUSEMOTION and event.buttons[0]):
                 if self.new.is_clicked(self.game_state.get_mouse_pos()):
-                    self.scene_manager.start_scene("Main Scene")
-                
+                    self.scene_manager.start_scene("Color Match")
                 if self.quit.is_clicked(self.game_state.get_mouse_pos()):
                     pygame.quit()
         self.player.move(self.game_state.get_keys(), dt, self)
