@@ -29,3 +29,7 @@ class GameState:
 
     def load_game(self):
         pass
+
+    def add_popup(self, succeeded):
+        self.popup = True
+        self.succeeded = succeeded
