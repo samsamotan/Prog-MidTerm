@@ -2,6 +2,7 @@ import pygame
 from ..objects import *
 from ..scene import Scene
 from ..packing_packets import *
+from .grid import Grid
 import os
 
 assets_folder = os.path.join(os.path.dirname(__file__), "..", "..", "assets")
@@ -9,9 +10,12 @@ GAME_UPDATE = pygame.USEREVENT
 
 class PackingPackets(Scene):
     def __init__(self, scene_manager, game_state, audio_manager):
+        super().__init__(scene_manager, game_state, audio_manager)
         width = 1024
         height = 576
-        super().__init__(scene_manager, game_state, audio_manager, width, height)
+        self.grid = Grid()  # Initialize the grid attribute
+        self.player = Player(0, 0, 0)
+        # Initialize other attributes if necessary
 
     def start(self):
         pygame.time.set_timer(GAME_UPDATE, 200)
