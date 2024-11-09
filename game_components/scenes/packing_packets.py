@@ -2,7 +2,9 @@ import pygame
 from ..objects import *
 from ..scene import Scene
 from ..packing_packets import *
+from ..spritesheet import SpriteSheet
 import os
+import time
 
 assets_folder = os.path.join(os.path.dirname(__file__), "..", "..", "assets")
 GAME_UPDATE = pygame.USEREVENT
@@ -19,7 +21,9 @@ class PackingPackets(Scene):
     def start(self):
         pygame.time.set_timer(GAME_UPDATE, 200)
         self.background = pygame.image.load(os.path.join(assets_folder, "Tetris Background.png"))
-        self.complete = pygame.image.load(os.path.join(assets_folder, "complete.jpg"))
+        complete = SpriteSheet(os.path.join(assets_folder, "complete.jpg"))
+        complete_broken = complete.load_grid((1, 1, 25, 25), 18, 18)
+        self.tiles = [[GameObject(620+x*25,60+y*25,25,25,complete_broken[x+y*18]) for x in range(18)] for y in range(18)]
         self.game = Game()
         self.title_font = pygame.font.Font(None, 40)
         self.score_surface = self.title_font.render("SCORE", True, Colors.white)
@@ -67,8 +71,26 @@ class PackingPackets(Scene):
         screen.blit(self.background, (0, 0, 1024, 576))
         screen.blit(self.score_surface, (358, 20, 50, 50))
         screen.blit(self.next_surface, (368, 180, 50, 50))
-        screen.blit(self.complete, (520, 60, 500, 500))
-
+        if self.game.score >=1:
+            for x in range(3):
+                for y in range(3):
+                    self.tiles[x*5][y*5].draw(screen) 
+        if self.game.score >=2:
+            for x in range(5):
+                for y in range(5):
+                    self.tiles[x*3][y*3].draw(screen) 
+        if self.game.score >=3:
+            for x in range(7):
+                for y in range(7):
+                    self.tiles[x*2][y*2].draw(screen) 
+        if self.game.score >=4:
+            for x in range(9):
+                for y in range(9):
+                    self.tiles[x*2][y*2].draw(screen) 
+        if self.game.score >=5:
+            for x in range(18):
+                for y in range(18):
+                    self.tiles[x][y].draw(screen)
         self.score_value_surface = self.title_font.render(str(self.game.score), True, Colors.white)
         self.draw_translucent_rect(screen, Colors.white, self.score_rect)
         screen.blit(self.score_value_surface, self.score_value_surface.get_rect(centerx = self.score_rect.centerx, centery = self.score_rect.centery))
