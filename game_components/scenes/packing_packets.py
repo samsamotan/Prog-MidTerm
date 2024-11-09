@@ -1,7 +1,7 @@
 import pygame
-from ...objects import *
-from ...scene import Scene
-from ...packing_packets import *
+from ..objects import *
+from ..scene import Scene
+from ..packing_packets import *
 import os
 
 assets_folder = os.path.join(os.path.dirname(__file__), "..", "..", "assets")
@@ -12,11 +12,13 @@ class PackingPackets(Scene):
         width = 1024
         height = 576
         super().__init__(scene_manager, game_state, audio_manager, width, height)
+        self.grid = Grid()  # Initialize the grid attribute
+        self.player = Player(0, 0, 0, 0)
+        # Initialize other attributes if necessary
 
     def start(self):
         pygame.time.set_timer(GAME_UPDATE, 200)
         self.game = Game()
-        self.player = Player(0,0,0,0)
         self.title_font = pygame.font.Font(None, 40)
         self.score_surface = self.title_font.render("SCORE", True, Colors.white)
         self.next_surface = self.title_font.render("NEXT", True, Colors.white)

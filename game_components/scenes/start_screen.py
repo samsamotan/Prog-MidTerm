@@ -12,6 +12,7 @@ class StartScreen(Scene):
         super().__init__(scene_manager, game_state, audio_manager, width, height)
         
     def start(self):
+        self.audio_manager.pygame.mixer.Sound("assets/loading_game.mp3")
         self.player = Player(50, 50, 15, 20)
         background = GameObject(0, 0, 1024, 576, os.path.join(assets_folder, "game_menu.png"))
         self.new= InvisibleButton(421, 363, 208, 45)

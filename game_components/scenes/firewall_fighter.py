@@ -31,7 +31,7 @@ class FirewallFighter(Scene):
 
 
     def start(self):
-        self.player = Player(512, 526, 15, 20)
+        self.player = Player(512, 526, 15, 20, os.path.join(assets_folder, "spaceship.png"))
         self.health_bar = HealthBar(HEALTH_MAX, self.width)
         self.score_counter = ScoreCounter(10, 10)
         self.threats = pygame.sprite.Group()
@@ -94,6 +94,9 @@ class FirewallFighter(Scene):
                 self.health_bar.update_health(1)
                 hit.kill()          # Remove the safe program after collision
 
+        if self.score_counter.score <= 15:
+            self.scene_manager.quit_scene("Firewall Fighter", "Main Scene")
+        
         if self.health_bar.get_current_health() <= 0:   # End game if health reaches zero
             print("Game Over!")
             self.scene_manager.quit_scene("Firewall Fighter", "Main Scene")
