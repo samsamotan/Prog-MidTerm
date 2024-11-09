@@ -1,11 +1,6 @@
 import pygame
-background_image = pygame.image.load('bg.png')
 
 class GuessHistory(pygame.sprite.Sprite):
-    def draw_scene(screen):
-         screen.blit(background_image, (0, 0))  # Draw the image at the top-left corner
-         all_sprites.draw(screen)  # Draw all other sprites over it
-
     def __init__(self, start_x = 50, feedback_x=300, line_height=35, color=(255, 255, 255)):
         """
         Initialize the GuessHistory sprite.
