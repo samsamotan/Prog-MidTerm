@@ -1,8 +1,7 @@
 import pygame
-from ..objects import *
-from ..scene import Scene
-from ..packing_packets import *
-from .grid import Grid
+from ...objects import *
+from ...scene import Scene
+from ...packing_packets import *
 import os
 
 assets_folder = os.path.join(os.path.dirname(__file__), "..", "..", "assets")
@@ -10,12 +9,9 @@ GAME_UPDATE = pygame.USEREVENT
 
 class PackingPackets(Scene):
     def __init__(self, scene_manager, game_state, audio_manager):
-        super().__init__(scene_manager, game_state, audio_manager)
         width = 1024
         height = 576
-        self.grid = Grid()  # Initialize the grid attribute
-        self.player = Player(0, 0, 0)
-        # Initialize other attributes if necessary
+        super().__init__(scene_manager, game_state, audio_manager, width, height)
 
     def start(self):
         pygame.time.set_timer(GAME_UPDATE, 200)
@@ -29,7 +25,7 @@ class PackingPackets(Scene):
         self.next_rect = pygame.Rect(320, 215, 170, 180)
 
     def update(self, dt):
-        if self.game.game_over == True: 
+        if self.game.game_over == True:
             self.scene_manager.start_scene("Main Scene")
 
     def handle_events(self, dt):
@@ -44,25 +40,20 @@ class PackingPackets(Scene):
                     self.game.move_right()
                 if event.key == pygame.K_DOWN and self.game.game_over == False:
                     self.game.move_down()
-                    self.game.update_score(0)
                 if event.key == pygame.K_UP and self.game.game_over == False:
-                    self.game.rotate() 
+                    self.game.rotate()
             if event.type == GAME_UPDATE and self.game.game_over == False:
                 self.game.move_down()
 
     def draw(self, screen, camera):
-        # Draw the background and grid
-        screen.blit(pygame.image.load(os.path.join(assets_folder, "Tetris Background.png")), (0, 0))
-        self.grid.draw(screen)  # Calls the modified draw method for the grid
+        screen.blit(pygame.image.load(os.path.join(assets_folder,"Tetris Background.png")),(0,0,1024,576))
+        screen.blit(self.score_surface, (358, 20, 50, 50))
+        screen.blit(self.next_surface, (368, 180, 50, 50))
 
-        # Adjust the position of the score and next tabs
-        score_position = (self.grid.width + 40, 20)  # 40px to the right of the grid
-        next_position = (self.grid.width + 40, 120)  # 100px below the score tab
-
-        # Translucent white background for score and next tabs
-        pygame.draw.rect(screen, (255, 255, 255, 128), (score_position[0], score_position[1], 100, 50))  # Score tab
-        pygame.draw.rect(screen, (255, 255, 255, 128), (next_position[0], next_position[1], 100, 100))  # Next tab
-
-        # Draw the text for score and next tabs
-        screen.blit(self.score_surface, score_position)
-        screen.blit(self.next_surface, next_position)
+        self.score_value_surface = self.title_font.render(str(self.game.score), True, Colors.white)
+        pygame.draw.rect(screen, Colors.light_blue, self.score_rect, 0, 10)
+        screen.blit(self.score_value_surface, 
+            (self.score_rect.centerx - self.score_value_surface.get_rect().centerx, 
+            self.score_rect.centery - self.score_value_surface.get_rect().centery))
+        pygame.draw.rect(screen, Colors.light_blue, self.next_rect, 0, 10)
+        self.game.draw(screen)
