@@ -48,9 +48,6 @@ class Game:
         self.next_block = self.get_random_block()
         rows_cleared = self.grid.clear_full_rows()
         self.update_score(rows_cleared)
-         # Check if the score has reached 5 to end the game
-        if self.score >= 5:
-            self.game_over = True
         # game over condition if the block doesn't fit
         if self.block_fits() == False:
             self.game_over = True
