@@ -76,4 +76,3 @@ class Grid:
                             self.cell_size -1, self.cell_size -1)
                  #3 arguments (surface=screen, color, rect)
                 pygame.draw.rect(screen, self.colors[cell_value], cell_rect)
-

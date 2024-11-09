@@ -50,17 +50,14 @@ class PackingPackets(Scene):
 
     def draw(self, screen, camera):
         # Draw the background and grid
-        screen.blit(self.background, (0, 0))
-        self.grid.draw(screen)  # Calls the modified draw method for the grid
+        screen.blit(self.background, (0, 0, 1024, 576))
+        screen.blit(self.score_surface, (358, 20, 50, 50))
+        screen.blit(self.next_surface, (368, 180, 50, 50))
 
-        # Adjust the position of the score and next tabs
-        score_position = (self.grid.width + 40, 20)  # 40px to the right of the grid
-        next_position = (self.grid.width + 40, 120)  # 100px below the score tab
-
-        # Translucent white background for score and next tabs
-        pygame.draw.rect(screen, (255, 255, 255, 128), (score_position[0], score_position[1], 100, 50))  # Score tab
-        pygame.draw.rect(screen, (255, 255, 255, 128), (next_position[0], next_position[1], 100, 100))  # Next tab
-
-        # Draw the text for score and next tabs
-        screen.blit(self.score_surface, score_position)
-        screen.blit(self.next_surface, next_position)
+        self.score_value_surface = self.title_font.render(str(self.game.score), True, Colors.white)
+        pygame.draw.rect(screen, Colors.light_blue, self.score_rect, 0, 10)
+        screen.blit(self.score_value_surface, 
+                    self.score_value_surface.get_rect(centerx = self.score_rect.centerx,
+                                                centery = self.score_rect.centery))
+        pygame.draw.rect(screen, Colors.light_blue, self.next_rect, 0, 10)
+        self.game.draw(screen)
