@@ -12,7 +12,7 @@ class MainScene(Scene):
         super().__init__(scene_manager, game_state, audio_manager, width, height)
 
     def start(self):
-        self.player = Player(50, 50, 15, 20)
+        self.player = Player(50, 50, 15, 20, os.path.join(assets_folder, "cowboy.png"))
         npc1 = NPC(200, 150,
                     ["Ralof: Hey, you. You're finally awake. You were trying to cross the border, right? Walked right into that Imperial ambush, same as us, and that thief over there.", 
                      "Lokir: Damn you Stormcloaks. Skyrim was fine until you came along. Empire was nice and lazy. If they hadn't been looking for you, I could've stolen that horse and been half way to Hammerfell. You there. You and me -- we should be here. It's these Stormcloaks the Empire wants.", 
