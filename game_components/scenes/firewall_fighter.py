@@ -24,10 +24,10 @@ game_over_image = os.path.join(assets_folder, base_path, "UI objects", "GAME_OVE
 
 
 class FirewallFighter(Scene):
-    def __init__(self, scene_manager, game_state):
+    def __init__(self, scene_manager, game_state, audio_manager):
         width = 1024
         height = 576
-        super().__init__(scene_manager, game_state, width, height)  
+        super().__init__(scene_manager, game_state, audio_manager, width, height)  
 
 
     def start(self):

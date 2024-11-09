@@ -13,10 +13,10 @@ GRAY = (200, 200, 200)
 DARK_GRAY = (100, 100, 100)
 
 class ColorMatch(Scene):
-    def __init__(self, scene_manager, game_state):
+    def __init__(self, scene_manager, game_state, audio_manager):
         width = 1024
         height = 576
-        super().__init__(scene_manager, game_state, width, height)
+        super().__init__(scene_manager, game_state, audio_manager, width, height)
         # Define fonts
         self.font = pygame.font.SysFont(None, 55)
 

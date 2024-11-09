@@ -8,11 +8,11 @@ import random
 assets_folder = os.path.join(os.path.dirname(__file__), "..", "..", "assets")
 
 class PassThePassword(Scene):
-    def __init__(self, scene_manager, game_state):
+    def __init__(self, scene_manager, game_state, audio_manager):
         width = 1024
         height = 576
         self.max_tries = 5
-        super().__init__(scene_manager, game_state, width, height)
+        super().__init__(scene_manager, game_state, audio_manager, width, height)
 
     def start(self):
         self.player = Player(50, 50, 15, 20)

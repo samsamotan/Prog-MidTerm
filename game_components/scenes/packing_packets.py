@@ -8,10 +8,10 @@ assets_folder = os.path.join(os.path.dirname(__file__), "..", "..", "assets")
 GAME_UPDATE = pygame.USEREVENT
 
 class PackingPackets(Scene):
-    def __init__(self, scene_manager, game_state):
+    def __init__(self, scene_manager, game_state, audio_manager):
         width = 1024
         height = 576
-        super().__init__(scene_manager, game_state, width, height)
+        super().__init__(scene_manager, game_state, audio_manager, width, height)
 
     def start(self):
         pygame.time.set_timer(GAME_UPDATE, 200)

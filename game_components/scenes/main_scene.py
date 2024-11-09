@@ -6,10 +6,10 @@ import os
 assets_folder = os.path.join(os.path.dirname(__file__), "..", "..", "assets")
 
 class MainScene(Scene):
-    def __init__(self, scene_manager, game_state):
+    def __init__(self, scene_manager, game_state, audio_manager):
         width = 2000
         height = 1000
-        super().__init__(scene_manager, game_state, width, height)
+        super().__init__(scene_manager, game_state, audio_manager, width, height)
 
     def start(self):
         self.player = Player(50, 50, 15, 20)
@@ -33,7 +33,7 @@ class MainScene(Scene):
         portal_to_password.add_action(pygame.K_e, "change scene")
         portal_to_packets = InteractiveObject(600, 300, 50, 30, self.scene_manager, "Main Scene", "Packing Packets", os.path.join(assets_folder, "pixil-frame-0.png"))
         portal_to_packets.add_action(pygame.K_e, "change scene")
-        portal_to_color = InteractiveObject(600, 300, 50, 30, self.scene_manager, "Main Scene", "Color Match", os.path.join(assets_folder, "pixil-frame-0.png"))
+        portal_to_color = InteractiveObject(700, 300, 50, 30, self.scene_manager, "Main Scene", "Color Match", os.path.join(assets_folder, "pixil-frame-0.png"))
         portal_to_color.add_action(pygame.K_e, "change scene")
         self.interactions.add(portal_to_vacuum, portal_to_firewall, portal_to_password, portal_to_packets, portal_to_color)
         self.all_sprites.add(npc1, portal_to_vacuum, portal_to_firewall, portal_to_password, portal_to_packets, portal_to_color)
