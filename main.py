@@ -36,9 +36,7 @@ scene_manager.add_scene("Packing Packets", PackingPackets)
 #Franco's Minigame
 scene_manager.add_scene("Color Match", ColorMatch)
 
-# TODO: move sprite group declarations for scenes to init(will cause phantoms if scene manager reset not fixed)
-
-scene_manager.start_scene("Pass the Password")
+scene_manager.start_scene("Packing Packets")
 
 clock = pygame.time.Clock()
 
