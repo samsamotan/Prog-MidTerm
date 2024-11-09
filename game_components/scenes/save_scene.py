@@ -11,7 +11,7 @@ class SaveScene(Scene):
         super().__init__(scene_manager, game_state, audio_manager, width, height)
 
     def start(self):
-
+        pass
 
     def handle_events(self, events):
         return super().handle_events(events)
