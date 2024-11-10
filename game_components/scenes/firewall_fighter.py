@@ -15,8 +15,8 @@ base_path = "Mini Pixel Pack 3"
 
 background_image = os.path.join(assets_folder, base_path, "SPACE BG.png")
 player_image = os.path.join(assets_folder, base_path, "Player ship", "Player_ship (16 x 16).png")
-virus_image = os.path.join(assets_folder, base_path, "Enemies", "Alan (16 x 16).png")
-safe_program_image = os.path.join(assets_folder, base_path, "Enemies", "Bon_Bon (16 x 16).png")
+virus_image = os.path.join(assets_folder, "red viruses.png")
+safe_program_image = os.path.join(assets_folder,"safe program.png")
 bullet_image = os.path.join(assets_folder, base_path, "Projectiles", "Player_charged_beam (16 x 16).png")
 number_font_image = os.path.join(assets_folder, base_path, "UI objects", "Number_font (8 x 8).png")
 start_image = os.path.join(assets_folder, base_path, "UI objects", "START (48 x 8).png")
