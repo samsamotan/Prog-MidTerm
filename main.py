@@ -16,7 +16,7 @@ pygame.display.set_caption("Computer Conquest")
 
 assets_folder = os.path.join(os.path.dirname(__file__), "assets")
 camera = Camera(screen)
-game_state = GameState()
+game_state = GameState(camera)
 audio_manager = AudioManager()
 scene_manager = SceneManager(game_state, audio_manager)
 
@@ -57,7 +57,7 @@ while game_state.update():
     # Handle events, update the scene, and draw everything on the screen
     scene_manager.handle_events(dt)
     scene_manager.update(camera, screen, dt)
-    scene_manager.draw(screen, camera)
+    scene_manager.draw(screen)
     pygame.display.flip()
 
     # Maintain a 60 FPS frame rate
