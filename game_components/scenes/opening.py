@@ -21,7 +21,7 @@ class Opening(Scene):
         if self.time >= 3:
             self.scene_manager.start_scene("Choice Scene")
     
-    def draw(self, screen, camera):
+    def draw(self, screen):
         screen.fill((0,0,0))
         image_rect = person_image.get_rect(center=(self.width // 3, self.height // 2))
         screen.blit(person_image, image_rect)

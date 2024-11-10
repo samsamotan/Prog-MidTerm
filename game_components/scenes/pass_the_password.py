@@ -64,10 +64,10 @@ class PassThePassword(Scene):
     def check_guess(self, guess):
         return sum(1 for i in range(4) if guess[i] == str(self.code[i]))
 
-    def draw(self, screen, camera):
+    def draw(self, screen):
         screen.fill((0,0,0))
         for sprite in self.all_sprites:
-            screen.blit(sprite.image, camera.apply(sprite.rect))
-        screen.blit(self.player.image, camera.apply(self.player.rect))
+            screen.blit(sprite.image, self.game_state.camera.apply(sprite.rect))
+        screen.blit(self.player.image, self.game_state.camera.apply(self.player.rect))
     
     

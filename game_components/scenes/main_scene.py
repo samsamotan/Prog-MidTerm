@@ -21,8 +21,8 @@ class MainScene(Scene):
     def start(self):
         background = GameObject(0, 0, image = os.path.join(assets_folder, "map1.png"))
         print (background.rect)
-        self.player = Player(1000, 500, 15, 20, os.path.join(assets_folder, "cowboy.png"))
-        npc1 = NPC(200, 150,
+        self.player = Player(980, 470, 15, 20, os.path.join(assets_folder, "cowboy.png"))
+        npc1 = NPC(830, 1180, 50, 50,
                     ["Ralof: Hey, you. You're finally awake. You were trying to cross the border, right? Walked right into that Imperial ambush, same as us, and that thief over there.", 
                      "Lokir: Damn you Stormcloaks. Skyrim was fine until you came along. Empire was nice and lazy. If they hadn't been looking for you, I could've stolen that horse and been half way to Hammerfell. You there. You and me -- we should be here. It's these Stormcloaks the Empire wants.", 
                      "Ralof: We're all brothers and sisters in binds now, thief.", "Imperial Soldier: Shut up back there!", 
@@ -34,7 +34,8 @@ class MainScene(Scene):
                      "Lokir: Why do you care?", 
                      "Ralof: A Nord's last thoughts should be of home.", 
                      "Lokir: Rorikstead. I'm...I'm from Rorikstead."])
-        portal_to_vacuum = InteractiveObject(300, 300, 50, 30, self.scene_manager, "Main Scene", "Virus Vacuum", os.path.join(assets_folder, "pixil-frame-0.png"))
+        cat = NPC(970, 380, 50, 50, ["Meow", "Meow", "Meow", "Meow", "Meow"])
+        portal_to_vacuum = InteractiveObject(970, 1400, 50, 30, self.scene_manager, "Main Scene", "Virus Vacuum", os.path.join(assets_folder, "pixil-frame-0.png"))
         portal_to_vacuum.add_action(pygame.K_e, "change scene")
         portal_to_firewall = InteractiveObject(400, 300, 50, 30, self.scene_manager, "Main Scene", "Firewall Fighter", os.path.join(assets_folder, "pixil-frame-0.png"))
         portal_to_firewall.add_action(pygame.K_e, "change scene")
@@ -49,7 +50,7 @@ class MainScene(Scene):
         self.all_sprites.add(background, walls, npc1, portal_to_vacuum, portal_to_firewall, portal_to_password, portal_to_packets, portal_to_color)
         self.obstacles.add(walls)
         self.npc_group = pygame.sprite.Group()
-        self.npc_group.add(npc1)
+        self.npc_group.add(npc1, cat)
 
     def handle_events(self, dt):
         for interaction in self.interactions:
@@ -68,12 +69,12 @@ class MainScene(Scene):
             npc.update(self.player.rect.center)
             npc.chatbox.update()
 
-    def draw(self, screen, camera):
+    def draw(self, screen):
         print(self.player.rect)
         screen.fill((0,0,0))
         for sprite in self.all_sprites:
-            screen.blit(sprite.image, camera.apply(sprite.rect))
+            screen.blit(sprite.image, self.game_state.camera.apply(sprite.rect))
         for npc in self.npc_group:
-            npc.draw_prompt(screen, camera)
-            npc.draw_chatbox(screen, camera)
-        screen.blit(self.player.image, camera.apply(self.player.rect))
+            npc.draw_prompt(screen, self.game_state.camera)
+            npc.draw_chatbox(screen)
+        screen.blit(self.player.image, self.game_state.camera.apply(self.player.rect))
