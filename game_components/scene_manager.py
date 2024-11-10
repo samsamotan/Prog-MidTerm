@@ -21,5 +21,5 @@ class SceneManager:
             pass
         self.current_scene.update(dt)
     
-    def draw(self, screen, camera):
-         self.current_scene.draw(screen, camera)
+    def draw(self, screen):
+         self.current_scene.draw(screen)

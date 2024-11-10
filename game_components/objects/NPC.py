@@ -27,10 +27,10 @@ class NPC(pygame.sprite.Sprite):
     def draw_prompt(self, surface, camera):
         # Draw interaction prompt (letter "E") above NPC if in proximity
         if self.in_proximity:
-            prompt_text = self.font.render("E", True, (255, 255, 0))  # Yellow color for "E"
-            surface.blit(prompt_text, (self.rect.x + 20, self.rect.y - 25))  # Display above the NPC
+            prompt_text = self.font.render("E", True, (160, 32, 240))  # Yellow color for "E"
+            surface.blit(prompt_text, camera.apply((self.rect)).move(60,-10))  # Display above the NPC
 
-    def draw_chatbox(self, surface, camera):
+    def draw_chatbox(self, surface):
         # Draw the chatbox if active
         if self.chatbox.active:
             self.chatbox.draw(surface)

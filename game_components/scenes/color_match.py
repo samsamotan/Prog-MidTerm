@@ -79,7 +79,7 @@ class ColorMatch(Scene):
     def update(self, dt):
         self.current_color = [self.sliders["R"].value, self.sliders["G"].value, self.sliders["B"].value]
 
-    def draw(self, screen, camera):
+    def draw(self, screen):
         screen.fill(WHITE)
 
         for slider in self.sliders.values():

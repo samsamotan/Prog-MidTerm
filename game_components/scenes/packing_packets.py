@@ -22,8 +22,9 @@ class PackingPackets(Scene):
         pygame.mixer.init()
 
         # Load sounds
-        self.background_music = pygame.mixer.music.load(os.path.join(assets_folder, "Original Tetris theme (Tetris Soundtrack).mp3"))
-        pygame.mixer.music.play(-1)
+        # self.background_music = pygame.mixer.music.load(os.path.join(assets_folder, "Original Tetris theme (Tetris Soundtrack).mp3"))
+        # pygame.mixer.music.play(-1)
+        self.audio_manager.play("pass_the_password_music", -1)
         
 
 
@@ -75,7 +76,7 @@ class PackingPackets(Scene):
         # Blit the translucent surface onto the main screen
         screen.blit(translucent_surface, rect)
 
-    def draw(self, screen, camera):
+    def draw(self, screen):
         # Draw the background and grid
         screen.blit(self.background, (0, 0, 1024, 576))
         screen.blit(self.score_surface, (358, 20, 50, 50))

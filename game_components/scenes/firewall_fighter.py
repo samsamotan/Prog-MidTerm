@@ -105,7 +105,7 @@ class FirewallFighter(Scene):
             print("Game Over!")
             self.scene_manager.start_scene("Main Scene")
 
-    def draw(self, screen, camera):
+    def draw(self, screen):
         screen.blit(self.background, (0,0,1024,576))
         self.all_sprites.draw(screen) 
         screen.blit(self.player.image, self.player.rect)

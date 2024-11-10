@@ -1,10 +1,11 @@
 import pygame
 
 class GameState:
-    def __init__(self):
+    def __init__(self, camera):
         self.mouse_pos = pygame.mouse.get_pos()
         self.keys = pygame.key.get_pressed()
         self.events = pygame.event.get()
+        self.camera = camera
 
     def update(self):
         self.mouse_pos = pygame.mouse.get_pos()
