@@ -23,7 +23,7 @@ exit_button = pygame.Rect(300, 500, 200, 50)
 
 # Initialize audio
 pygame.mixer.init()
-background_music = pygame.mixer.Sound("assets/loading_game.mp3")
+background_music = pygame.mixer.Sound("assets/Goblins_Dance_(Battle).wav")
 
 def game_menu():
     """Displays the main menu with Start, Continue, and Exit buttons."""
