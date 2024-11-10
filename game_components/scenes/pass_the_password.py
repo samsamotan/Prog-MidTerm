@@ -19,6 +19,8 @@ class PassThePassword(Scene):
 
         #Load sounds
         self.background_music = pygame.mixer.music.load(os.path.join(assets_folder, "Zora's Domain - Day (The Legend of Zelda_ Breath of the Wild OST).mp3"))
+        pygame.mixer.music.play(-1)
+
 
 
     def start(self):
