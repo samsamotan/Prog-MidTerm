@@ -46,7 +46,7 @@ audio_manager.load("color_match_music", os.path.join(assets_folder, "Hateno Vill
 # pygame.mixer.music.play(-1)  # Loop indefinitely
 
 # Start the initial scene
-scene_manager.start_scene("Packing Packets")
+scene_manager.start_scene("Firewall Fighter")
 
 # Set up the game clock for consistent frame rate
 clock = pygame.time.Clock()

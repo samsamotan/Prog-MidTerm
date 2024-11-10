@@ -19,12 +19,14 @@ class PackingPackets(Scene):
         # Initialize other attributes if necessary
 
          # Initialize pygame mixer
-        pygame.mixer.init()
+        pygame.mixer.music.stop()
+        
 
         # Load sounds
         # self.background_music = pygame.mixer.music.load(os.path.join(assets_folder, "Original Tetris theme (Tetris Soundtrack).mp3"))
         # pygame.mixer.music.play(-1)
         self.audio_manager.play("pass_the_password_music", -1)
+
         
 
 

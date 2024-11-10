@@ -1,3 +1,4 @@
+import pygame
 class SceneManager:
     def __init__(self, game_state, audio_manager):
         self.scenes = {}
@@ -8,6 +9,7 @@ class SceneManager:
         self.scenes[scene_name] = scene_class
     
     def start_scene(self, scene_name):
+        pygame.mixer.music.stop()
         self.current_scene = self.scenes[scene_name](self, self.game_state, self.audio_manager)
         self.current_scene.start()
 
