@@ -1,9 +1,28 @@
 import pygame
+import os
+
+assets_folder = os.path.join(os.path.dirname(__file__), "..", "..", "assets")
+
+def initialize_audio_manager():
+    from game_components.audio_manager import AudioManager
+    audio_manager = AudioManager()
+    
 class AudioManager:
     def __init__(self):
         pygame.mixer.init()  # Initialize the mixer module
-        self.sounds = {}     # Dictionary to store loaded sounds by name
+        self.sounds = {
+            "background_music_menu": os.path.join(assets_folder, "Goblins_Dance_(Battle).wav"),
+            "start_scene_music": os.path.join(assets_folder, "Undertale Ost_ 087 - Hopes and Dreams.mp3"),
+            "main_scene_music": os.path.join(assets_folder, "time_for_adventure.mp3"),
+            "virus_vacuum_music": os.path.join(assets_folder, "Donkey Kong Country - Aquatic Ambience [Restored].mp3"),
+            "firewall_fighter_music": os.path.join(assets_folder, "Donkey Kong Country 2 Soundtrack_ Bramble Blast.mp3"),
+            "pass_the_password_music": os.path.join(assets_folder, "Zora's Domain - Day (The Legend of Zelda_ Breath of the Wild OST).mp3"),
+            "packing_packets_music": os.path.join(assets_folder, "Original Tetris theme (Tetris Soundtrack).mp3"),
+            "color_match_music": os.path.join(assets_folder, "Hateno Village (The Legend of Zelda_ Breath of the Wild OST).mp3")
+        }     # Dictionary to store loaded sounds by name
         self.currently_playing = None
+
+        
 
     def load(self, name, file_path):
         """Loads a sound file and stores it by name."""

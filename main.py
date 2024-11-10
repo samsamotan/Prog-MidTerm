@@ -16,7 +16,7 @@ pygame.display.set_caption("Computer Conquest")
 
 assets_folder = os.path.join(os.path.dirname(__file__), "assets")
 camera = Camera(screen)
-game_state = GameState(camera)
+game_state = GameState()
 audio_manager = AudioManager()
 scene_manager = SceneManager(game_state, audio_manager)
 
@@ -46,7 +46,7 @@ audio_manager.load("color_match_music", os.path.join(assets_folder, "Hateno Vill
 # pygame.mixer.music.play(-1)  # Loop indefinitely
 
 # Start the initial scene
-scene_manager.start_scene("Main Scene")
+scene_manager.start_scene("Firewall Fighter")
 
 # Set up the game clock for consistent frame rate
 clock = pygame.time.Clock()
@@ -57,7 +57,7 @@ while game_state.update():
     # Handle events, update the scene, and draw everything on the screen
     scene_manager.handle_events(dt)
     scene_manager.update(camera, screen, dt)
-    scene_manager.draw(screen)
+    scene_manager.draw(screen, camera)
     pygame.display.flip()
 
     # Maintain a 60 FPS frame rate
