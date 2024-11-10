@@ -42,7 +42,7 @@ scene_manager.add_scene("Packing Packets", PackingPackets)
 #Franco's Minigame
 scene_manager.add_scene("Color Match", ColorMatch)
 
-scene_manager.start_scene("Opening Scene")
+scene_manager.start_scene("Main Scene")
 
 clock = pygame.time.Clock()
 
