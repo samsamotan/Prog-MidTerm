@@ -33,8 +33,8 @@ class MainScene(Scene):
                      "Ralof: Hey, what village are you from, horse thief?", 
                      "Lokir: Why do you care?", 
                      "Ralof: A Nord's last thoughts should be of home.", 
-                     "Lokir: Rorikstead. I'm...I'm from Rorikstead."])
-        cat = NPC(970, 380, 50, 50, ["Meow", "Meow", "Meow", "Meow", "Meow"])
+                     "Lokir: Rorikstead. I'm...I'm from Rorikstead."], self, "Virus Vacuum")
+        cat = NPC(970, 380, 50, 50, ["Meow", "Meow", "Meow", "Meow", "Meow"], self, "Color Match", os.path.join(assets_folder, "npcs", "indian_woman.png"))
         portal_to_vacuum = InteractiveObject(970, 1400, 50, 30, self.scene_manager, "Main Scene", "Virus Vacuum", os.path.join(assets_folder, "pixil-frame-0.png"))
         portal_to_vacuum.add_action(pygame.K_e, "change scene")
         portal_to_firewall = InteractiveObject(1635, 1700, 50, 30, self.scene_manager, "Main Scene", "Firewall Fighter", os.path.join(assets_folder, "pixil-frame-0.png"))
@@ -47,7 +47,7 @@ class MainScene(Scene):
         portal_to_color.add_action(pygame.K_e, "change scene")
         walls = [GameObject(x[0],x[1],x[2],x[3]) for x in rects]
         self.interactions.add(portal_to_vacuum, portal_to_firewall, portal_to_password, portal_to_packets, portal_to_color)
-        self.all_sprites.add(background, walls, npc1, portal_to_vacuum, portal_to_firewall, portal_to_password, portal_to_packets, portal_to_color)
+        self.all_sprites.add(background, walls, npc1, portal_to_vacuum, portal_to_firewall, portal_to_password, portal_to_packets, portal_to_color, cat)
         self.obstacles.add(walls)
         self.npc_group = pygame.sprite.Group()
         self.npc_group.add(npc1, cat)
@@ -66,7 +66,7 @@ class MainScene(Scene):
 
     def update(self, dt):
         for npc in self.npc_group:
-            npc.update(self.player.rect.center)
+            npc.update(self.player.rect.center, dt)
             npc.chatbox.update()
 
     def draw(self, screen):
