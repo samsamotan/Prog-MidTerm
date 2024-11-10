@@ -23,7 +23,7 @@ class PackingPackets(Scene):
         self.background = pygame.image.load(os.path.join(assets_folder, "Tetris Background.png"))
         complete = SpriteSheet(os.path.join(assets_folder, "complete.jpg"))
         complete_broken = complete.load_grid((1, 1, 25, 25), 18, 18)
-        self.tiles = [[GameObject(620+x*25,60+y*25,25,25,complete_broken[x+y*18]) for x in range(18)] for y in range(18)]
+        self.tiles = [[GameObject(520+x*25,60+y*25,25,25,complete_broken[x+y*18]) for x in range(18)] for y in range(18)]
         self.game = Game()
         self.title_font = pygame.font.Font(None, 40)
         self.score_surface = self.title_font.render("SCORE", True, Colors.white)

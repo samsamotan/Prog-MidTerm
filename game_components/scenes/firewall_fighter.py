@@ -75,9 +75,6 @@ class FirewallFighter(Scene):
             new_threat = Threat(virus_image,  safe_program_image, is_virus)
             self.all_sprites.add(new_threat)
             self.threats.add(new_threat)
-            
-        # Update all sprites
-        self.all_sprites.update()
 
         # Check for collisions between bullets and threats
         hits_bullets = pygame.sprite.groupcollide(self.bullets, self.threats, True, True)
@@ -95,12 +92,15 @@ class FirewallFighter(Scene):
                 self.health_bar.update_health(1)
                 hit.kill()          # Remove the safe program after collision
 
+        # Update all sprites
+        self.all_sprites.update()
+
         if self.score_counter.score >= 15:
-            self.scene_manager.quit_scene("Firewall Fighter", "Main Scene")
+            self.scene_manager.start_scene("Main Scene")
         
         if self.health_bar.get_current_health() <= 0:   # End game if health reaches zero
             print("Game Over!")
-            self.scene_manager.quit_scene("Firewall Fighter", "Main Scene")
+            self.scene_manager.start_scene("Main Scene")
 
     def draw(self, screen, camera):
         screen.blit(self.background, (0,0,1024,576))
