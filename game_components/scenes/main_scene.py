@@ -8,12 +8,13 @@ assets_folder = os.path.join(os.path.dirname(__file__), "..", "..", "assets")
 
 class MainScene(Scene):
     def __init__(self, scene_manager, game_state, audio_manager):
-        width = 2048
-        height = 1638
+        width = 3200
+        height = 2560
         super().__init__(scene_manager, game_state, audio_manager, width, height)
 
     def start(self):
         background = GameObject(0, 0, image = os.path.join(assets_folder, "map1.png"))
+        print (background.rect)
         self.player = Player(1000, 500, 15, 20, os.path.join(assets_folder, "cowboy.png"))
         npc1 = NPC(200, 150,
                     ["Ralof: Hey, you. You're finally awake. You were trying to cross the border, right? Walked right into that Imperial ambush, same as us, and that thief over there.", 

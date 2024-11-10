@@ -42,11 +42,11 @@ audio_manager.load("packing_packets_music", os.path.join(assets_folder, "Origina
 audio_manager.load("color_match_music", os.path.join(assets_folder, "Hateno Village (The Legend of Zelda_ Breath of the Wild OST).mp3"))
 
 # Start playing the background music for the menu
-pygame.mixer.music.load(os.path.join(assets_folder, "Goblins_Dance_(Battle).wav"))
-pygame.mixer.music.play(-1)  # Loop indefinitely
+# pygame.mixer.music.load(os.path.join(assets_folder, "Goblins_Dance_(Battle).wav"))
+# pygame.mixer.music.play(-1)  # Loop indefinitely
 
 # Start the initial scene
-scene_manager.start_scene("Opening Scene")
+scene_manager.start_scene("Packing Packets")
 
 # Set up the game clock for consistent frame rate
 clock = pygame.time.Clock()
