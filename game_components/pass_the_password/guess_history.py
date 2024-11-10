@@ -21,7 +21,7 @@ class GuessHistory(pygame.sprite.Sprite):
         self.start_x = start_x
         self.feedback_x = feedback_x
         self.line_height = line_height
-        self.color = color
+        self.color = (79, 97, 123)
         self.guess_history = []  # List to store the history of guesses
         
         # Create the surface and rect for the sprite

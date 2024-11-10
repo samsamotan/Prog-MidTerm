@@ -1,5 +1,8 @@
 import pygame
 from .color import Colors
+import os
+
+assets_folder = os.path.join(os.path.dirname(__file__), "..", "..", "assets")
 
 class Grid: 
     def __init__(self): 
@@ -10,6 +13,7 @@ class Grid:
         self.grid = [[0 for j in range(self.num_cols)] for i in range(self.num_rows)]
 #7 colors for the blocks; 1 color for the empty block
         self.colors = Colors.get_cell_colors()
+        self.data_packet = pygame.image.load(os.path.join(assets_folder, "data_packet.png"))
 
 #iterates over every cell in the grid and prints out its value row by row with each row printed on a new line
     def print_grid(self): 
@@ -62,25 +66,29 @@ class Grid:
         for row in range(self.num_rows):
             for column in range(self.num_cols):
                 self.grid[row][column] = 0
-            
+
+    def draw_translucent_rect(self, screen, color, rect):
+        # Create a temporary surface with the same size as the rectangle
+        translucent_surface = pygame.Surface((rect.width, rect.height), pygame.SRCALPHA)
+
+        # Fill the surface with the color and apply the alpha value
+        translucent_surface.fill(color)
+
+        # Blit (draw) the translucent surface onto the main screen surface
+        screen.blit(translucent_surface, rect)
+
     #drawing the cells of the grid with a specific color
     def draw(self, screen):
-        # Draw each cell in the grid as translucent white with padding
-        #first, get the value stored in the cell using a nested for loop
-        #iterates through each cell in the grid
+    #first, get the value stored in the cell using a nested for loop
+    #iterates through each cell in the grid
         for row in range(self.num_rows):
             for column in range(self.num_cols):
                 cell_value = self.grid[row][column]
                 #rect to contain the cell 
                 #x coordinate,y coordinate (top left),width,height
-                cell_rect = pygame.Rect(column * self.cell_size + 30,  # Adds 30px left padding
-                                        row * self.cell_size + self.cell_size // 2,
-                                        self.cell_size - 1,
-                                        self.cell_size - 1)
-                # White with 50% opacity
-                translucent_white = (255, 255, 255, 128)  # RGBA format for translucency
-                 #3 arguments (surface=screen, color, rect)
-                pygame.draw.rect(screen, translucent_white, cell_rect)
-
-
-
+                cell_rect = pygame.Rect(column*self.cell_size + 11, row*self.cell_size + 11, self.cell_size -1, self.cell_size -1)
+                #3 arguments (surface=screen, color, rect)
+                if cell_value == 0:
+                    self.draw_translucent_rect(screen, self.colors[cell_value], cell_rect)
+                else:
+                    screen.blit(self.data_packet, cell_rect)

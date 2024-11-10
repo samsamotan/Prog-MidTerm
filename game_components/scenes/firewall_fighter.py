@@ -31,7 +31,8 @@ class FirewallFighter(Scene):
 
 
     def start(self):
-        self.player = Player(512, 526, 15, 20)
+        self.background = pygame.image.load(os.path.join(assets_folder,"space_invaders.png"))
+        self.player = Player(512, 526, 15, 20, os.path.join(assets_folder, "spaceship.png"))
         self.health_bar = HealthBar(HEALTH_MAX, self.width)
         self.score_counter = ScoreCounter(10, 10)
         self.threats = pygame.sprite.Group()
@@ -74,9 +75,6 @@ class FirewallFighter(Scene):
             new_threat = Threat(virus_image,  safe_program_image, is_virus)
             self.all_sprites.add(new_threat)
             self.threats.add(new_threat)
-            
-        # Update all sprites
-        self.all_sprites.update()
 
         # Check for collisions between bullets and threats
         hits_bullets = pygame.sprite.groupcollide(self.bullets, self.threats, True, True)
@@ -94,11 +92,17 @@ class FirewallFighter(Scene):
                 self.health_bar.update_health(1)
                 hit.kill()          # Remove the safe program after collision
 
+        # Update all sprites
+        self.all_sprites.update()
+
+        if self.score_counter.score >= 15:
+            self.scene_manager.start_scene("Main Scene")
+        
         if self.health_bar.get_current_health() <= 0:   # End game if health reaches zero
             print("Game Over!")
-            self.scene_manager.quit_scene("Firewall Fighter", "Main Scene")
+            self.scene_manager.start_scene("Main Scene")
 
     def draw(self, screen, camera):
-        screen.blit(pygame.image.load(os.path.join(assets_folder,"space_invaders.png")), (0,0,1024,576))
+        screen.blit(self.background, (0,0,1024,576))
         self.all_sprites.draw(screen) 
         screen.blit(self.player.image, self.player.rect)

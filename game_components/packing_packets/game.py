@@ -43,14 +43,12 @@ class Game:
     def lock_block(self):
         tiles = self.current_block.get_cell_positions()
         for position in tiles:
-            self.grid.grid[position.row][position.column] = self.current_block.id
+            self.grid.grid[position.row][position.column] = 1
         self.current_block = self.next_block
         self.next_block = self.get_random_block()
         rows_cleared = self.grid.clear_full_rows()
         self.update_score(rows_cleared)
          # Check if the score has reached 5 to end the game
-        if self.score >= 5:
-            self.game_over = True
         # game over condition if the block doesn't fit
         if self.block_fits() == False:
             self.game_over = True

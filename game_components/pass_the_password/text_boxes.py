@@ -13,7 +13,7 @@ class CurrentGuess(pygame.sprite.Sprite):
         """
         super().__init__()
         self.font = pygame.font.Font(None, 48)
-        self.color = (255, 255, 255)
+        self.color = (79, 97, 123)
         self.center_position = center_position
         self.update_text(text)
 
@@ -36,7 +36,7 @@ class CorrectNumber(pygame.sprite.Sprite):
         """
         super().__init__()
         self.font = pygame.font.Font(None, 48)
-        self.color = (255, 255, 255)
+        self.color = (79, 97, 123)
         self.center_position = center_position
         self.update_text(text)
 
@@ -59,7 +59,7 @@ class TriesRemaining(pygame.sprite.Sprite):
         """
         super().__init__()
         self.font = pygame.font.Font(None, 48)
-        self.color = (255, 255, 255)
+        self.color = (79, 97, 123)
         self.center_position = center_position
         self.update_text(text)
 

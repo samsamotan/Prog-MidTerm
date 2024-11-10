@@ -15,3 +15,6 @@ class GameObject(pygame.sprite.Sprite):
             self.image = image
         # set rect
         self.rect = self.image.get_rect(topleft = (x, y))
+
+    def draw(self, screen):
+        screen.blit(self.image, self.rect)
