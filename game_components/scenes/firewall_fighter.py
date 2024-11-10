@@ -83,17 +83,19 @@ class FirewallFighter(Scene):
             if not hit.is_virus():   # Only decrease health on safe program collision
                 self.health_bar.update_health(1)
                 hit.kill()          # Remove the safe program after collision
-                self.hit_sound.play()
+                self.shoot_sound.play()
 
         # Update all sprites
         self.all_sprites.update()
 
+        # Check if the player has reached the level-up score
         if self.score_counter.score >= POINTS_TO_LEVEL_UP:
             self.scene_manager.start_scene("Main Scene")
         
+        # Only transition to game over if health reaches zero
         if self.health_bar.get_current_health() <= 0:   # End game if health reaches zero
             print("Game Over!")
-            self.scene_manager.start_scene("Main Scene")
+            self.scene_manager.start_scene("Game Over Scene")
 
     def draw(self, screen):
         screen.blit(self.background, (0, 0, 1024, 576))
