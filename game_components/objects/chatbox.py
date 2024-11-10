@@ -58,6 +58,8 @@ class Chatbox:
                 self.wrap_message(self.messages[self.current_message_index])
             else:
                 self.active = False  # End of conversation
+                self.scene.game_state.player_pos = self.scene.player.get_pos()
+                print(self.scene.game_state.player_pos)
                 self.scene.scene_manager.start_scene(self.next_scene)
 
     def wrap_message(self, message):

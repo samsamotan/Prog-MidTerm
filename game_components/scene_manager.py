@@ -1,3 +1,4 @@
+import pygame
 class SceneManager:
     def __init__(self, game_state, audio_manager):
         self.scenes = {}

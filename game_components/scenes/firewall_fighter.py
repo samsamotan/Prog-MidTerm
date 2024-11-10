@@ -44,9 +44,6 @@ class FirewallFighter(Scene):
 
     def handle_events(self, dt):
         for event in self.game_state.get_events():
-            if event.type == pygame.QUIT:
-                running = False
-            
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:  
                     bullet = Bullet(self.player.rect.centerx, self.player.rect.top, bullet_image)
