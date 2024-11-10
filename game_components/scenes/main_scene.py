@@ -11,6 +11,12 @@ class MainScene(Scene):
         width = 3200
         height = 2560
         super().__init__(scene_manager, game_state, audio_manager, width, height)
+        # Initialize pygame mixer
+        pygame.mixer.init()
+
+        # Load sounds
+        self.background_music = pygame.mixer.music.load(os.path.join(assets_folder, "time_for_adventure.mp3"))
+        pygame.mixer.music.play(-1)
 
     def start(self):
         background = GameObject(0, 0, image = os.path.join(assets_folder, "map1.png"))
