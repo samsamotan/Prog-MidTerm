@@ -13,6 +13,14 @@ class PassThePassword(Scene):
         height = 576
         super().__init__(scene_manager, game_state, audio_manager, width, height)
 
+        # Initialize pygame mixer
+
+        pygame.mixer.init()
+
+        #Load sounds
+        self.background_music = pygame.mixer.music.load(os.path.join(assets_folder, "Zora's Domain - Day (The Legend of Zelda_ Breath of the Wild OST).mp3"))
+
+
     def start(self):
         self.max_tries = 5
         self.player = Player(50, 50, 15, 20, os.path.join(assets_folder, "cowboy.png"))

@@ -12,6 +12,15 @@ class VirusVacuum(Scene):
         height = 576
         super().__init__(scene_manager, game_state, audio_manager, width, height)
 
+        # Initialize sounds
+        pygame.mixer.init()
+
+        #Load sounds
+
+        self.background_music = pygame.mixer.music.load(os.path.join(assets_folder, "Donkey Kong Country - Aquatic Ambience [Restored].mp3"))
+        pygame.mixer.music.play(-1)
+
+
     def start(self):
         self.background = GameObject(0,-35,1024,576, os.path.join(assets_folder, "pacman_game_background.png"))
         self.player = Player(self.width // 2, self.height // 2, 15, 20, speed = 100, image = os.path.join(assets_folder, "cowboy.png"))

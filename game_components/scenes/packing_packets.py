@@ -18,6 +18,15 @@ class PackingPackets(Scene):
         self.player = Player(0, 0, 0, 0)
         # Initialize other attributes if necessary
 
+         # Initialize pygame mixer
+        pygame.mixer.init()
+
+        # Load sounds
+        self.background_music = pygame.mixer.music.load(os.path.join(assets_folder, "Original Tetris theme (Tetris Soundtrack).mp3"))
+        pygame.mixer.music.play(-1)
+        
+
+
     def start(self):
         pygame.time.set_timer(GAME_UPDATE, 200)
         self.background = pygame.image.load(os.path.join(assets_folder, "Tetris Background.png"))

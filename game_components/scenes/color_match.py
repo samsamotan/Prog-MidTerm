@@ -3,6 +3,10 @@ from ..objects import *
 from ..color_match import *
 from ..scene import Scene
 import random
+import os
+
+assets_folder = os.path.join(os.path.dirname(__file__), "..", "..", "assets")
+
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -19,6 +23,13 @@ class ColorMatch(Scene):
         super().__init__(scene_manager, game_state, audio_manager, width, height)
         # Define fonts
         self.font = pygame.font.SysFont(None, 55)
+
+        # Initialize pygame mixer
+        pygame.mixer.init()
+
+        # Load sounds
+        self.background_music = pygame.mixer.music.load(os.path.join(assets_folder, os.path.join(assets_folder, "Hateno Village (The Legend of Zelda_ Breath of the Wild OST).mp3")))
+        pygame.mixer.music.play(-1)
 
     def start(self):
         self.player = Player(0,0,0,0)

@@ -34,12 +34,10 @@ class FirewallFighter(Scene):
         # Initialize pygame mixer
         pygame.mixer.init()
 
-        # Load sounds
-        self.background_music = pygame.mixer.music.load(os.path.join(assets_folder, os.path.join(assets_folder, "Donkey Kong Country 2 Soundtrack_ Bramble Blast.mp3")))
-        self.shoot_sound = pygame.mixer.Sound(os.path.join(assets_folder, "laser.wav"))
-
     def start(self):
         # Play background music
+        self.background_music = pygame.mixer.music.load(os.path.join(assets_folder, "Donkey Kong Country 2 Soundtrack_ Bramble Blast.mp3"))
+
         pygame.mixer.music.play(-1)  # Loop the background music
 
         self.background = pygame.image.load(os.path.join(assets_folder,"space_invaders.png"))
@@ -62,6 +60,7 @@ class FirewallFighter(Scene):
                     self.bullets.add(bullet)
                     
                     # Play shooting sound
+                    self.shoot_sound = pygame.mixer.Sound(os.path.join(assets_folder, "laser.wav"))
                     self.shoot_sound.play()
         
         for interaction in self.interactions:
@@ -85,7 +84,7 @@ class FirewallFighter(Scene):
                 else:           # If it's a safe program
                     self.health_bar.update_health(1)  # Decrease health for hitting safe programs
                     # Play hit sound when a safe program is hit
-                    self.hit_sound.play()
+                    self.shoot_sound.play()
 
         # Check for collisions between player and threats (safe programs)
         hits_player = pygame.sprite.spritecollide(self.player, self.threats, True)
