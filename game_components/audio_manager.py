@@ -1,5 +1,4 @@
 import pygame
-
 class AudioManager:
     def __init__(self):
         pygame.mixer.init()  # Initialize the mixer module
@@ -14,8 +13,11 @@ class AudioManager:
     def play(self, name, loops=0):
         """Plays a loaded sound."""
         if name in self.sounds:
-            self.currently_playing = self.sounds[name].play(loops=loops)
-
+            if loops == -1:  # If loops is -1, it will loop indefinitely
+                self.currently_playing = self.sounds[name].play(loops=loops)
+            else:
+                self.currently_playing = self.sounds[name].play(loops=loops)
+                
     def stop(self, name=None):
         """Stops a specific sound or all sounds if name is not provided."""
         if name:
