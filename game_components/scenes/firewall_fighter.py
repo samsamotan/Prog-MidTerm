@@ -8,7 +8,7 @@ import random
 assets_folder = os.path.join(os.path.dirname(__file__), "..", "..", "assets")
 
 # Game constants
-POINTS_TO_LEVEL_UP = 30
+POINTS_TO_LEVEL_UP = 15
 HEALTH_MAX = 3
 
 base_path = "Mini Pixel Pack 3"
@@ -23,14 +23,25 @@ start_image = os.path.join(assets_folder, base_path, "UI objects", "START (48 x 
 game_over_image = os.path.join(assets_folder, base_path, "UI objects", "GAME_OVER (72 x 8).png")
 
 
+
+
 class FirewallFighter(Scene):
     def __init__(self, scene_manager, game_state, audio_manager):
         width = 1024
         height = 576
-        super().__init__(scene_manager, game_state, audio_manager, width, height)  
+        super().__init__(scene_manager, game_state, audio_manager, width, height)
 
+        # Initialize pygame mixer
+        pygame.mixer.init()
+
+        # Load sounds
+        self.background_music = pygame.mixer.music.load(os.path.join(assets_folder, os.path.join(assets_folder, "Donkey Kong Country 2 Soundtrack_ Bramble Blast.mp3")))
+        self.shoot_sound = pygame.mixer.Sound(os.path.join(assets_folder, "laser.wav"))
 
     def start(self):
+        # Play background music
+        pygame.mixer.music.play(-1)  # Loop the background music
+
         self.background = pygame.image.load(os.path.join(assets_folder,"space_invaders.png"))
         self.player = Player(512, 526, 15, 20, os.path.join(assets_folder, "spaceship.png"))
         self.health_bar = HealthBar(HEALTH_MAX, self.width)
@@ -49,24 +60,13 @@ class FirewallFighter(Scene):
                     bullet = Bullet(self.player.rect.centerx, self.player.rect.top, bullet_image)
                     self.all_sprites.add(bullet)
                     self.bullets.add(bullet)
+                    
+                    # Play shooting sound
+                    self.shoot_sound.play()
+        
         for interaction in self.interactions:
             interaction.interact(self.game_state.get_events(), self.player)
-        self.player.move(self.game_state.get_keys(), dt, self, vertical_movement = False)   
-
-    def update_score(self, amount):
-        """Update the score by a specified amount and refresh the display."""
-        self.score += amount
-        self.image = self.font.render(f"Score: {self.score}", True, self.color)
-
-    def set_score(self, new_score):
-        """Set the score to a specific value and refresh the display."""
-        self.score = new_score
-        self.image = self.font.render(f"Score: {self.score}", True, self.color)
-
-    def reset_score(self):
-        """Reset the score to zero and refresh the display."""
-        self.score = 0
-        self.image = self.font.render(f"Score: {self.score}", True, self.color)
+        self.player.move(self.game_state.get_keys(), dt, self, vertical_movement = False)
 
     def update(self, dt):
          # Randomly spawn threats with reduced frequency
@@ -84,6 +84,8 @@ class FirewallFighter(Scene):
                     self.score_counter.update_score(1)   # Increase score for hitting viruses
                 else:           # If it's a safe program
                     self.health_bar.update_health(1)  # Decrease health for hitting safe programs
+                    # Play hit sound when a safe program is hit
+                    self.hit_sound.play()
 
         # Check for collisions between player and threats (safe programs)
         hits_player = pygame.sprite.spritecollide(self.player, self.threats, True)
@@ -91,6 +93,8 @@ class FirewallFighter(Scene):
             if not hit.is_virus():   # Only decrease health on safe program collision
                 self.health_bar.update_health(1)
                 hit.kill()          # Remove the safe program after collision
+                # Play hit sound when player collides with safe program
+                self.hit_sound.play()
 
         # Update all sprites
         self.all_sprites.update()
