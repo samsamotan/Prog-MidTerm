@@ -21,7 +21,7 @@ class MainScene(Scene):
     def start(self):
         background = GameObject(0, 0, image = os.path.join(assets_folder, "map1.png"))
         print (background.rect)
-        self.player = Player(980, 470, 15, 20, os.path.join(assets_folder, "cowboy.png"))
+        self.player = Player(875, 450, 15, 20, os.path.join(assets_folder, "cowboy.png"))
         npc1 = NPC(830, 1180, 50, 50,
                     ["Ralof: Hey, you. You're finally awake. You were trying to cross the border, right? Walked right into that Imperial ambush, same as us, and that thief over there.", 
                      "Lokir: Damn you Stormcloaks. Skyrim was fine until you came along. Empire was nice and lazy. If they hadn't been looking for you, I could've stolen that horse and been half way to Hammerfell. You there. You and me -- we should be here. It's these Stormcloaks the Empire wants.", 
@@ -37,13 +37,13 @@ class MainScene(Scene):
         cat = NPC(970, 380, 50, 50, ["Meow", "Meow", "Meow", "Meow", "Meow"])
         portal_to_vacuum = InteractiveObject(970, 1400, 50, 30, self.scene_manager, "Main Scene", "Virus Vacuum", os.path.join(assets_folder, "pixil-frame-0.png"))
         portal_to_vacuum.add_action(pygame.K_e, "change scene")
-        portal_to_firewall = InteractiveObject(400, 300, 50, 30, self.scene_manager, "Main Scene", "Firewall Fighter", os.path.join(assets_folder, "pixil-frame-0.png"))
+        portal_to_firewall = InteractiveObject(1635, 1700, 50, 30, self.scene_manager, "Main Scene", "Firewall Fighter", os.path.join(assets_folder, "pixil-frame-0.png"))
         portal_to_firewall.add_action(pygame.K_e, "change scene")
-        portal_to_password = InteractiveObject(500, 300, 50, 30, self.scene_manager, "Main Scene", "Pass the Password", os.path.join(assets_folder, "pixil-frame-0.png"))
+        portal_to_password = InteractiveObject(2125, 1625, 50, 30, self.scene_manager, "Main Scene", "Pass the Password", os.path.join(assets_folder, "pixil-frame-0.png"))
         portal_to_password.add_action(pygame.K_e, "change scene")
-        portal_to_packets = InteractiveObject(600, 300, 50, 30, self.scene_manager, "Main Scene", "Packing Packets", os.path.join(assets_folder, "pixil-frame-0.png"))
+        portal_to_packets = InteractiveObject(2000, 1425, 50, 30, self.scene_manager, "Main Scene", "Packing Packets", os.path.join(assets_folder, "pixil-frame-0.png"))
         portal_to_packets.add_action(pygame.K_e, "change scene")
-        portal_to_color = InteractiveObject(700, 300, 50, 30, self.scene_manager, "Main Scene", "Color Match", os.path.join(assets_folder, "pixil-frame-0.png"))
+        portal_to_color = InteractiveObject(750, 400, 50, 30, self.scene_manager, "Main Scene", "Color Match", os.path.join(assets_folder, "pixil-frame-0.png"))
         portal_to_color.add_action(pygame.K_e, "change scene")
         walls = [GameObject(x[0],x[1],x[2],x[3]) for x in rects]
         self.interactions.add(portal_to_vacuum, portal_to_firewall, portal_to_password, portal_to_packets, portal_to_color)
