@@ -2,18 +2,20 @@ import pygame
 from ..objects import *
 from ..scene import Scene
 import os
+from ..main_scene.walls import rects
 
 assets_folder = os.path.join(os.path.dirname(__file__), "..", "..", "assets")
 
 class MainScene(Scene):
     def __init__(self, scene_manager, game_state, audio_manager):
-        width = 2048
-        height = 1638
+        width = 3200
+        height = 2560
         super().__init__(scene_manager, game_state, audio_manager, width, height)
 
     def start(self):
         background = GameObject(0, 0, image = os.path.join(assets_folder, "map1.png"))
-        self.player = Player(1000, 170, 15, 20, os.path.join(assets_folder, "cowboy.png"))
+        print (background.rect)
+        self.player = Player(1000, 500, 15, 20, os.path.join(assets_folder, "cowboy.png"))
         npc1 = NPC(200, 150,
                     ["Ralof: Hey, you. You're finally awake. You were trying to cross the border, right? Walked right into that Imperial ambush, same as us, and that thief over there.", 
                      "Lokir: Damn you Stormcloaks. Skyrim was fine until you came along. Empire was nice and lazy. If they hadn't been looking for you, I could've stolen that horse and been half way to Hammerfell. You there. You and me -- we should be here. It's these Stormcloaks the Empire wants.", 
@@ -36,15 +38,17 @@ class MainScene(Scene):
         portal_to_packets.add_action(pygame.K_e, "change scene")
         portal_to_color = InteractiveObject(700, 300, 50, 30, self.scene_manager, "Main Scene", "Color Match", os.path.join(assets_folder, "pixil-frame-0.png"))
         portal_to_color.add_action(pygame.K_e, "change scene")
+        walls = [GameObject(x[0],x[1],x[2],x[3]) for x in rects]
         self.interactions.add(portal_to_vacuum, portal_to_firewall, portal_to_password, portal_to_packets, portal_to_color)
-        self.all_sprites.add(background, npc1, portal_to_vacuum, portal_to_firewall, portal_to_password, portal_to_packets, portal_to_color)
+        self.all_sprites.add(background, walls, npc1, portal_to_vacuum, portal_to_firewall, portal_to_password, portal_to_packets, portal_to_color)
+        self.obstacles.add(walls)
         self.npc_group = pygame.sprite.Group()
         self.npc_group.add(npc1)
 
     def handle_events(self, dt):
         for interaction in self.interactions:
             interaction.interact(self.game_state.get_events(), self.player)
-        self.player.move(self.game_state.get_keys(), dt, self)
+        self.player.move(self.game_state.get_keys(), dt, self, self.obstacles)
         for event in self.game_state.get_events():
             for npc in self.npc_group:
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_e:
