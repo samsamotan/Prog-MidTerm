@@ -15,7 +15,10 @@ class SceneManager:
         self.current_scene.handle_events(dt)
 
     def update(self, camera, screen, dt):
-        camera.update(self.current_scene.player, self.current_scene, screen)
+        try:
+            camera.update(self.current_scene.player, self.current_scene, screen)
+        except:
+            pass
         self.current_scene.update(dt)
     
     def draw(self, screen, camera):
