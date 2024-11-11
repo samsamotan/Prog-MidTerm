@@ -12,6 +12,7 @@ pygame.init()
 # Set up the screen and game variables
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 screen_width, screen_height = screen.get_size()
+print(screen.get_size())
 pygame.display.set_caption("Computer Conquest")
 
 assets_folder = os.path.join(os.path.dirname(__file__), "assets")
