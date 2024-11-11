@@ -13,12 +13,12 @@ class NPC(pygame.sprite.Sprite):
             self.image.fill((0, 0, 0, 0))  # Red color as NPC placeholder
         else:
             self.images = []
-            self.sheet = pygame.image.load(image).convert_alpha()  # Using convert_alpha for transparency
-            rect = pygame.Rect((1,2,117,132))
+            self.sheet = pygame.transform.scale_by(pygame.image.load(image).convert_alpha(),0.5)  # Using convert_alpha for transparency
+            rect = pygame.Rect((1,2,58,66))
             image = pygame.Surface(rect.size, pygame.SRCALPHA).convert_alpha()  # Preserve transparency
             image.blit(self.sheet, (0, 0), rect)
             self.images.append(image)
-            rect = pygame.Rect((118,2,117,132))
+            rect = pygame.Rect((59,2,58,66))
             image = pygame.Surface(rect.size, pygame.SRCALPHA).convert_alpha()  # Preserve transparency
             image.blit(self.sheet, (0, 0), rect)
             self.images.append(image)
@@ -44,7 +44,7 @@ class NPC(pygame.sprite.Sprite):
 
         # Check if player is in proximity and toggle the interaction prompt
         distance = math.hypot(player_pos[0] - self.rect.x, player_pos[1] - self.rect.y)
-        self.in_proximity = distance < 300  # Show letter if within 100 pixels
+        self.in_proximity = distance < 200  # Show letter if within 100 pixels
 
         if distance > self.end_conversation_distance and self.chatbox.active:
             self.end_conversation()

@@ -59,7 +59,7 @@ class Chatbox:
             else:
                 self.active = False  # End of conversation
                 self.scene.game_state.player_pos = self.scene.player.get_pos()
-                print(self.scene.game_state.player_pos)
+                self.scene.audio_manager.pause()
                 self.scene.scene_manager.start_scene(self.next_scene)
 
     def wrap_message(self, message):

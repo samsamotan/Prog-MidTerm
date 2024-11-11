@@ -24,14 +24,8 @@ class ColorMatch(Scene):
         # Define fonts
         self.font = pygame.font.SysFont(None, 55)
 
-        # Initialize pygame mixer
-        pygame.mixer.init()
-
-        # Load sounds
-        self.background_music = pygame.mixer.music.load(os.path.join(assets_folder, os.path.join(assets_folder, "Hateno Village (The Legend of Zelda_ Breath of the Wild OST).mp3")))
-        pygame.mixer.music.play(-1)
-
     def start(self):
+        self.audio_manager.play("color_match_music", -1)
         self.player = Player(0,0,0,0)
 
         self.progress = ProgressBar(650, 150, 300, 30)
@@ -68,6 +62,7 @@ class ColorMatch(Scene):
                     self.target_color = [random.randint(0, 255) for _ in range(3)]
                     if self.progress.current_value == 100:
                         self.game_state.colored = True
+                        self.audio_manager.pause()
                         self.scene_manager.start_scene("Main Scene")
 
     def check_color(self):

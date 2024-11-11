@@ -31,9 +31,7 @@ class FirewallFighter(Scene):
 
     def start(self):
         # Play background music
-        self.background_music = pygame.mixer.music.load(os.path.join(assets_folder, "Donkey Kong Country 2 Soundtrack_ Bramble Blast.mp3"))
-        pygame.mixer.music.play(-1)  # Loop the background music
-
+        self.audio_manager.play("firewall_fighter_music", -1)
         self.background = pygame.image.load(os.path.join(assets_folder,"space_invaders.png"))
         self.player = Player(512, 526, 15, 20, os.path.join(assets_folder, "spaceship.png"))
         self.health_bar = HealthBar(HEALTH_MAX, self.width, os.path.join(assets_folder, "heart.png"))
@@ -87,6 +85,7 @@ class FirewallFighter(Scene):
 
         # Check if the player has reached the level-up score
         if self.score_counter.score >= POINTS_TO_LEVEL_UP:
+            self.audio_manager.pause()
             self.scene_manager.start_scene("Main Scene")
         
         # Only transition to game over if health reaches zero

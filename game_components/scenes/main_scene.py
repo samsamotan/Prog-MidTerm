@@ -21,7 +21,7 @@ class MainScene(Scene):
             self.game_state.player_pos = (1000, 600)
         else:
             pass
-        virus_vacuum_npc = NPC(830, 1180, 150, 150,
+        virus_vacuum_npc = NPC(830, 1180, 75, 75,
                     ["Ralof: Hey, you. You're finally awake. You were trying to cross the border, right? Walked right into that Imperial ambush, same as us, and that thief over there.", 
                      "Lokir: Damn you Stormcloaks. Skyrim was fine until you came along. Empire was nice and lazy. If they hadn't been looking for you, I could've stolen that horse and been half way to Hammerfell. You there. You and me -- we should be here. It's these Stormcloaks the Empire wants.", 
                      "Ralof: We're all brothers and sisters in binds now, thief.", "Imperial Soldier: Shut up back there!", 
@@ -34,7 +34,7 @@ class MainScene(Scene):
                      "Ralof: A Nord's last thoughts should be of home.", 
                      "Lokir: Rorikstead. I'm...I'm from Rorikstead."], self, "Virus Vacuum", os.path.join(assets_folder, "npcs", "indian_woman.png"))
         cat = NPC(970, 380, 50, 50, ["Meow", "Meow", "Meow", "Meow", "Meow"], self, "Color Match")
-        firewall_fighter_npc = NPC(1500, 1480, 150, 150,
+        firewall_fighter_npc = NPC(1500, 1480, 75, 75,
                     ["Ralof: Hey, you. You're finally awake. You were trying to cross the border, right? Walked right into that Imperial ambush, same as us, and that thief over there.", 
                      "Lokir: Damn you Stormcloaks. Skyrim was fine until you came along. Empire was nice and lazy. If they hadn't been looking for you, I could've stolen that horse and been half way to Hammerfell. You there. You and me -- we should be here. It's these Stormcloaks the Empire wants.", 
                      "Ralof: We're all brothers and sisters in binds now, thief.", "Imperial Soldier: Shut up back there!", 
@@ -46,7 +46,7 @@ class MainScene(Scene):
                      "Lokir: Why do you care?", 
                      "Ralof: A Nord's last thoughts should be of home.", 
                      "Lokir: Rorikstead. I'm...I'm from Rorikstead."], self, "Firewall Fighter", os.path.join(assets_folder, "npcs", "uncle_fisherman.png"))
-        self.password_npc = NPC(2225, 1625, 150, 150,
+        self.password_npc = NPC(2225, 1625, 75, 75,
                     ["Ralof: Hey, you. You're finally awake. You were trying to cross the border, right? Walked right into that Imperial ambush, same as us, and that thief over there.", 
                      "Lokir: Damn you Stormcloaks. Skyrim was fine until you came along. Empire was nice and lazy. If they hadn't been looking for you, I could've stolen that horse and been half way to Hammerfell. You there. You and me -- we should be here. It's these Stormcloaks the Empire wants.", 
                      "Ralof: We're all brothers and sisters in binds now, thief.", "Imperial Soldier: Shut up back there!", 
@@ -58,7 +58,7 @@ class MainScene(Scene):
                      "Lokir: Why do you care?", 
                      "Ralof: A Nord's last thoughts should be of home.", 
                      "Lokir: Rorikstead. I'm...I'm from Rorikstead."], self, "Pass the Password", os.path.join(assets_folder, "npcs", "chinese_woman.png"))
-        self.packing_packets_npc = NPC(1920, 1425, 150, 150,
+        self.packing_packets_npc = NPC(1920, 1425, 75, 75,
                     ["Ralof: Hey, you. You're finally awake. You were trying to cross the border, right? Walked right into that Imperial ambush, same as us, and that thief over there.", 
                      "Lokir: Damn you Stormcloaks. Skyrim was fine until you came along. Empire was nice and lazy. If they hadn't been looking for you, I could've stolen that horse and been half way to Hammerfell. You there. You and me -- we should be here. It's these Stormcloaks the Empire wants.", 
                      "Ralof: We're all brothers and sisters in binds now, thief.", "Imperial Soldier: Shut up back there!", 
