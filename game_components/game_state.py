@@ -43,8 +43,7 @@ class GameState:
         self.colored = values[0] == "True\n"
         self.passed = values[1] == "True\n"
         self.player_pos = (int(values[2]), int(values[3]))
-        print(self.player_pos)
-        print(values)
+
 
     def add_popup(self, succeeded):
         self.popup = True

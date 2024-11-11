@@ -24,7 +24,6 @@ class NPC(pygame.sprite.Sprite):
             image.blit(self.sheet, (0, 0), rect)
             self.images.append(image)
             self.image = self.images[0]
-            print(self.image)
             self.animated = True
         self.current_frame = 0
         self.animation_speed = 1  # Time in seconds per frame

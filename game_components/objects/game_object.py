@@ -6,6 +6,7 @@ class GameObject(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         if image == None: # make transparent surface if no image provided
+            print(alpha)
             self.image = pygame.Surface((width, height))
             self.image.fill((255,255,255))
             self.image.set_alpha(alpha)

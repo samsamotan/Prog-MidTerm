@@ -89,3 +89,6 @@ class Chatbox:
                 text_surface = self.font.render(line, True, (255, 255, 255))
                 surface.blit(text_surface, (60, y_offset))
                 y_offset += self.font.get_height() + 3  # Move to the next line
+            if self.typing_complete:
+                continue_message = self.font.render("Press ENTER to continue", True, (255, 255, 255))
+                surface.blit(continue_message, (790, 530))

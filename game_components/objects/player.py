@@ -49,3 +49,10 @@ class Player(GameObject):
             self.rect.x = scene.get_width() - self.rect.width
         if self.rect.y > scene.get_height() - self.rect.height:
             self.rect.y = scene.get_height() - self.rect.height
+
+class BigPlayer(Player):
+    def __init__(self, x: int, y: int, width: int, height: int, image:str = None, speed = 300):
+        enlarged = pygame.transform.scale_by(pygame.image.load(image), 2)
+        super().__init__(x, y, width, height, enlarged)
+        self.speed = speed
+        self.velocity = pygame.Vector2(0, 0)

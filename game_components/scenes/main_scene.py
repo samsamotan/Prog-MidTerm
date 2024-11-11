@@ -15,7 +15,7 @@ class MainScene(Scene):
     def start(self):
         self.audio_manager.play("main_scene_music", -1)
         background = GameObject(0, 0, image = os.path.join(assets_folder, "map1.png"))
-        self.player = Player(1000, 600, 15, 20, os.path.join(assets_folder, "cowboy.png"))
+        self.player = BigPlayer(1000, 600, 15, 20, os.path.join(assets_folder, "cowboy.png"))
         if self.game_state.player_pos != (1000, 600):
             self.player.set_pos(self.game_state.player_pos)
             self.game_state.player_pos = (1000, 600)
@@ -70,9 +70,9 @@ class MainScene(Scene):
                      "Lokir: Why do you care?", 
                      "Ralof: A Nord's last thoughts should be of home.", 
                      "Lokir: Rorikstead. I'm...I'm from Rorikstead."], self, "Packing Packets", os.path.join(assets_folder, "npcs", "village_head.png"))
-        walls = [GameObject(x[0],x[1],x[2],x[3]) for x in rects]
+        walls = [GameObject(x[0],x[1],x[2],x[3], alpha=0) for x in rects]
         barrier_image = pygame.transform.scale_by(pygame.image.load(os.path.join(assets_folder, "pixil-frame-0.png")),1.5)
-        self.barrier = GameObject(2015,1585,image = barrier_image, alpha=0)
+        self.barrier = GameObject(2015,1585,image = barrier_image)
         self.all_sprites.add(background, self.barrier, walls, virus_vacuum_npc, firewall_fighter_npc, self.password_npc, self.packing_packets_npc, cat)
         self.obstacles.add(self.barrier, walls, virus_vacuum_npc, firewall_fighter_npc, self.password_npc, self.packing_packets_npc, cat)
         self.npc_group = pygame.sprite.Group()
@@ -101,7 +101,6 @@ class MainScene(Scene):
             self.packing_packets_npc.in_proximity = False
 
     def draw(self, screen):
-        print(self.player.rect)
         screen.fill((0,0,0))
         for sprite in self.all_sprites:
             screen.blit(sprite.image, self.game_state.camera.apply(sprite.rect))
