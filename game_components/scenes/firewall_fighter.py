@@ -91,7 +91,7 @@ class FirewallFighter(Scene):
         # Only transition to game over if health reaches zero
         if self.health_bar.get_current_health() <= 0:   # End game if health reaches zero
             print("Game Over!")
-            self.scene_manager.start_scene("Game Over Scene")
+            self.scene_manager.start_scene("Main Scene")
 
     def draw(self, screen):
         screen.blit(self.background, (0, 0, 1024, 576))
