@@ -2,7 +2,6 @@ import pygame
 
 class GameState:
     def __init__(self, camera):
-        self.mouse_pos = pygame.mouse.get_pos()
         self.keys = pygame.key.get_pressed()
         self.events = pygame.event.get()
         self.camera = camera
@@ -11,7 +10,8 @@ class GameState:
         self.player_pos = (875, 450)
 
     def update(self):
-        self.mouse_pos = pygame.mouse.get_pos()
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+        self.mouse_pos = (mouse_x / 1.25, (mouse_y-40) / 1.25)
         self.keys = pygame.key.get_pressed()
         self.events = pygame.event.get()
         for event in self.events:

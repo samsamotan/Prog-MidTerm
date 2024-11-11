@@ -44,7 +44,7 @@ class NPC(pygame.sprite.Sprite):
 
         # Check if player is in proximity and toggle the interaction prompt
         distance = math.hypot(player_pos[0] - self.rect.x, player_pos[1] - self.rect.y)
-        self.in_proximity = distance < 200  # Show letter if within 100 pixels
+        self.in_proximity = distance < 100  # Show letter if within 100 pixels
 
         if distance > self.end_conversation_distance and self.chatbox.active:
             self.end_conversation()

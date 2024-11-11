@@ -10,7 +10,8 @@ import os
 pygame.init()
 
 # Set up the screen and game variables
-screen = pygame.display.set_mode((1024, 576))
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+screen_width, screen_height = screen.get_size()
 pygame.display.set_caption("Computer Conquest")
 
 assets_folder = os.path.join(os.path.dirname(__file__), "assets")
@@ -39,10 +40,12 @@ dt = 0
 
 # Main game loop
 while game_state.update():
+    surface = pygame.Surface((1024, 576))
     # Handle events, update the scene, and draw everything on the screen
     scene_manager.handle_events(dt)
-    scene_manager.update(camera, screen, dt)
-    scene_manager.draw(screen)
+    scene_manager.update(camera, surface, dt)
+    scene_manager.draw(surface)
+    screen.blit(pygame.transform.scale(surface, (screen_width, 720)), (0,40))
     pygame.display.flip()
 
     # Maintain a 60 FPS frame rate

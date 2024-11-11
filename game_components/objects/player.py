@@ -15,8 +15,8 @@ class Player(GameObject):
     
     def move(self, keys, dt, scene, *groups, vertical_movement = True, horizontal_movement = True):
         # get velocity
-        self.velocity.x = (keys[pygame.K_RIGHT] - keys[pygame.K_LEFT]) * self.speed * dt
-        self.velocity.y = (keys[pygame.K_DOWN] - keys[pygame.K_UP]) * self.speed * dt
+        self.velocity.x = (keys[pygame.K_d] - keys[pygame.K_a]) * self.speed * dt
+        self.velocity.y = (keys[pygame.K_s] - keys[pygame.K_w]) * self.speed * dt
 
         #Horizontal movement
         if horizontal_movement:

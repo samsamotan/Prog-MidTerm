@@ -18,9 +18,9 @@ class Slider(pygame.sprite.Sprite):
         self.slider_rect = pygame.Rect(self.x, self.y, self.width, self.height)
         self.handle_pos = self.x  # Initial handle position
 
-    def update(self, event):
-        if self.slider_rect.collidepoint(event.pos):
-                self.set_value_from_mouse(event.pos[0])
+    def update(self, event, scene):
+        if self.slider_rect.collidepoint(scene.game_state.mouse_pos):
+                self.set_value_from_mouse(scene.game_state.mouse_pos[0])
 
     def set_value(self, value):
         self.value = max(0, min(255, value))

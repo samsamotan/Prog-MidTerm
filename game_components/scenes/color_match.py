@@ -52,7 +52,7 @@ class ColorMatch(Scene):
         for event in self.game_state.get_events():
             if event.type == pygame.MOUSEBUTTONDOWN or (event.type == pygame.MOUSEMOTION and event.buttons[0]):
                 for slider in self.sliders.values():
-                    slider.update(event)
+                    slider.update(event, self)
                 if self.reset_button.is_clicked(self.game_state.get_mouse_pos()):
                     self.current_color = [0,0,0]
                     for slider in self.sliders.values():
