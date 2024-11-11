@@ -4,26 +4,21 @@ from ..scene import Scene
 import os
 from ..main_scene.walls import rects
 
-assets_folder = os.path.join(os.path.dirname(__file__), "..", "..", "assets")
+assets_folder = os.path.join(os.path.dirname(__file__), "..",  "..", "assets")
 
 class MainScene(Scene):
     def __init__(self, scene_manager, game_state, audio_manager):
         width = 3200
         height = 2560
         super().__init__(scene_manager, game_state, audio_manager, width, height)
-        # Initialize pygame mixer
-        pygame.mixer.init()
-
-        # Load sounds
-        self.background_music = pygame.mixer.music.load(os.path.join(assets_folder, "time_for_adventure.mp3"))
-        pygame.mixer.music.play(-1)
 
     def start(self):
+        self.audio_manager.play("main_scene_music", -1)
         background = GameObject(0, 0, image = os.path.join(assets_folder, "map1.png"))
-        self.player = Player(875, 450, 15, 20, os.path.join(assets_folder, "cowboy.png"))
-        if self.game_state.player_pos != (875, 450):
+        self.player = Player(1000, 600, 15, 20, os.path.join(assets_folder, "cowboy.png"))
+        if self.game_state.player_pos != (1000, 600):
             self.player.set_pos(self.game_state.player_pos)
-            self.game_state.player_pos = (875, 450)
+            self.game_state.player_pos = (1000, 600)
         else:
             pass
         virus_vacuum_npc = NPC(830, 1180, 150, 150,
