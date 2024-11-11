@@ -26,7 +26,7 @@ class VirusVacuum(Scene):
     def handle_events(self, dt):
         for event in self.game_state.get_events():
             if event.type == pygame.MOUSEBUTTONDOWN:
-                self.game_map.change_wallgrid(self.game_state.get_mouse_pos()[0]//32, self.game_state.get_mouse_pos()[1]//32)
+                self.game_map.change_wallgrid(int(self.game_state.get_mouse_pos()[0]//32), int(self.game_state.get_mouse_pos()[1]//32))
         for interaction in self.interactions:
             interaction.interact(self.game_state.get_events(), self.player)
         self.player.move(self.game_state.get_keys(), dt, self, self.obstacles, self.game_map.get_tiles())
