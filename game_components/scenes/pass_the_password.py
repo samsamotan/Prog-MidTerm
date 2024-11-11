@@ -55,6 +55,7 @@ class PassThePassword(Scene):
                     self.tries_left -= 1
                     self.tries_text.update_text(str(self.tries_left))
                     if correct == 4:
+                        self.game_state.passed = True
                         self.scene_manager.start_scene("Main Scene")
                     if self.tries_left == 0:
                         self.scene_manager.start_scene("Main Scene")

@@ -7,6 +7,12 @@ class Player(GameObject):
         self.speed = speed
         self.velocity = pygame.Vector2(0, 0)
 
+    def get_pos(self):
+        return (self.rect.x, self.rect.y)
+    
+    def set_pos(self, pos):
+        self.rect = self.image.get_rect(topleft = pos)
+    
     def move(self, keys, dt, scene, *groups, vertical_movement = True, horizontal_movement = True):
         # get velocity
         self.velocity.x = (keys[pygame.K_RIGHT] - keys[pygame.K_LEFT]) * self.speed * dt

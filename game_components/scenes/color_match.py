@@ -67,6 +67,7 @@ class ColorMatch(Scene):
                     self.check_color()
                     self.target_color = [random.randint(0, 255) for _ in range(3)]
                     if self.progress.current_value == 100:
+                        self.game_state.colored = True
                         self.scene_manager.start_scene("Main Scene")
 
     def check_color(self):

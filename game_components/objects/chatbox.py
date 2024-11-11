@@ -2,7 +2,7 @@ import pygame
 from .sprite_map import SpriteMap
 
 class Chatbox:
-    def __init__(self, messages, font_size=24, width=984, height=80, padding=10):
+    def __init__(self, messages, scene, next_scene, font_size=24, width=984, height=80, padding=10):
         self.messages = messages  # List of messages
         self.current_message_index = 0
         self.current_text = ""
@@ -15,6 +15,8 @@ class Chatbox:
         self.typing_complete = False
         self.active = False
         self.lines = []  # To store wrapped lines of the current message
+        self.scene = scene
+        self.next_scene = next_scene
 
     def start(self):
         self.current_message_index = 0
@@ -39,8 +41,15 @@ class Chatbox:
                 self.typing_complete = True
 
     def next_message(self):
-        # Move to the next message
-        if self.typing_complete:
+        # Check if typing is complete or force-complete it if not
+        if not self.typing_complete:
+            # Complete the current message instantly
+            full_text = self.messages[self.current_message_index]
+            self.current_text = full_text
+            self.wrap_message(self.current_text)
+            self.typing_complete = True
+        else:
+            # Move to the next message if typing is already complete
             self.current_message_index += 1
             if self.current_message_index < len(self.messages):
                 self.typing_index = 0
@@ -49,6 +58,9 @@ class Chatbox:
                 self.wrap_message(self.messages[self.current_message_index])
             else:
                 self.active = False  # End of conversation
+                self.scene.game_state.player_pos = self.scene.player.get_pos()
+                print(self.scene.game_state.player_pos)
+                self.scene.scene_manager.start_scene(self.next_scene)
 
     def wrap_message(self, message):
         # Wrap text into lines that fit within the chatbox width
@@ -77,27 +89,3 @@ class Chatbox:
                 text_surface = self.font.render(line, True, (255, 255, 255))
                 surface.blit(text_surface, (60, y_offset))
                 y_offset += self.font.get_height() + 3  # Move to the next line
-
-
-# class ChatboxBackground(SpriteMap):
-#     def __init__(self, sprite_sheet, width, line_height, padding=10):
-#         # Load sections of the background from the sprite sheet
-#         self.top = sprite_sheet.subsurface((0, 0, 32, 32))
-#         self.middle = sprite_sheet.subsurface((0, 32, 32, 32))
-#         self.bottom = sprite_sheet.subsurface((0, 64, 32, 32))
-
-#         self.width = width
-#         self.line_height = line_height
-#         self.padding = padding
-#         self.height = 0
-
-#     def update_height(self, num_lines):
-#         # Calculate the total height based on the number of lines
-#         self.height = self.padding * 2 + num_lines * self.line_height
-
-#     def draw(self, surface, x, y):
-#         # Draw the top section
-#         surface.blit(self.top, (x, y))
-#         for i in range(1, (self.height // 32) - 1):
-#             surface.blit(self.middle, (x, y + i * 32))  # Middle section repeats
-#         surface.blit(self.bottom, (x, y + (self.height // 32 - 1) * 32))  # Bottom section

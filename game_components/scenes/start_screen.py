@@ -18,8 +18,6 @@ class StartScreen(Scene):
         self.new = InvisibleButton(421, 363, 208, 45, (0,0,0,0))
         self.load = InvisibleButton(421, 418, 208, 45, (0,0,0,0))
         self.quit = InvisibleButton(421, 473, 208, 45, (0,0,0,0))
-        #load_game = InteractiveObject(225, 210, 270, 48, self.scene_manager, "Main Menu", "Main Scene", os.path.join(assets_folder, "load_game.png"))
-        #load_game.add_action(pygame.K_e, "change scene")
         self.all_sprites.add(background, self.new, self.load, self.quit)
     
     def handle_events(self, dt):
@@ -27,6 +25,13 @@ class StartScreen(Scene):
             if event.type == pygame.MOUSEBUTTONDOWN or (event.type == pygame.MOUSEMOTION and event.buttons[0]):
                 if self.new.is_clicked(self.game_state.get_mouse_pos()):
                     self.scene_manager.start_scene("Opening Scene")
+                if self.load.is_clicked(self.game_state.get_mouse_pos()):
+                    self.game_state.load_game()
+                    print(self.game_state.colored)
+                    if self.game_state.colored:
+                        self.scene_manager.start_scene("Main Scene")
+                    else:
+                        self.scene_manager.start_scene("Opening Scene")
                 if self.quit.is_clicked(self.game_state.get_mouse_pos()):
                     pygame.quit()
         self.player.move(self.game_state.get_keys(), dt, self)

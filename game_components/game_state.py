@@ -6,6 +6,9 @@ class GameState:
         self.keys = pygame.key.get_pressed()
         self.events = pygame.event.get()
         self.camera = camera
+        self.passed = False
+        self.colored = False
+        self.player_pos = (875, 450)
 
     def update(self):
         self.mouse_pos = pygame.mouse.get_pos()
@@ -13,6 +16,7 @@ class GameState:
         self.events = pygame.event.get()
         for event in self.events:
             if event.type == pygame.QUIT:
+                self.save_game()
                 return False
         return True
     
@@ -26,10 +30,21 @@ class GameState:
         return self.events
     
     def save_game(self):
-        pass
+        values = [self.colored, self.passed, self.player_pos[0], self.player_pos[1]]
+
+        # Save to a file
+        with open("data.txt", "w") as file:
+            for value in values:
+                file.write(f"{value}\n")
 
     def load_game(self):
-        pass
+        with open("data.txt", "r") as file:
+            values = [line for line in file]
+        self.colored = values[0] == "True\n"
+        self.passed = values[1] == "True\n"
+        self.player_pos = (int(values[2]), int(values[3]))
+        print(self.player_pos)
+        print(values)
 
     def add_popup(self, succeeded):
         self.popup = True
