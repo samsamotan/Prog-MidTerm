@@ -52,7 +52,7 @@ class StartChoice(Scene):
         for event in self.game_state.get_events():
             if event.type == pygame.MOUSEBUTTONDOWN or (event.type == pygame.MOUSEMOTION and event.buttons[0]):
                 if self.yes_button.is_clicked(self.game_state.get_mouse_pos()):
-                    self.audio_manager.pause()
+                    
                     self.scene_manager.start_scene("Color Match")
                 if self.no_button.is_clicked(self.game_state.get_mouse_pos()):
                     # Set up for typing the next "No" message
@@ -62,7 +62,7 @@ class StartChoice(Scene):
                     # Cycle to the next no_message for the next "No" press
                     self.message_index = self.message_index + 1
                     if self.message_index >= len(self.messages):
-                        self.audio_manager.pause()
+                        
                         self.scene_manager.start_scene("Start Scene")
                     
                     # Reset typing effect variables

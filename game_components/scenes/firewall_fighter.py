@@ -83,13 +83,13 @@ class FirewallFighter(Scene):
 
         # Check if the player has reached the level-up score
         if self.score_counter.score >= POINTS_TO_LEVEL_UP:
-            self.audio_manager.pause()
+            
             self.scene_manager.start_scene("Main Scene")
         
         # Only transition to game over if health reaches zero
         if self.health_bar.get_current_health() <= 0:   # End game if health reaches zero
             print("Game Over!")
-            self.audio_manager.pause()
+            
             self.scene_manager.start_scene("Main Scene")
 
     def draw(self, screen):

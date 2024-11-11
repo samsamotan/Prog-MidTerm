@@ -28,7 +28,7 @@ class StartScreen(Scene):
                 if self.load.is_clicked(self.game_state.get_mouse_pos()):
                     self.game_state.load_game()
                     if self.game_state.colored:
-                        self.audio_manager.pause()
+                        
                         self.scene_manager.start_scene("Main Scene")
                     else:
                         self.scene_manager.start_scene("Opening Scene")

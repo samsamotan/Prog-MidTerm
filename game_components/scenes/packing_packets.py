@@ -37,7 +37,7 @@ class PackingPackets(Scene):
 
     def update(self, dt):
         if self.game.game_over == True:
-            self.audio_manager.pause()
+            
             self.scene_manager.start_scene("Main Scene")
 
     def handle_events(self, dt):

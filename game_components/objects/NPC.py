@@ -10,7 +10,8 @@ class NPC(pygame.sprite.Sprite):
         self.animated = False
         if image == None:
             self.image = pygame.Surface((width, height))  # Placeholder for the NPC image
-            self.image.fill((0, 0, 0, 0))  # Red color as NPC placeholder
+            self.image.fill((0, 0, 0))  # Red color as NPC placeholder
+            self.image.set_alpha(0)
         else:
             self.images = []
             self.sheet = pygame.transform.scale_by(pygame.image.load(image).convert_alpha(),0.5)  # Using convert_alpha for transparency

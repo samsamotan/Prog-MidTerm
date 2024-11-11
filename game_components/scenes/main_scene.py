@@ -72,7 +72,7 @@ class MainScene(Scene):
                      "Lokir: Rorikstead. I'm...I'm from Rorikstead."], self, "Packing Packets", os.path.join(assets_folder, "npcs", "village_head.png"))
         walls = [GameObject(x[0],x[1],x[2],x[3]) for x in rects]
         barrier_image = pygame.transform.scale_by(pygame.image.load(os.path.join(assets_folder, "pixil-frame-0.png")),1.5)
-        self.barrier = GameObject(2015,1585,image = barrier_image)
+        self.barrier = GameObject(2015,1585,image = barrier_image, alpha=0)
         self.all_sprites.add(background, self.barrier, walls, virus_vacuum_npc, firewall_fighter_npc, self.password_npc, self.packing_packets_npc, cat)
         self.obstacles.add(self.barrier, walls, virus_vacuum_npc, firewall_fighter_npc, self.password_npc, self.packing_packets_npc, cat)
         self.npc_group = pygame.sprite.Group()

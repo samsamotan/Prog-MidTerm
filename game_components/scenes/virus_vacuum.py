@@ -40,7 +40,7 @@ class VirusVacuum(Scene):
         self.highlight.rect.x = self.game_state.get_mouse_pos()[0]//32*32
         self.highlight.rect.y = self.game_state.get_mouse_pos()[1]//32*32
         if len(self.viruses) == 0:
-            self.audio_manager.pause()
+            
             self.scene_manager.start_scene("Main Scene")
 
     def draw(self, screen):
