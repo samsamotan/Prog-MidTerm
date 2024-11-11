@@ -27,7 +27,6 @@ class FirewallFighter(Scene):
         width = 1024
         height = 576
         super().__init__(scene_manager, game_state, audio_manager, width, height)
-        pygame.mixer.init()  # Initialize pygame mixer
 
     def start(self):
         # Play background music
@@ -47,8 +46,7 @@ class FirewallFighter(Scene):
                     bullet = Bullet(self.player.rect.centerx, self.player.rect.top, bullet_image)
                     self.all_sprites.add(bullet)
                     self.bullets.add(bullet)
-                    self.shoot_sound = pygame.mixer.Sound(os.path.join(assets_folder, "laser.wav"))
-                    self.shoot_sound.play()
+                    self.audio_manager.play("shoot_sound", 1)
 
         for interaction in self.interactions:
             interaction.interact(self.game_state.get_events(), self.player)
@@ -91,6 +89,7 @@ class FirewallFighter(Scene):
         # Only transition to game over if health reaches zero
         if self.health_bar.get_current_health() <= 0:   # End game if health reaches zero
             print("Game Over!")
+            self.audio_manager.pause()
             self.scene_manager.start_scene("Main Scene")
 
     def draw(self, screen):

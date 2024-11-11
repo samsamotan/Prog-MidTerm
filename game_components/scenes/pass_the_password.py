@@ -13,17 +13,8 @@ class PassThePassword(Scene):
         height = 576
         super().__init__(scene_manager, game_state, audio_manager, width, height)
 
-        # Initialize pygame mixer
-
-        pygame.mixer.init()
-
-        #Load sounds
-        self.background_music = pygame.mixer.music.load(os.path.join(assets_folder, "Zora's Domain - Day (The Legend of Zelda_ Breath of the Wild OST).mp3"))
-        pygame.mixer.music.play(-1)
-
-
-
     def start(self):
+        self.audio_manager.play("pass_the_password_music", -1)
         self.max_tries = 5
         self.player = Player(50, 50, 15, 20, os.path.join(assets_folder, "cowboy.png"))
         self.background = GameObject(0, 0, self.width, self.height, os.path.join(assets_folder, "password_background.png"))
@@ -56,8 +47,10 @@ class PassThePassword(Scene):
                     self.tries_text.update_text(str(self.tries_left))
                     if correct == 4:
                         self.game_state.passed = True
+                        self.scene_manager.pause()
                         self.scene_manager.start_scene("Main Scene")
                     if self.tries_left == 0:
+                        self.scene_manager.pause()
                         self.scene_manager.start_scene("Main Scene")
                 self.guess_text.update_text(''.join(self.guess))
         self.player.move(self.game_state.get_keys(), dt, self)

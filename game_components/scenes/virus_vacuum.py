@@ -12,16 +12,8 @@ class VirusVacuum(Scene):
         height = 576
         super().__init__(scene_manager, game_state, audio_manager, width, height)
 
-        # Initialize sounds
-        pygame.mixer.init()
-
-        #Load sounds
-
-        self.background_music = pygame.mixer.music.load(os.path.join(assets_folder, "Donkey Kong Country - Aquatic Ambience [Restored].mp3"))
-        pygame.mixer.music.play(-1)
-
-
     def start(self):
+        self.audio_manager.play("virus_vacuum_music", -1)
         self.background = GameObject(0,-35,1024,576, os.path.join(assets_folder, "pacman_game_background.png"))
         self.player = Player(self.width // 2, self.height // 2, 15, 20, speed = 100, image = os.path.join(assets_folder, "cowboy.png"))
         self.game_map = VirusVacuumMap(os.path.join(assets_folder, "edge_spritesheet.png"), 32, 32, 16, 1)
@@ -48,6 +40,7 @@ class VirusVacuum(Scene):
         self.highlight.rect.x = self.game_state.get_mouse_pos()[0]//32*32
         self.highlight.rect.y = self.game_state.get_mouse_pos()[1]//32*32
         if len(self.viruses) == 0:
+            self.audio_manager.pause()
             self.scene_manager.start_scene("Main Scene")
 
     def draw(self, screen):

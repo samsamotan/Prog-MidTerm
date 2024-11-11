@@ -18,7 +18,8 @@ class AudioManager:
             "firewall_fighter_music": pygame.mixer.Sound(os.path.join(assets_folder, "Donkey Kong Country 2 Soundtrack_ Bramble Blast.mp3")),
             "pass_the_password_music": pygame.mixer.Sound(os.path.join(assets_folder, "Zora's Domain - Day (The Legend of Zelda_ Breath of the Wild OST).mp3")),
             "packing_packets_music": pygame.mixer.Sound(os.path.join(assets_folder, "Original Tetris theme (Tetris Soundtrack).mp3")),
-            "color_match_music": pygame.mixer.Sound(os.path.join(assets_folder, "Hateno Village (The Legend of Zelda_ Breath of the Wild OST).mp3"))
+            "color_match_music": pygame.mixer.Sound(os.path.join(assets_folder, "Hateno Village (The Legend of Zelda_ Breath of the Wild OST).mp3")),
+            "shoot_sound": pygame.mixer.Sound(os.path.join(assets_folder, "laser.wav"))
         }     # Dictionary to store loaded sounds by name
         self.currently_playing = None
 

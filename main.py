@@ -6,9 +6,8 @@ from game_components.scenes import *
 from game_components.objects.camera import Camera
 import os
 
-# Initialize Pygame and the mixer for sound
+# Initialize Pygame
 pygame.init()
-pygame.mixer.init()
 
 # Set up the screen and game variables
 screen = pygame.display.set_mode((1024, 576))

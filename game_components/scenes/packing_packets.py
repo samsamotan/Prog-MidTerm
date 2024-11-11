@@ -16,21 +16,12 @@ class PackingPackets(Scene):
         super().__init__(scene_manager, game_state, audio_manager, width, height)
         self.grid = Grid()  # Initialize the grid attribute
         self.player = Player(0, 0, 0, 0)
-        # Initialize other attributes if necessary
-
-         # Initialize pygame mixer
-        pygame.mixer.music.stop()
-        
-
-        # Load sounds
-        # self.background_music = pygame.mixer.music.load(os.path.join(assets_folder, "Original Tetris theme (Tetris Soundtrack).mp3"))
-        # pygame.mixer.music.play(-1)
-        self.audio_manager.play("pass_the_password_music", -1)
 
         
 
 
     def start(self):
+        self.audio_manager.play("pass_the_password_music", -1)
         pygame.time.set_timer(GAME_UPDATE, 200)
         self.background = pygame.image.load(os.path.join(assets_folder, "Tetris Background.png"))
         complete = SpriteSheet(os.path.join(assets_folder, "complete.jpg"))
@@ -46,6 +37,7 @@ class PackingPackets(Scene):
 
     def update(self, dt):
         if self.game.game_over == True:
+            self.audio_manager.pause()
             self.scene_manager.start_scene("Main Scene")
 
     def handle_events(self, dt):
