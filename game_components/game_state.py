@@ -9,9 +9,9 @@ class GameState:
         self.colored = False
         self.player_pos = (875, 450)
 
-    def update(self):
+    def update(self, offset_x, offset_y, scale_x, scale_y):
         mouse_x, mouse_y = pygame.mouse.get_pos()
-        self.mouse_pos = (mouse_x / 1.25, (mouse_y-40) / 1.25)
+        self.mouse_pos = ((mouse_x - offset_x) / scale_x, (mouse_y - offset_y) / scale_y)
         self.keys = pygame.key.get_pressed()
         self.events = pygame.event.get()
         for event in self.events:

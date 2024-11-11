@@ -11,9 +11,31 @@ pygame.init()
 
 # Set up the screen and game variables
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 screen_width, screen_height = screen.get_size()
-print(screen.get_size())
-pygame.display.set_caption("Computer Conquest")
+
+# Original game surface resolution (16:9 aspect ratio)
+game_width, game_height = 1024, 576
+game_surface = pygame.Surface((game_width, game_height))
+
+# Calculate the max 16:9 area that fits in the screen
+screen_aspect = screen_width / screen_height
+target_aspect = 16 / 9
+
+if screen_aspect > target_aspect:
+    # Screen is wider than 16:9, so we base scaling on height
+    scaled_height = screen_height
+    scaled_width = int(scaled_height * target_aspect)
+else:
+    # Screen is taller than 16:9, so we base scaling on width
+    scaled_width = screen_width
+    scaled_height = int(scaled_width / target_aspect)
+
+offset_x = (screen_width - scaled_width) // 2
+offset_y = (screen_height - scaled_height) // 2
+
+scale_x = scaled_width / game_width
+scale_y = scaled_height / game_height
 
 assets_folder = os.path.join(os.path.dirname(__file__), "assets")
 camera = Camera(screen)
@@ -40,13 +62,13 @@ clock = pygame.time.Clock()
 dt = 0
 
 # Main game loop
-while game_state.update():
+while game_state.update(offset_x, offset_y, scale_x, scale_y):
     surface = pygame.Surface((1024, 576))
     # Handle events, update the scene, and draw everything on the screen
     scene_manager.handle_events(dt)
     scene_manager.update(camera, surface, dt)
     scene_manager.draw(surface)
-    screen.blit(pygame.transform.scale(surface, (screen_width, 720)), (0,40))
+    screen.blit(pygame.transform.scale(surface, (scaled_width, scaled_height)), (offset_x,offset_y))
     pygame.display.flip()
 
     # Maintain a 60 FPS frame rate

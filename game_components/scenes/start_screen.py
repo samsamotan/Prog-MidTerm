@@ -24,6 +24,10 @@ class StartScreen(Scene):
         for event in self.game_state.get_events():
             if event.type == pygame.MOUSEBUTTONDOWN or (event.type == pygame.MOUSEMOTION and event.buttons[0]):
                 if self.new.is_clicked(self.game_state.get_mouse_pos()):
+                    self.game_state.passed = False
+                    self.game_state.colored = False
+                    self.player_pos = (875, 450)
+                    self.game_state.save_game()
                     self.scene_manager.start_scene("Opening Scene")
                 if self.load.is_clicked(self.game_state.get_mouse_pos()):
                     self.game_state.load_game()

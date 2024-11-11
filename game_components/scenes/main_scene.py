@@ -25,19 +25,19 @@ class MainScene(Scene):
                     [
                         "Uh-oh! Your computer has some viruses. Collect all the viruses without getting caught to make the system safe.", 
                         "You are too slow to catch up to them but that's no problem. Use your mouse pointer to change the walls.",
-                        "Remember, use the arrow keys to move."
+                        "Remember, use WASD to move."
                      ], self, "Virus Vacuum", os.path.join(assets_folder, "npcs", "indian_woman.png"))
         cat = NPC(970, 380, 50, 50, ["Meow", "Meow", "Meow", "Meow", "Meow"], self, "Color Match")
         firewall_fighter_npc = NPC(1500, 1480, 75, 75,
                     [
                         "There are some viruses coming. Go take them down",
-                        "Use the arrow keys to move left and right and spacebar to blast the viruses away.",
+                        "Use the WASD to move left and right and spacebar to blast the viruses away.",
                         "" 
                      ], self, "Firewall Fighter", os.path.join(assets_folder, "npcs", "uncle_fisherman.png"))
         self.password_npc = NPC(2225, 1625, 75, 75,
                     [
                         "It's no use trying. The door is locked well, you have a better chance trying to guess the password",
-                        "You'll have to move around with the arrow keys and press space bar above a number.",
+                        "You'll have to move around with WASD and press space bar above a number.",
                          "Remember, each digit will only appear once."
                      ], self, "Pass the Password", os.path.join(assets_folder, "npcs", "chinese_woman.png"))
         self.packing_packets_npc = NPC(1920, 1425, 75, 75,
@@ -63,6 +63,8 @@ class MainScene(Scene):
                         npc.start_conversation()
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and npc.chatbox.active:
                     npc.chatbox.next_message()
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                    self.scene_manager.start_scene("Start Scene")
 
     def update(self, dt):
         for npc in self.npc_group:
