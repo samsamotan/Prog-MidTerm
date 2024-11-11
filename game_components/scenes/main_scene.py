@@ -22,54 +22,28 @@ class MainScene(Scene):
         else:
             pass
         virus_vacuum_npc = NPC(830, 1180, 75, 75,
-                    ["Ralof: Hey, you. You're finally awake. You were trying to cross the border, right? Walked right into that Imperial ambush, same as us, and that thief over there.", 
-                     "Lokir: Damn you Stormcloaks. Skyrim was fine until you came along. Empire was nice and lazy. If they hadn't been looking for you, I could've stolen that horse and been half way to Hammerfell. You there. You and me -- we should be here. It's these Stormcloaks the Empire wants.", 
-                     "Ralof: We're all brothers and sisters in binds now, thief.", "Imperial Soldier: Shut up back there!", 
-                     "Lokir: And what's wrong with him?", "Ralof: Watch your tongue! You're speaking to Ulfric Stormcloak, the true High King.", 
-                     "Lokir: Ulfric? The Jarl of Windhelm? You're the leader of the rebellion. But if they captured you... Oh gods, where are they taking us?", 
-                     "Ralof: I don't know where we're going, but Sovngarde awaits.", 
-                     "Lokir: No, this can't be happening. This isn't happening.",
-                     "Ralof: Hey, what village are you from, horse thief?", 
-                     "Lokir: Why do you care?", 
-                     "Ralof: A Nord's last thoughts should be of home.", 
-                     "Lokir: Rorikstead. I'm...I'm from Rorikstead."], self, "Virus Vacuum", os.path.join(assets_folder, "npcs", "indian_woman.png"))
+                    [
+                        "Uh-oh! Your computer has some viruses. Collect all the viruses without getting caught to make the system safe.", 
+                        "You are too slow to catch up to them but that's no problem. Use your mouse pointer to change the walls.",
+                        "Remember, use the arrow keys to move."
+                     ], self, "Virus Vacuum", os.path.join(assets_folder, "npcs", "indian_woman.png"))
         cat = NPC(970, 380, 50, 50, ["Meow", "Meow", "Meow", "Meow", "Meow"], self, "Color Match")
         firewall_fighter_npc = NPC(1500, 1480, 75, 75,
-                    ["Ralof: Hey, you. You're finally awake. You were trying to cross the border, right? Walked right into that Imperial ambush, same as us, and that thief over there.", 
-                     "Lokir: Damn you Stormcloaks. Skyrim was fine until you came along. Empire was nice and lazy. If they hadn't been looking for you, I could've stolen that horse and been half way to Hammerfell. You there. You and me -- we should be here. It's these Stormcloaks the Empire wants.", 
-                     "Ralof: We're all brothers and sisters in binds now, thief.", "Imperial Soldier: Shut up back there!", 
-                     "Lokir: And what's wrong with him?", "Ralof: Watch your tongue! You're speaking to Ulfric Stormcloak, the true High King.", 
-                     "Lokir: Ulfric? The Jarl of Windhelm? You're the leader of the rebellion. But if they captured you... Oh gods, where are they taking us?", 
-                     "Ralof: I don't know where we're going, but Sovngarde awaits.", 
-                     "Lokir: No, this can't be happening. This isn't happening.",
-                     "Ralof: Hey, what village are you from, horse thief?", 
-                     "Lokir: Why do you care?", 
-                     "Ralof: A Nord's last thoughts should be of home.", 
-                     "Lokir: Rorikstead. I'm...I'm from Rorikstead."], self, "Firewall Fighter", os.path.join(assets_folder, "npcs", "uncle_fisherman.png"))
+                    [
+                        "There are some viruses coming. Go take them down",
+                        "Use the arrow keys to move left and right and spacebar to blast the viruses away.",
+                        "" 
+                     ], self, "Firewall Fighter", os.path.join(assets_folder, "npcs", "uncle_fisherman.png"))
         self.password_npc = NPC(2225, 1625, 75, 75,
-                    ["Ralof: Hey, you. You're finally awake. You were trying to cross the border, right? Walked right into that Imperial ambush, same as us, and that thief over there.", 
-                     "Lokir: Damn you Stormcloaks. Skyrim was fine until you came along. Empire was nice and lazy. If they hadn't been looking for you, I could've stolen that horse and been half way to Hammerfell. You there. You and me -- we should be here. It's these Stormcloaks the Empire wants.", 
-                     "Ralof: We're all brothers and sisters in binds now, thief.", "Imperial Soldier: Shut up back there!", 
-                     "Lokir: And what's wrong with him?", "Ralof: Watch your tongue! You're speaking to Ulfric Stormcloak, the true High King.", 
-                     "Lokir: Ulfric? The Jarl of Windhelm? You're the leader of the rebellion. But if they captured you... Oh gods, where are they taking us?", 
-                     "Ralof: I don't know where we're going, but Sovngarde awaits.", 
-                     "Lokir: No, this can't be happening. This isn't happening.",
-                     "Ralof: Hey, what village are you from, horse thief?", 
-                     "Lokir: Why do you care?", 
-                     "Ralof: A Nord's last thoughts should be of home.", 
-                     "Lokir: Rorikstead. I'm...I'm from Rorikstead."], self, "Pass the Password", os.path.join(assets_folder, "npcs", "chinese_woman.png"))
+                    [
+                        "It's no use trying. The door is locked well, you have a better chance trying to guess the password",
+                        "You'll have to move around with the arrow keys and press space bar above a number.",
+                         "Remember, each digit will only appear once."
+                     ], self, "Pass the Password", os.path.join(assets_folder, "npcs", "chinese_woman.png"))
         self.packing_packets_npc = NPC(1920, 1425, 75, 75,
-                    ["Ralof: Hey, you. You're finally awake. You were trying to cross the border, right? Walked right into that Imperial ambush, same as us, and that thief over there.", 
-                     "Lokir: Damn you Stormcloaks. Skyrim was fine until you came along. Empire was nice and lazy. If they hadn't been looking for you, I could've stolen that horse and been half way to Hammerfell. You there. You and me -- we should be here. It's these Stormcloaks the Empire wants.", 
-                     "Ralof: We're all brothers and sisters in binds now, thief.", "Imperial Soldier: Shut up back there!", 
-                     "Lokir: And what's wrong with him?", "Ralof: Watch your tongue! You're speaking to Ulfric Stormcloak, the true High King.", 
-                     "Lokir: Ulfric? The Jarl of Windhelm? You're the leader of the rebellion. But if they captured you... Oh gods, where are they taking us?", 
-                     "Ralof: I don't know where we're going, but Sovngarde awaits.", 
-                     "Lokir: No, this can't be happening. This isn't happening.",
-                     "Ralof: Hey, what village are you from, horse thief?", 
-                     "Lokir: Why do you care?", 
-                     "Ralof: A Nord's last thoughts should be of home.", 
-                     "Lokir: Rorikstead. I'm...I'm from Rorikstead."], self, "Packing Packets", os.path.join(assets_folder, "npcs", "village_head.png"))
+                    [
+                        "The file you're looking for is hidden here somewhere. Sort out all the files here and it should show itself"
+                     ], self, "Packing Packets", os.path.join(assets_folder, "npcs", "village_head.png"))
         walls = [GameObject(x[0],x[1],x[2],x[3], alpha=0) for x in rects]
         barrier_image = pygame.transform.scale_by(pygame.image.load(os.path.join(assets_folder, "pixil-frame-0.png")),1.5)
         self.barrier = GameObject(2015,1585,image = barrier_image)

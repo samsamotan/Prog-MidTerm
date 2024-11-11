@@ -31,7 +31,7 @@ scene_manager.add_scene("Packing Packets", PackingPackets)
 scene_manager.add_scene("Color Match", ColorMatch)
 
 # Start the initial scene
-scene_manager.start_scene("Main Scene")
+scene_manager.start_scene("Packing Packets")
 
 # Set up the game clock for consistent frame rate
 clock = pygame.time.Clock()

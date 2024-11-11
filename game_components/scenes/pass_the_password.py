@@ -47,10 +47,8 @@ class PassThePassword(Scene):
                     self.tries_text.update_text(str(self.tries_left))
                     if correct == 4:
                         self.game_state.passed = True
-                        self.scene_manager.pause()
                         self.scene_manager.start_scene("Main Scene")
                     if self.tries_left == 0:
-                        self.scene_manager.pause()
                         self.scene_manager.start_scene("Main Scene")
                 self.guess_text.update_text(''.join(self.guess))
         self.player.move(self.game_state.get_keys(), dt, self)
